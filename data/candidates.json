@@ -52,10 +52,25 @@
     "verified": true,
     "retrieved_at": "2026-05-25"
   },
-  "hsf1_notes": {
-    "uniprot_to_verify_next": "Q00613 (canonical HSF1)",
-    "pdb_to_verify_next": "5D5W or 5D5U (HSF1 DBD candidates from DESIGN.md)",
-    "status": "DESIGN.md and AGENTS.md reference HSF1 in chapters 1-2; HSF1 PDB ID needs Phase-0-style verification before Chapter 1 work begins."
+  "hsf1": {
+    "uniprot": "Q00613",
+    "pdb_chapter_hero": "5D5U",
+    "pdb_verified_title": "Crystal structure of human Hsf1 with HSE DNA",
+    "pdb_method": "X-RAY DIFFRACTION",
+    "pdb_resolution_angstrom": 2.91,
+    "alphafold_global_plddt": 61.31,
+    "alphafold_ordered_domains_residues": [[16, 84], [127, 200]],
+    "alphafold_disorder_fraction": 0.467,
+    "verified": true,
+    "verified_at": "2026-05-25",
+    "downloaded_to": {
+      "pdb": "data/structures/pdb/hsf1/pdb_00005d5u.cif.gz",
+      "alphafold_metadata": "data/structures/alphafold/hsf1/AF-Q00613-F1-metadata.json",
+      "alphafold_cif": "data/structures/alphafold/hsf1/AF-Q00613-F1-model_v6.cif"
+    },
+    "pubmed_citations_pending": "scripts/01_hsf1.py will fetch top 3 HSF1 papers into data/citations/hsf1.json",
+    "hpa_expression_pending": "scripts/01_hsf1.py will fetch HSF1 tissue expression into data/expression/hsf1.json — the agy CLI stalled on this fetch in the 2026-05-25 session; re-attempt via the script",
+    "correction_notes": "Earlier DESIGN.md listed '5D5W or 5D5U' as candidates. PDB metadata via the pdb_database skill confirmed 5D5W is actually a fungal homolog (Chaetomium thermophilum Skn7 with HSE DNA), NOT human HSF1. Chapter 1 anchors on 5D5U. DESIGN.md corrected 2026-05-25."
   },
   "license_notification_status": {
     "all_six_skill_dirs_have_LICENSE_NOTIFICATION_txt": true,
