@@ -755,11 +755,92 @@
           </div>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="8" data-temp="42.5" data-accent="heat-42">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate VIII / 41.0 &rarr; 43.0 &deg;C</p>
-          <h2 class="chapter__title">Your environment, your enzymes</h2>
-          <p class="body stub-note">Chapter under construction. WBGT &rarr; core-temperature bridge pending Phase 8.</p>
+      <!--
+        Chapter 8 — Your environment, your enzymes (WBGT bridge).
+        Pure JS; no skill calls. Educational model only — not a
+        clinical prediction.
+      -->
+      <section
+        class="chapter chapter--bridge"
+        data-chapter="8"
+        data-temp="42.5"
+        data-accent="heat-42"
+        id="chapter-8"
+      >
+        <div class="chapter__inner chapter__inner--bridge">
+          <div class="bridge-head">
+            <p class="eyebrow">Plate VIII / 41.0 &rarr; 43.0 &deg;C</p>
+            <h2 class="chapter__title chapter__title--centered">Your environment, your enzymes</h2>
+            <p class="body bridge-intro">
+              Heat as a number on a screen, and heat as a number inside a
+              cell, are different things. The first is an environmental
+              measurement; the second is a thermodynamic state of the
+              molecular cast you&apos;ve been reading about. The bridge
+              between them is the body itself, mediated by hydration,
+              acclimatization, and how long the exposure lasts.
+            </p>
+            <p class="ch8-warning">
+              <strong>Educational model &mdash; not a clinical prediction.</strong>
+              The curve below is an illustrative toy: a smooth function of
+              your three inputs, not a validated physiological simulation.
+              No clinical decision should rest on it.
+            </p>
+          </div>
+
+          <div class="bridge-pane">
+            <aside class="bridge-controls" aria-label="Environmental inputs">
+              <div class="bridge-input">
+                <label for="ch8-wbgt">WBGT (&deg;C)</label>
+                <input type="range" id="ch8-wbgt" min="20" max="40" step="0.5" value="32" />
+                <output id="ch8-wbgt-value" class="mono">32.0</output>
+              </div>
+              <div class="bridge-input">
+                <label for="ch8-duration">Exposure duration (minutes)</label>
+                <input type="range" id="ch8-duration" min="15" max="180" step="5" value="60" />
+                <output id="ch8-duration-value" class="mono">60</output>
+              </div>
+              <div class="bridge-input">
+                <label for="ch8-acclim">Baseline acclimatization</label>
+                <select id="ch8-acclim">
+                  <option value="0.7">Well acclimatized</option>
+                  <option value="1.0" selected>Moderately acclimatized</option>
+                  <option value="1.3">Not acclimatized</option>
+                </select>
+              </div>
+              <p class="bridge-readout">
+                <span class="bridge-readout__label">Projected peak core temperature</span>
+                <span class="bridge-readout__value" id="ch8-peak">41.8 &deg;C</span>
+              </p>
+              <p class="bridge-state" id="ch8-state">Compensable strain region.</p>
+            </aside>
+
+            <div class="bridge-chart-wrap">
+              <svg class="bridge-chart" id="ch8-chart" viewBox="0 0 540 360" role="img" aria-label="Projected core temperature over time across the chapter's plate temperatures">
+                <!-- Axes + plate thresholds + curve injected via main.js -->
+              </svg>
+              <p class="bridge-chart-caption">
+                Dashed lines mark earlier-plate temperatures: filled dots
+                appear where the projected curve crosses them.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="colophon-extra chapter__inner">
+          <div class="reading reading--colophon">
+            <p class="body">
+              You&apos;ve reached the end of the lab. The page is a
+              static, citation-grounded reading of a topic that, in real
+              biology, is anything but static. If something here was wrong,
+              <a href="https://github.com/HeatThreshold/heat-protein-lab/issues/new?template=scientific-correction.md">file an issue</a>;
+              if you&apos;re working in the same space, the parent
+              project at <a href="https://github.com/HeatThreshold/HeatThreshold">HeatThreshold</a>
+              is where the environmental safety / scheduling side lives.
+            </p>
+            <p class="body">
+              <a href="#chapter-1">&larr; Back to Chapter 1</a>
+            </p>
+          </div>
         </div>
       </section>
     </main>

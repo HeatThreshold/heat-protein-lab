@@ -41,6 +41,15 @@ const els = {
   hspHeatmap: document.getElementById("hsp-heatmap"),
   // Chapter 6
   variantGrid: document.getElementById("variant-grid"),
+  // Chapter 8
+  ch8Wbgt: document.getElementById("ch8-wbgt"),
+  ch8WbgtValue: document.getElementById("ch8-wbgt-value"),
+  ch8Duration: document.getElementById("ch8-duration"),
+  ch8DurationValue: document.getElementById("ch8-duration-value"),
+  ch8Acclim: document.getElementById("ch8-acclim"),
+  ch8Peak: document.getElementById("ch8-peak"),
+  ch8State: document.getElementById("ch8-state"),
+  ch8Chart: document.getElementById("ch8-chart"),
   // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
@@ -652,10 +661,122 @@ function setupChapterObserver() {
   window.addEventListener("resize", updateScrollFill, { passive: true });
 }
 
+/* Chapter 8 — WBGT -> core-temperature bridge. Educational toy model
+ * built from three inputs. Not a clinical prediction; the chapter copy
+ * says so explicitly. The function is monotonic, smooth, and well-
+ * behaved across the input space (WBGT 20-40 °C, duration 15-180 min,
+ * acclimatization 0.7-1.3).
+ */
+const CH8_THRESHOLDS = [
+  { temp: 39, label: "Plate II — 39°", color: "var(--heat-39)" },
+  { temp: 40, label: "Plate III — 40°", color: "var(--heat-40)" },
+  { temp: 41, label: "Plate VI — 41°", color: "var(--heat-41)" },
+  { temp: 42, label: "Plate IV — 42° (T_m)", color: "var(--heat-42)" },
+];
+
+function ch8ModelTempAtMinute(minute, wbgt, acclim) {
+  // Logistic-ish rise from 37 with asymptote shaped by WBGT and acclim.
+  // No medical content here — purely an illustrative shape.
+  const heatGrad = Math.max(0, wbgt - 28); // °C above neutral threshold
+  const rate = 0.0028 * heatGrad * acclim;  // °C per minute
+  const ceiling = 37 + heatGrad * 0.45 * acclim;
+  // Approach ceiling exponentially.
+  return ceiling - (ceiling - 37) * Math.exp(-rate * minute);
+}
+
+function renderCh8() {
+  if (!els.ch8Chart || !els.ch8Wbgt || !els.ch8Duration || !els.ch8Acclim) return;
+
+  const wbgt = parseFloat(els.ch8Wbgt.value);
+  const duration = parseInt(els.ch8Duration.value, 10);
+  const acclim = parseFloat(els.ch8Acclim.value);
+
+  if (els.ch8WbgtValue) els.ch8WbgtValue.textContent = wbgt.toFixed(1);
+  if (els.ch8DurationValue) els.ch8DurationValue.textContent = String(duration);
+
+  // Sample curve along 0..duration minutes.
+  const samples = 60;
+  const points = [];
+  for (let i = 0; i <= samples; i++) {
+    const t = (i / samples) * duration;
+    const c = ch8ModelTempAtMinute(t, wbgt, acclim);
+    points.push([t, c]);
+  }
+  const peakTemp = points[points.length - 1][1];
+
+  // Chart axes: x = minute (0..duration), y = °C (37..43 fixed).
+  const W = 540, H = 360, PAD_L = 44, PAD_R = 80, PAD_T = 16, PAD_B = 30;
+  const xToPx = (m) => PAD_L + (m / duration) * (W - PAD_L - PAD_R);
+  const yToPx = (c) => PAD_T + (1 - (c - 37) / (43 - 37)) * (H - PAD_T - PAD_B);
+
+  let svg = "";
+  // Axes
+  svg += `<line class="axis-line" x1="${PAD_L}" y1="${H - PAD_B}" x2="${W - PAD_R}" y2="${H - PAD_B}" />`;
+  svg += `<line class="axis-line" x1="${PAD_L}" y1="${PAD_T}" x2="${PAD_L}" y2="${H - PAD_B}" />`;
+  // Y ticks at integer °C
+  for (let c = 37; c <= 43; c++) {
+    const y = yToPx(c);
+    svg += `<text class="axis-label" x="${PAD_L - 6}" y="${y + 3}" text-anchor="end">${c}°</text>`;
+  }
+  // X ticks: 0 / mid / duration
+  const xTicks = [0, duration / 2, duration];
+  for (const t of xTicks) {
+    const x = xToPx(t);
+    svg += `<text class="axis-label" x="${x}" y="${H - PAD_B + 14}" text-anchor="middle">${Math.round(t)}m</text>`;
+  }
+  // Threshold lines + labels + crossing dots
+  for (const th of CH8_THRESHOLDS) {
+    const y = yToPx(th.temp);
+    svg += `<line class="threshold-line" x1="${PAD_L}" y1="${y}" x2="${W - PAD_R}" y2="${y}" />`;
+    svg += `<text class="threshold-label" x="${W - PAD_R + 6}" y="${y + 3}">${escapeHtml(th.label)}</text>`;
+    // First minute the curve crosses this threshold (if at all)
+    for (let i = 1; i < points.length; i++) {
+      const [t0, c0] = points[i - 1];
+      const [t1, c1] = points[i];
+      if (c0 < th.temp && c1 >= th.temp) {
+        const ratio = (th.temp - c0) / (c1 - c0);
+        const crossT = t0 + ratio * (t1 - t0);
+        svg += `<circle class="crossing-dot" cx="${xToPx(crossT)}" cy="${y}" r="4" />`;
+        break;
+      }
+    }
+  }
+  // Curve path
+  const d = points
+    .map(([t, c], i) => `${i === 0 ? "M" : "L"}${xToPx(t).toFixed(2)},${yToPx(c).toFixed(2)}`)
+    .join(" ");
+  svg += `<path class="curve" d="${d}" />`;
+
+  els.ch8Chart.innerHTML = svg;
+
+  if (els.ch8Peak) els.ch8Peak.textContent = `${peakTemp.toFixed(1)} °C`;
+  if (els.ch8State) {
+    let strain, msg;
+    if (peakTemp < 38.5) { strain = "low"; msg = "Compensable. No strain region reached."; }
+    else if (peakTemp < 40) { strain = "moderate"; msg = "Compensable strain region."; }
+    else if (peakTemp < 41) { strain = "high"; msg = "Uncompensable strain — heat-shock response active."; }
+    else if (peakTemp < 42) { strain = "high"; msg = "Cellular distress region. HSP induction at peak."; }
+    else { strain = "extreme"; msg = "Beyond enzymatic T_m for many enzymes. Medical emergency in vivo."; }
+    els.ch8State.textContent = msg;
+    els.ch8State.setAttribute("data-strain", strain);
+  }
+}
+
+function setupCh8Bridge() {
+  if (!els.ch8Chart) return;
+  ["input", "change"].forEach((evt) => {
+    els.ch8Wbgt?.addEventListener(evt, renderCh8);
+    els.ch8Duration?.addEventListener(evt, renderCh8);
+    els.ch8Acclim?.addEventListener(evt, renderCh8);
+  });
+  renderCh8();
+}
+
 // --- Boot ------------------------------------------------------------------
 
 (async function boot() {
   setupChapterObserver();
+  setupCh8Bridge();
 
   // Parallel: all viewers + all citation/expression fetches. Independent.
   await Promise.allSettled([

@@ -1018,6 +1018,225 @@ a:focus-visible {
   max-width: var(--reading-max);
 }
 
+/* ---------- Chapter 8: WBGT -> core temperature bridge ---------- */
+
+.chapter--bridge {
+  display: block;
+  padding-top: var(--section-gap-y);
+  padding-bottom: var(--section-gap-y);
+}
+
+.chapter__inner--bridge {
+  grid-template-columns: 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bridge-head {
+  max-width: 80ch;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.bridge-intro {
+  margin: 0 auto 1rem;
+  max-width: var(--reading-max);
+  text-align: left;
+}
+
+.ch8-warning {
+  margin: 1rem auto 0;
+  max-width: var(--reading-max);
+  padding: 12px 16px;
+  background: rgba(178, 58, 31, 0.08);
+  border-left: 3px solid var(--heat-41);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-style: italic;
+  text-align: left;
+}
+
+.bridge-pane {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+@media (min-width: 880px) {
+  .bridge-pane {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.bridge-controls {
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bridge-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+
+.bridge-input label {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.bridge-input input[type="range"] {
+  width: 100%;
+  grid-column: 1 / 2;
+  accent-color: var(--heat-41);
+}
+
+.bridge-input output {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--ink);
+  text-align: right;
+  min-width: 3.5em;
+}
+
+.bridge-input select {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+.bridge-readout {
+  border-top: 1px dashed var(--paper-edge);
+  margin: 4px 0 0 0;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bridge-readout__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.bridge-readout__value {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.bridge-state {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.bridge-state[data-strain="extreme"] {
+  color: var(--heat-42);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.bridge-state[data-strain="high"] {
+  color: var(--heat-41);
+}
+
+.bridge-chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bridge-chart {
+  width: 100%;
+  height: auto;
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+}
+
+.bridge-chart-caption {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  text-align: center;
+}
+
+.bridge-chart .axis-line {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.bridge-chart .axis-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  fill: var(--ink-soft);
+}
+.bridge-chart .threshold-line {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+.bridge-chart .threshold-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  fill: var(--ink-faint);
+}
+.bridge-chart .curve {
+  fill: none;
+  stroke: var(--heat-41);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bridge-chart .crossing-dot {
+  fill: var(--heat-42);
+  stroke: var(--paper);
+  stroke-width: 1.5;
+}
+
+.colophon-extra {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--paper-edge);
+}
+
+.chapter--bridge .colophon-extra .chapter__inner {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.reading--colophon {
+  max-width: var(--reading-max);
+  text-align: center;
+}
+
 /* ---------- Pathway snippet (Ch 3 mini-Reactome) ---------- */
 
 .pathway-snippet {
