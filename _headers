@@ -1,0 +1,34 @@
+# Cloudflare Pages headers. Applies to the deployed site only — local
+# `python3 -m http.server` ignores this file.
+
+# Cache static assets aggressively; the data is committed so each commit
+# is effectively a content hash for the whole site.
+/data/*
+  Cache-Control: public, max-age=86400
+
+/src/*
+  Cache-Control: public, max-age=86400
+
+# Gzipped mmCIF files: serve as application/gzip without setting
+# Content-Encoding. The browser's fetch() returns raw bytes; main.js
+# checks the gzip magic bytes (0x1f 0x8b) and decompresses with
+# DecompressionStream in-page. If we set Content-Encoding: gzip here,
+# Chrome would auto-decompress and the magic-byte check would fail.
+/data/structures/**/*.cif.gz
+  Content-Type: application/gzip
+  Cache-Control: public, max-age=86400
+
+# Reactome SVG: served as image/svg+xml.
+/data/diagrams/*.svg
+  Content-Type: image/svg+xml; charset=utf-8
+  Cache-Control: public, max-age=86400
+
+# index.html: never cache the entrypoint hard — keeps redeploys honest.
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Standard security headers across the site.
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  Permissions-Policy: interest-cohort=()

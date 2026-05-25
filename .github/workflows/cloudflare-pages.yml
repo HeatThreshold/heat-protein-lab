@@ -1,0 +1,57 @@
+name: Deploy to Cloudflare Pages
+
+# Auto-deploys the heat-protein-lab static site to Cloudflare Pages on
+# every push to main. Also exposes a manual "Run workflow" button.
+#
+# Prerequisites (one-time operator setup):
+#   1. Create a Cloudflare Pages project named "heat-protein-lab".
+#   2. Generate a Cloudflare API token scoped to Account > Cloudflare Pages > Edit.
+#   3. Add two secrets on this repo:
+#        CLOUDFLARE_API_TOKEN
+#        CLOUDFLARE_ACCOUNT_ID
+#
+# Output: each successful run deploys to https://heat-protein-lab.pages.dev/
+# (or whatever custom domain the operator has attached to the Pages project).
+# Preview deployments fire on non-main branches once branch-deploys are
+# enabled in the Pages dashboard.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Publish to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stage publishable subset
+        # Copy only what should be public into ./dist. Everything else
+        # (notes/, scripts/, .github/, *.md other than README/LICENSE)
+        # stays out of the deployed site — those are repo-internal.
+        run: |
+          mkdir -p dist
+          cp -r index.html src data dist/
+          cp LICENSE README.md dist/ 2>/dev/null || true
+          # _headers + _redirects (if present at repo root) move into dist
+          for f in _headers _redirects; do
+            if [ -f "$f" ]; then cp "$f" dist/; fi
+          done
+          echo "--- dist contents ---"
+          find dist -maxdepth 2 -type f | sort | head -40
+          echo "--- dist size ---"
+          du -sh dist
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=heat-protein-lab --branch=main

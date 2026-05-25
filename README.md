@@ -44,6 +44,18 @@ The full phased build plan lives in [PROJECT.md](./PROJECT.md). The visual & UX 
 
 Open `index.html` in a browser. There is no build step for the page itself. To refresh the underlying scientific data, run the fetcher scripts in `scripts/` — they require `uv`, `jq`, and the Science Skills plugin installed in Antigravity (see [PROJECT.md § Phase 0](./PROJECT.md#phase-0--bootstrap)).
 
+## How to deploy it
+
+The site auto-deploys to **Cloudflare Pages** via [`.github/workflows/cloudflare-pages.yml`](./.github/workflows/cloudflare-pages.yml) on every push to `main`. One-time operator setup:
+
+1. Create a Cloudflare Pages project named `heat-protein-lab`.
+2. Generate a Cloudflare API token scoped to *Account → Cloudflare Pages → Edit*.
+3. Add two secrets to this repo: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+
+The deploy workflow stages a publishable subset (`index.html`, `src/`, `data/`, `LICENSE`, `README.md`, plus `_headers`/`_redirects` if present) into `./dist` and uploads that. Internal directories (`notes/`, `scripts/`, `.github/`, the design/project/agents docs) stay in the repo but out of the deployed site.
+
+`_headers` at the repo root configures Content-Type and caching for the deployed site — most importantly, it serves `.cif.gz` mmCIF files as `application/gzip` without `Content-Encoding: gzip`, so the in-browser `DecompressionStream` decode path in `src/main.js` keeps working.
+
 ## License
 
 MIT for the project code. The fetched data files in `data/` carry the licenses of their upstream sources (RCSB PDB, EBI AlphaFold, NCBI PubMed/ClinVar/dbSNP, Human Protein Atlas, Reactome). See [references.md](./references.md) for source attribution and [PROJECT.md § Data licensing](./PROJECT.md#data-licensing) for details.
