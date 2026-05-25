@@ -941,6 +941,83 @@ a:focus-visible {
   color: var(--accent-link);
 }
 
+/* ---------- Chapter 7: Reactome full-bleed pathway ---------- */
+
+.chapter--pathway {
+  /* Override the 3-column shell: this chapter is figure-first. */
+  display: block;
+  padding-top: var(--section-gap-y);
+  padding-bottom: var(--section-gap-y);
+}
+
+.chapter--pathway__head {
+  max-width: 80ch;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.chapter__title--centered {
+  text-align: center;
+}
+
+.pathway-fullbleed {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0;
+  width: 100%;
+}
+
+.pathway-card-fullbleed {
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 8px;
+  box-shadow: 0 12px 36px -16px rgba(34, 26, 21, 0.25),
+    0 1px 0 var(--paper-edge);
+  overflow: auto;            /* horizontal scroll on small screens */
+  -webkit-overflow-scrolling: touch;
+}
+
+.pathway-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 720px;          /* keep labels legible; user scrolls horizontally if narrower */
+  max-width: 100%;
+  background: var(--paper);
+}
+
+@media (min-width: 720px) {
+  .pathway-image {
+    min-width: 0;
+  }
+}
+
+.pathway-fullbleed-caption {
+  margin: 14px auto 0;
+  max-width: 80ch;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  padding: 0 var(--gutter);
+}
+
+.chapter--pathway__body {
+  margin-top: 40px;
+}
+
+.chapter--pathway__body .chapter__inner {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.reading--pathway {
+  max-width: var(--reading-max);
+}
+
 /* ---------- Pathway snippet (Ch 3 mini-Reactome) ---------- */
 
 .pathway-snippet {

@@ -695,11 +695,64 @@
           <p class="variant-grid__loading">Loading variants from ClinVar&hellip;</p>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="7" data-temp="41.0" data-accent="heat-42">
-        <div class="chapter__inner chapter__inner--stub">
+      <!--
+        Chapter 7 — All of it, all at once (Reactome pathway).
+        Reads from:
+          data/diagrams/hsr-pathway-hspa1a.svg
+        Full-bleed figure-first layout — breaks the standard 3-column shell
+        because the pathway diagram needs the horizontal real estate.
+      -->
+      <section
+        class="chapter chapter--pathway"
+        data-chapter="7"
+        data-temp="41.0"
+        data-accent="heat-42"
+        id="chapter-7"
+      >
+        <div class="chapter--pathway__head">
           <p class="eyebrow">Plate VII / 41.0 &deg;C</p>
-          <h2 class="chapter__title">All of it, all at once</h2>
-          <p class="body stub-note">Chapter under construction. Reactome pathway diagram pending Phase 7.</p>
+          <h2 class="chapter__title chapter__title--centered">All of it, all at once</h2>
+        </div>
+
+        <figure class="pathway-fullbleed">
+          <div class="pathway-card-fullbleed">
+            <img
+              class="pathway-image"
+              src="data/diagrams/hsr-pathway-hspa1a.svg"
+              alt="Reactome heat shock response pathway R-HSA-3371556 with HSPA1A highlighted"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption class="pathway-fullbleed-caption">
+            Source: <a href="https://reactome.org/PathwayBrowser/#/R-HSA-3371556" target="_blank" rel="noopener">Reactome &middot; R-HSA-3371556</a>
+            &middot; &ldquo;Cellular response to heat stress&rdquo; &middot; diagram
+            exported via Reactome ContentService with HSPA1A highlighted &middot;
+            retrieved 2026-05-25.
+          </figcaption>
+        </figure>
+
+        <div class="chapter__inner chapter--pathway__body">
+          <div class="reading reading--pathway">
+            <p class="body">
+              Everything in the preceding six plates happens, in a healthy
+              cell, in seconds. HSF1 senses, HSP90 lets go, HSP70 deploys,
+              the genome turns on the genes that make more of all three
+              and a few dozen friends besides. The diagram above is
+              Reactome&apos;s curated view of that cascade &mdash;
+              <span class="mono">R-HSA-3371556</span>, &ldquo;Cellular
+              response to heat stress.&rdquo;
+            </p>
+            <p class="body">
+              The diagram is dense by design. Read it loosely &mdash; find
+              <strong>HSPA1A</strong> (highlighted) near the centre, then
+              trace the arrows backwards to the trimer-binding step on the
+              DNA, and forwards to the client refolding reactions. The
+              point of seeing it whole is that no single protein in this
+              chapter has been operating alone. The whole network has to
+              hold together, fast, every time the temperature climbs.
+            </p>
+          </div>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="8" data-temp="42.5" data-accent="heat-42">
