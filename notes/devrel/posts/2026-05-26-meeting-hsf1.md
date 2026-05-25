@@ -160,13 +160,13 @@ run([
 ```
 
 It ran end-to-end in under a minute. PDB and AlphaFold were already
-cached from Phase 0&apos;s smoke tests, so it short-circuited; PubMed
-hit, returned three real papers (PMIDs 30467350, 33493517, 27354066),
-and HPA resolved HSF1 to `ENSG00000185122` and reported tissue
-expression across forty-nine tissues. The same Human Protein Atlas
-fetch that stalled under `agy --print` returned a 4.5 KB JSON in
-seconds when called as a `subprocess.run`. Same skill, same arguments,
-two invocation paths, very different reliability.
+cached from Phase 0&apos;s smoke tests; PubMed returned three real
+papers (PMIDs 30467350, 33493517, 27354066); HPA resolved HSF1 to
+`ENSG00000185122` and reported tissue expression across forty-nine
+tissues. The same Human Protein Atlas fetch that stalled under
+`agy --print` returned a 4.5 KB JSON in seconds when called as a
+`subprocess.run`. Same skill, same arguments, two invocation paths,
+very different reliability.
 
 The rule that came out of it: when you can write down the exact
 shell command, write it down; don&apos;t make the IDE plan it for
@@ -210,8 +210,10 @@ For anyone setting up a similar workspace:
   get-tissue-expression` raises a `ValueError` and needs a separate
   HTTP client for its XML endpoint; the Reactome diagram&apos;s
   `Accept` header for SVG needed a one-character fix. All three
-  patched locally on my Pi; drafted issues are in tree at
-  [`notes/devrel/upstream-issues/`][upstream].
+  patched locally on my Pi; the drafts are in tree at
+  [`notes/devrel/upstream-issues/`][upstream] and filed against
+  [`google-deepmind/science-skills`][science] as issues #2, #3, and
+  #4.
 - **The IDE&apos;s desktop and CLI modes behave very differently.**
   Antigravity Desktop ran a nine-Stitch-screen mockup generation in
   parallel via Python `threading` from a single prompt and converged
@@ -219,8 +221,11 @@ For anyone setting up a similar workspace:
   same plugin, stalled forever on a six-skill orchestration prompt.
   Don&apos;t generalise from one to the other.
 
-![Chapter 3 of heat-protein-lab.pages.dev, showing the human HSP70 substrate-binding domain (PDB 4PO2) rendered in 3Dmol with a small in-figure schematic of how HSPA1A sits between HSF1 and a misfolded client.](/screenshots/heat-protein-lab/03-ch3-hsp70.jpg)
-*Chapter 3 in the pipe. HSP70 is the chaperone that actually refolds damaged proteins; chapter 3 will be the subject of Beat 3 once the denaturation centerpiece in chapter 4 ships.*
+![Chapter 4 of heat-protein-lab.pages.dev, the visual centerpiece. A 3D wireframe rendering of human aldolase A (PDB 6XMH) on the left, captured mid-denaturation at 50 °C; on the right, a panel reads "50.0 °C / T_M ≈ 48 °C", with RMSD ≈12 Å and Secondary structure retained 30%. A red badge above the heading reads "VISUALIZATION, NOT MOLECULAR DYNAMICS."](/screenshots/heat-protein-lab/04-ch4-denaturation.jpg)
+*Chapter 4. The visual centerpiece — and the next post. The 3D structure is a real `.cif.gz` of human aldolase A; the visualization interpolates the rendering style from native cartoon through frayed ribbon to disorganized wireframe as the reader scrolls. The atoms don't move (that would require molecular dynamics, which I don't have and don't claim); the **style** transitions stand in for the loss of structure. The disclaimer rides at the top of the chapter for the whole stack.*
+
+![The same Heat Protein Lab landing screen with Fahrenheit selected. The top-right pill toggle shows °F highlighted; the temperature strip readout reads 108.5 °F; the Chapter 8 plate eyebrow reads PLATE VIII / 105.8 → 109.4 °F; the WBGT label reads (°F) with 89.6 °F; the Y-axis ticks of the bridge chart read 109°, 108°, 106°.](/screenshots/heat-protein-lab/13-toggle-fahrenheit.jpg)
+*Mid-session add: a Celsius / Fahrenheit toggle. The page chrome, the chapter eyebrows, the Ch 4 scroll-driven readout, and the Ch 8 toy-WBGT bridge all switch at once. The toy model still runs in °C internally; only the labels translate. Choice persists in localStorage. Took roughly twenty minutes — most of which was deciding what NOT to convert in the prose.*
 
 ## What&apos;s next
 

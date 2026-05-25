@@ -32,8 +32,8 @@ to the molecules inside a human body when core temperature climbs?*
 Why does 41 °C end an emergency department workup with the words
 "organ damage", when 37 °C is just lunch? What proteins fail first,
 how, in what order, with what consequence? I had been reading
-HSF1/HSP70 review papers for weeks. I had no science background.
-I knew the page in my head was the more compelling demo.
+HSF1/HSP70 review papers for weeks. I am not a biologist. I knew
+the page in my head was the more compelling demo.
 
 I didn't build it. I built the other one. The molecular story
 was epistemically risky to ship inside a 48-hour window: claiming
@@ -95,16 +95,17 @@ made coffee, came back, killed it.
 I retried with six separate `agy --print` calls, each capped at five
 lines of output, each carrying the literal `uv run scripts/X.py …`
 command for that skill. They ran in parallel via sibling bash calls
-(agy doesn't appear to share state across processes). All five returned
-verified output in under sixty seconds; the first one — PDB metadata
-for `4PO2` — produced a clean answer in about thirty seconds.
+(agy doesn't appear to share state across processes). All six
+returned verified output in under sixty seconds; the first one —
+PDB metadata for `4PO2` — produced a clean answer in about thirty
+seconds.
 
-The lesson, I think, is that when an agentic IDE is asked to *plan*
-multi-step work, the planning step can consume the entire LLM call
-without ever invoking tools. When the same agent is asked to
-*execute* a specific tool call, the planning collapses to a single
-inference and the next inference is the tool call. The two prompt
-styles produce very different latency curves on the same backend.
+The lesson is that when an agentic IDE is asked to *plan* multi-step
+work, the planning step can consume the entire LLM call without
+ever invoking tools. When the same agent is asked to *execute* a
+specific tool call, the planning collapses to a single inference
+and the next inference is the tool call. Same backend, two prompt
+styles, very different latency curves.
 
 The practical version, for anyone driving the `agy` CLI:
 
@@ -113,13 +114,13 @@ The practical version, for anyone driving the `agy` CLI:
 > treat it as stalled and `pkill` it. Do not wait out the timeout.
 > Rerun with one concrete shell command per prompt.
 
-There's a separate observation worth recording here: in the *desktop*
-Antigravity IDE, the same operator (me, ten minutes earlier) had used
-Stitch's MCP to generate UI mockups for all nine chapters from a
-single mega-prompt — and that one parallelised cleanly via Python
-`threading`, dropping nine mockups in under two minutes. So the
-"can't plan" failure mode appears to be a property of the print-mode
-CLI specifically, not the IDE.
+A separate observation worth recording: in the *desktop* Antigravity
+IDE, the same operator (me, ten minutes earlier) had used Stitch's
+MCP to generate UI mockups for all nine chapters from a single
+mega-prompt. That one parallelised cleanly via Python `threading`
+and dropped nine mockups in under two minutes. The "can't plan"
+failure mode appears to be a property of the print-mode CLI
+specifically, not the IDE.
 
 ## Lesson 2: Antigravity bakes API keys into auto-generated scratch
 
@@ -183,12 +184,14 @@ focused prompts), `data/candidates.json` had:
 - **Reactome** stable ID `R-HSA-3371556` confirmed for "Cellular
   response to heat stress"
 
-Two upstream-worthy bug reports surfaced along the way: the AlphaFold
-fetch script returns 403 without a `SCIENCE_SKILLS_USER_AGENT` env
-var, and the HPA `hpa_cli.py` script has a `ValueError` in
-`get-tissue-expression` that `agy` ended up patching in place at the
-plugin directory. Both are easy fixes; both will get filed against
-[`google-deepmind/science-skills`][skills-repo] this week.
+Three upstream-worthy bug reports surfaced along the way: the
+AlphaFold fetch script returns 403 without a `SCIENCE_SKILLS_USER_AGENT`
+env var; the HPA `hpa_cli.py` script raises a `ValueError` in
+`get-tissue-expression` that `agy` ended up patching in place at
+the plugin directory; and the Reactome SVG export needs its
+`Accept` header relaxed. All three are now filed at
+[`google-deepmind/science-skills`][skills-repo] as issues #2, #3,
+and #4.
 
 And a fact worth pinning down for anyone planning a similar project:
 the per-skill verification pattern caught a scientific error in my

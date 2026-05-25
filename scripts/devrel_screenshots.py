@@ -38,6 +38,7 @@ def main() -> int:
         ("10-mobile-ch1.jpg", 390, 844, "#chapter-1", 4500),
         ("11-posts-index.jpg", 1440, 900, "POSTS_INDEX", 1500),
         ("12-posts-beat1.jpg", 1440, 900, "POSTS_BEAT1", 1500),
+        ("13-toggle-fahrenheit.jpg", 1440, 900, "TOGGLE_F", 2000),
     ]
 
     with sync_playwright() as p:
@@ -60,12 +61,22 @@ def main() -> int:
                 url = SITE + "posts/"
             elif anchor == "POSTS_BEAT1":
                 url = SITE + "posts/2026-05-25-wiring-17-scientific-skills/"
+            elif anchor == "TOGGLE_F":
+                url = SITE + "#chapter-8"  # Ch8 shows the most temp surfaces
             else:
                 url = SITE + (anchor if anchor.startswith("#") else "")
             page.goto(url, wait_until="domcontentloaded")
             # Allow the page's own load handlers + 3Dmol to settle.
             page.wait_for_load_state("networkidle", timeout=15_000)
             time.sleep(settle_ms / 1000.0)
+            if anchor == "TOGGLE_F":
+                # Flip to Fahrenheit so the screenshot demonstrates the
+                # toggle's effect across the visible temperature surfaces.
+                try:
+                    page.click(".unit-toggle__btn[data-unit='F']")
+                    time.sleep(0.6)
+                except Exception as exc:
+                    print(f"  warn: toggle click failed: {exc}", file=sys.stderr)
             # For chapter anchors, ensure the chapter is in view.
             if anchor.startswith("#chapter"):
                 try:

@@ -56,8 +56,8 @@ to the molecules inside a human body when core temperature climbs?</em>
 Why does 41 °C end an emergency department workup with the words
 &ldquo;organ damage&rdquo;, when 37 °C is just lunch? What proteins fail first,
 how, in what order, with what consequence? I had been reading
-HSF1/HSP70 review papers for weeks. I had no science background.
-I knew the page in my head was the more compelling demo.</p>
+HSF1/HSP70 review papers for weeks. I am not a biologist. I knew
+the page in my head was the more compelling demo.</p>
 <p>I didn&rsquo;t build it. I built the other one. The molecular story
 was epistemically risky to ship inside a 48-hour window: claiming
 anything about human biology under heat stress, on a hackathon stage,
@@ -108,15 +108,16 @@ made coffee, came back, killed it.</p>
 <p>I retried with six separate <code>agy --print</code> calls, each capped at five
 lines of output, each carrying the literal <code>uv run scripts/X.py …</code>
 command for that skill. They ran in parallel via sibling bash calls
-(agy doesn&rsquo;t appear to share state across processes). All five returned
-verified output in under sixty seconds; the first one — PDB metadata
-for <code>4PO2</code> — produced a clean answer in about thirty seconds.</p>
-<p>The lesson, I think, is that when an agentic IDE is asked to <em>plan</em>
-multi-step work, the planning step can consume the entire LLM call
-without ever invoking tools. When the same agent is asked to
-<em>execute</em> a specific tool call, the planning collapses to a single
-inference and the next inference is the tool call. The two prompt
-styles produce very different latency curves on the same backend.</p>
+(agy doesn&rsquo;t appear to share state across processes). All six
+returned verified output in under sixty seconds; the first one —
+PDB metadata for <code>4PO2</code> — produced a clean answer in about thirty
+seconds.</p>
+<p>The lesson is that when an agentic IDE is asked to <em>plan</em> multi-step
+work, the planning step can consume the entire LLM call without
+ever invoking tools. When the same agent is asked to <em>execute</em> a
+specific tool call, the planning collapses to a single inference
+and the next inference is the tool call. Same backend, two prompt
+styles, very different latency curves.</p>
 <p>The practical version, for anyone driving the <code>agy</code> CLI:</p>
 <blockquote>
 <p>If a single <code>agy --print</code> sits at 0.0% CPU for more than sixty
@@ -124,13 +125,13 @@ seconds with no <code>uv</code>/<code>python</code> child processes visible in <
 treat it as stalled and <code>pkill</code> it. Do not wait out the timeout.
 Rerun with one concrete shell command per prompt.</p>
 </blockquote>
-<p>There&rsquo;s a separate observation worth recording here: in the <em>desktop</em>
-Antigravity IDE, the same operator (me, ten minutes earlier) had used
-Stitch&rsquo;s MCP to generate UI mockups for all nine chapters from a
-single mega-prompt — and that one parallelised cleanly via Python
-<code>threading</code>, dropping nine mockups in under two minutes. So the
-&ldquo;can&rsquo;t plan&rdquo; failure mode appears to be a property of the print-mode
-CLI specifically, not the IDE.</p>
+<p>A separate observation worth recording: in the <em>desktop</em> Antigravity
+IDE, the same operator (me, ten minutes earlier) had used Stitch&rsquo;s
+MCP to generate UI mockups for all nine chapters from a single
+mega-prompt. That one parallelised cleanly via Python <code>threading</code>
+and dropped nine mockups in under two minutes. The &ldquo;can&rsquo;t plan&rdquo;
+failure mode appears to be a property of the print-mode CLI
+specifically, not the IDE.</p>
 <h2>Lesson 2: Antigravity bakes API keys into auto-generated scratch</h2>
 <p>Stitch&rsquo;s MCP requires a Google API key. When Antigravity called it,
 the IDE generated a Python subprocess client at <code>scripts/mcp_client.py</code>
@@ -184,12 +185,14 @@ focused prompts), <code>data/candidates.json</code> had:</p>
 <li><strong>Reactome</strong> stable ID <code>R-HSA-3371556</code> confirmed for &ldquo;Cellular
   response to heat stress&rdquo;</li>
 </ul>
-<p>Two upstream-worthy bug reports surfaced along the way: the AlphaFold
-fetch script returns 403 without a <code>SCIENCE_SKILLS_USER_AGENT</code> env
-var, and the HPA <code>hpa_cli.py</code> script has a <code>ValueError</code> in
-<code>get-tissue-expression</code> that <code>agy</code> ended up patching in place at the
-plugin directory. Both are easy fixes; both will get filed against
-<a href="https://github.com/google-deepmind/science-skills"><code>google-deepmind/science-skills</code></a> this week.</p>
+<p>Three upstream-worthy bug reports surfaced along the way: the
+AlphaFold fetch script returns 403 without a <code>SCIENCE_SKILLS_USER_AGENT</code>
+env var; the HPA <code>hpa_cli.py</code> script raises a <code>ValueError</code> in
+<code>get-tissue-expression</code> that <code>agy</code> ended up patching in place at
+the plugin directory; and the Reactome SVG export needs its
+<code>Accept</code> header relaxed. All three are now filed at
+<a href="https://github.com/google-deepmind/science-skills"><code>google-deepmind/science-skills</code></a> as issues #2, #3,
+and #4.</p>
 <p>And a fact worth pinning down for anyone planning a similar project:
 the per-skill verification pattern caught a scientific error in my
 <em>own</em> design document on the same day. I&rsquo;d written down &ldquo;PDB 5D5W
