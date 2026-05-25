@@ -767,6 +767,180 @@ a:focus-visible {
   text-align: center;
 }
 
+/* ---------- Chapter 6: ClinVar variant cards ---------- */
+
+.chapter--variants .chapter__inner--variants {
+  /* Top section: marginalia + reading body only (no figure column).
+     Variant grid sits as a full-width block beneath. */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .chapter--variants .chapter__inner--variants {
+    grid-template-columns: 20% minmax(0, 60%);
+    justify-content: start;
+  }
+}
+
+.ch6-warning {
+  margin: 1.5rem 0 0 0;
+  padding: 14px 18px;
+  background: rgba(178, 58, 31, 0.08);
+  border-left: 3px solid var(--heat-41);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.variant-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 32px auto 0;
+  max-width: 1440px;
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 720px) {
+  .variant-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .variant-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.variant-grid__loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--ink-faint);
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+.variant-card {
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.variant-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.variant-card__gene {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.variant-card__pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 2px;
+  background: var(--paper-edge);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.variant-card__pill[data-sig="pathogenic"] {
+  background: var(--heat-42);
+  color: var(--paper);
+}
+.variant-card__pill[data-sig="likely-pathogenic"] {
+  background: var(--heat-41);
+  color: var(--paper);
+}
+.variant-card__pill[data-sig="vus"] {
+  background: var(--heat-39);
+  color: var(--ink);
+}
+.variant-card__pill[data-sig="benign"] {
+  background: var(--heat-37);
+  color: var(--paper);
+}
+.variant-card__pill[data-sig="conflicting"] {
+  background: var(--ink-faint);
+  color: var(--paper);
+}
+
+.variant-card__hgvs {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--ink);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.variant-card__protein {
+  font-family: var(--font-mono);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.variant-card__coord {
+  font-family: var(--font-mono);
+  color: var(--ink-faint);
+  font-size: 0.75rem;
+}
+
+.variant-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.variant-card__stars-glyph {
+  letter-spacing: 0.1em;
+  color: var(--heat-39);
+  font-size: 0.9rem;
+}
+
+.variant-card__citations {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
+}
+.variant-card__citations-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.variant-card__link {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-link);
+}
+
 /* ---------- Pathway snippet (Ch 3 mini-Reactome) ---------- */
 
 .pathway-snippet {

@@ -1,0 +1,150 @@
+{
+  "chapter": 6,
+  "topic": "ClinVar variants in heat-shock genes",
+  "genes": [
+    "HSPA1A",
+    "HSF1",
+    "HSP90AA1"
+  ],
+  "card_count": 6,
+  "retrieved_at": "2026-05-25",
+  "cards": [
+    {
+      "gene": "HSPA1A",
+      "variant_id": "3246158",
+      "title": "NC_000006.11:g.(?_31631971)_(31895135_?)del",
+      "clinical_significance": "Pathogenic",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "6",
+      "position": "31686955",
+      "ref": null,
+      "alt": null,
+      "protein_effect": null,
+      "variation_type": "Deletion",
+      "molecular_consequences": [],
+      "citation_pmids": [
+        "31784560",
+        "35598262"
+      ],
+      "conditions": [
+        "not provided",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/3246158/"
+    },
+    {
+      "gene": "HSPA1A",
+      "variant_id": "4677157",
+      "title": "NM_005345.6(HSPA1A):c.1875G>C (p.Gln625His)",
+      "clinical_significance": "Uncertain significance",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "6",
+      "position": "31815543",
+      "ref": null,
+      "alt": null,
+      "protein_effect": "p.Gln625His",
+      "variation_type": "single nucleotide variant",
+      "molecular_consequences": [
+        "missense variant"
+      ],
+      "citation_pmids": [],
+      "conditions": [
+        "not specified",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/4677157/"
+    },
+    {
+      "gene": "HSF1",
+      "variant_id": "3384214",
+      "title": "Single allele",
+      "clinical_significance": "Likely pathogenic",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "8",
+      "position": "144373088",
+      "ref": null,
+      "alt": null,
+      "protein_effect": null,
+      "variation_type": "Duplication",
+      "molecular_consequences": [],
+      "citation_pmids": [],
+      "conditions": [
+        "Recombinant 8 syndrome",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/3384214/"
+    },
+    {
+      "gene": "HSF1",
+      "variant_id": "4677073",
+      "title": "NM_005526.4(HSF1):c.1126G>A (p.Val376Ile)",
+      "clinical_significance": "Uncertain significance",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "8",
+      "position": "144291604",
+      "ref": null,
+      "alt": null,
+      "protein_effect": "p.Val376Ile",
+      "variation_type": "single nucleotide variant",
+      "molecular_consequences": [
+        "missense variant"
+      ],
+      "citation_pmids": [],
+      "conditions": [
+        "not specified",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/4677073/"
+    },
+    {
+      "gene": "HSP90AA1",
+      "variant_id": "4831461",
+      "title": "NM_005348.4(HSP90AA1):c.1403C>T (p.Ser468Phe)",
+      "clinical_significance": "Uncertain significance",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "14",
+      "position": "102080742",
+      "ref": null,
+      "alt": null,
+      "protein_effect": "p.Ser468Phe",
+      "variation_type": "single nucleotide variant",
+      "molecular_consequences": [
+        "missense variant"
+      ],
+      "citation_pmids": [],
+      "conditions": [
+        "not specified",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/4831461/"
+    },
+    {
+      "gene": "HSP90AA1",
+      "variant_id": "4677111",
+      "title": "NM_005348.4(HSP90AA1):c.1687G>A (p.Glu563Lys)",
+      "clinical_significance": "Uncertain significance",
+      "review_status": "criteria provided, single submitter",
+      "star_count": 1,
+      "chrom": "14",
+      "position": "102080742",
+      "ref": null,
+      "alt": null,
+      "protein_effect": "p.Glu563Lys",
+      "variation_type": "single nucleotide variant",
+      "molecular_consequences": [
+        "missense variant"
+      ],
+      "citation_pmids": [],
+      "conditions": [
+        "not specified",
+        "Unknown"
+      ],
+      "url": "https://www.ncbi.nlm.nih.gov/clinvar/variation/4677111/"
+    }
+  ]
+}

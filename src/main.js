@@ -39,6 +39,8 @@ const els = {
   aldolaseCitationsList: document.getElementById("aldolase-citations-list"),
   // Chapter 5
   hspHeatmap: document.getElementById("hsp-heatmap"),
+  // Chapter 6
+  variantGrid: document.getElementById("variant-grid"),
   // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
@@ -141,6 +143,87 @@ function renderAldolaseCitations(payload) {
     payload,
     "data/citations/aldolase.json"
   );
+}
+
+/* Chapter 6 — Render ClinVar variant cards.
+ * Input shape per data/clinvar/variants.json (each card):
+ *   { gene, variant_id, title, clinical_significance, review_status,
+ *     star_count, chrom, position, ref, alt, protein_effect,
+ *     variation_type, molecular_consequences, citation_pmids,
+ *     conditions, url }
+ */
+function classifySig(sig) {
+  const s = String(sig || "").toLowerCase();
+  if (s.includes("likely pathogenic")) return "likely-pathogenic";
+  if (s.includes("pathogenic") && !s.includes("likely") && !s.includes("benign"))
+    return "pathogenic";
+  if (s.includes("uncertain") || s.includes("vus")) return "vus";
+  if (s.includes("conflicting")) return "conflicting";
+  if (s.includes("benign")) return "benign";
+  return "unknown";
+}
+
+function renderVariantCards(payload) {
+  if (!els.variantGrid) return;
+  const cards = (payload && Array.isArray(payload.cards) && payload.cards) || [];
+  if (!cards.length) {
+    els.variantGrid.innerHTML =
+      '<p class="variant-grid__loading">No variants in data/clinvar/variants.json.</p>';
+    return;
+  }
+  const html = cards
+    .map((c) => {
+      const sigClass = classifySig(c.clinical_significance);
+      const stars = "★".repeat(Math.min(4, c.star_count || 0)) +
+        "☆".repeat(4 - Math.min(4, c.star_count || 0));
+      const coord =
+        c.chrom && c.position
+          ? `chr${escapeHtml(String(c.chrom))}:${escapeHtml(String(c.position))}` +
+            (c.ref && c.alt ? `:${escapeHtml(c.ref)}>${escapeHtml(c.alt)}` : "")
+          : "&mdash;";
+      const pmids = (c.citation_pmids || []).slice(0, 3);
+      const pmidLinks = pmids.length
+        ? pmids
+            .map(
+              (p) =>
+                `<a href="https://pubmed.ncbi.nlm.nih.gov/${escapeHtml(p)}/" target="_blank" rel="noopener">PMID&nbsp;${escapeHtml(p)}</a>`
+            )
+            .join(" &middot; ")
+        : `<span style="color:var(--ink-faint)">no linked PubMed citations</span>`;
+      return `
+        <article class="variant-card">
+          <div class="variant-card__row">
+            <span class="variant-card__gene">${escapeHtml(c.gene)}</span>
+            <span class="variant-card__pill" data-sig="${escapeHtml(sigClass)}">${escapeHtml(
+              c.clinical_significance || "Unknown"
+            )}</span>
+          </div>
+          <div class="variant-card__hgvs" title="${escapeHtml(c.title || "")}">${escapeHtml(
+            c.title || "(untitled)"
+          )}</div>
+          ${
+            c.protein_effect
+              ? `<div class="variant-card__protein">${escapeHtml(c.protein_effect)}</div>`
+              : ""
+          }
+          <div class="variant-card__coord">${coord}</div>
+          <div class="variant-card__stars">
+            <span class="variant-card__stars-glyph" aria-hidden="true">${escapeHtml(stars)}</span>
+            <span>Review status</span>
+          </div>
+          <div class="variant-card__citations">
+            <span class="variant-card__citations-label">Cited in</span> ${pmidLinks}
+          </div>
+          ${
+            c.url
+              ? `<a class="variant-card__link" href="${escapeHtml(c.url)}" target="_blank" rel="noopener">ClinVar entry &#8599;</a>`
+              : ""
+          }
+        </article>
+      `;
+    })
+    .join("");
+  els.variantGrid.innerHTML = html;
 }
 
 /* Chapter 5 — Render an HSP tissue heatmap. Inputs: arrays of
@@ -632,6 +715,16 @@ function setupChapterObserver() {
         console.error(err);
         if (els.hspHeatmap) {
           els.hspHeatmap.innerHTML = `<p class="heatmap__loading">Could not load tissue expression: ${escapeHtml(
+            err.message
+          )}</p>`;
+        }
+      }),
+    fetchJson("data/clinvar/variants.json")
+      .then(renderVariantCards)
+      .catch((err) => {
+        console.error(err);
+        if (els.variantGrid) {
+          els.variantGrid.innerHTML = `<p class="variant-grid__loading">Could not load ClinVar variants: ${escapeHtml(
             err.message
           )}</p>`;
         }

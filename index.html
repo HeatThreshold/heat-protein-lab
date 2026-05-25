@@ -638,11 +638,61 @@
           </div>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="6" data-temp="40.5" data-accent="heat-41">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate VI / 40.5 &deg;C</p>
-          <h2 class="chapter__title">When the genome strains</h2>
-          <p class="body stub-note">Chapter under construction. ClinVar variants pending Phase 6.</p>
+      <!--
+        Chapter 6 — When the genome strains (ClinVar variants).
+        Reads from:
+          data/clinvar/variants.json
+      -->
+      <section
+        class="chapter chapter--variants"
+        data-chapter="6"
+        data-temp="40.5"
+        data-accent="heat-41"
+        id="chapter-6"
+      >
+        <div class="chapter__inner chapter__inner--variants">
+          <aside class="marginalia" aria-label="Chapter 6 metadata">
+            <p class="eyebrow">Plate VI</p>
+            <p class="margin-temp">40.5 &deg;C</p>
+            <div class="badge badge--variants">
+              <p class="badge__label">Variants</p>
+              <p class="badge__body">3 genes &middot; ClinVar</p>
+              <p class="badge__source">Source: NCBI ClinVar (IHC consensus calls)</p>
+            </div>
+          </aside>
+
+          <div class="reading">
+            <h2 class="chapter__title">When the genome strains</h2>
+            <p class="body">
+              Some humans carry variants in the heat-shock machinery. The
+              question that always wants to be asked next &mdash; do those
+              variants make a person more vulnerable to heat illness?
+              &mdash; is one of the genuinely-hard ones. The literature on
+              <span class="mono">HSPA1A</span>, <span class="mono">HSF1</span>,
+              and <span class="mono">HSP90AA1</span> as individual heat-illness
+              risk factors is thinner than for cardiac arrhythmias or
+              oncology variants, and ClinVar reflects that.
+            </p>
+            <p class="body">
+              What follows is documentation of what ClinVar contains for
+              these three genes &mdash; not a prediction about any
+              individual&apos;s heat tolerance. The cards below are real
+              ClinVar entries, fetched today, with their genuine clinical
+              significance and review-status star ratings preserved.
+            </p>
+
+            <p class="ch6-warning">
+              <strong>Clinical significance &ne; individual heat-illness
+              risk prediction.</strong> A variant labelled &ldquo;pathogenic&rdquo;
+              in ClinVar means a lab classified it as likely to cause
+              disease in some context, not that the carrier will fail under
+              thermal stress.
+            </p>
+          </div>
+        </div>
+
+        <div class="variant-grid" id="variant-grid" aria-label="ClinVar variant cards">
+          <p class="variant-grid__loading">Loading variants from ClinVar&hellip;</p>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="7" data-temp="41.0" data-accent="heat-42">
