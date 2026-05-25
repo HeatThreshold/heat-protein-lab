@@ -444,11 +444,122 @@
           </div>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="4" data-temp="46.3" data-accent="heat-41">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate IV / 40.0 &rarr; 50.0 &deg;C &middot; T<sub>m</sub> &asymp; 48 &deg;C</p>
-          <h2 class="chapter__title">When proteins melt</h2>
-          <p class="body stub-note">Chapter under construction. Visualization, not molecular dynamics.</p>
+      <!--
+        Chapter 4 — When proteins melt (the visual centerpiece).
+        Breaks the standard three-column shell: tall section, sticky inner
+        container, scroll-driven denaturation of human aldolase A (PDB 6XMH).
+        Reads from:
+          data/structures/pdb/aldolase/pdb_00006xmh.cif.gz
+          data/citations/aldolase.json
+      -->
+      <section
+        class="chapter chapter--centerpiece"
+        data-chapter="4"
+        data-temp="40.0"
+        data-accent="heat-41"
+        id="chapter-4"
+      >
+        <div class="ch4-sticky">
+          <div class="ch4-stage">
+            <p class="eyebrow ch4-eyebrow">Plate IV / 40.0 &rarr; 50.0 &deg;C / T<sub>m</sub> &asymp; 48 &deg;C</p>
+            <p class="ch4-banner">Visualization, not molecular dynamics.</p>
+            <h2 class="chapter__title chapter__title--centerpiece">When proteins melt</h2>
+
+            <div class="ch4-row">
+              <figure class="viewer-card viewer-card--centerpiece">
+                <div
+                  class="viewer"
+                  id="viewer-aldolase"
+                  role="img"
+                  aria-label="3D ribbon model of human aldolase A, PDB 6XMH; visualization of denaturation driven by scroll position"
+                >
+                  <p class="viewer__loading">Loading PDB&nbsp;6XMH&hellip;</p>
+                </div>
+                <figcaption class="viewer-card__caption">
+                  <a
+                    class="mono viewer-card__pdb-link"
+                    href="https://www.rcsb.org/structure/6XMH"
+                    target="_blank"
+                    rel="noopener"
+                    >PDB &middot; 6XMH &nbsp;<span aria-hidden="true">&#8599;</span></a
+                  >
+                  <span class="viewer-card__source">retrieved 2026-05-25</span>
+                </figcaption>
+              </figure>
+
+              <aside class="ch4-side">
+                <div class="ch4-temp-readout" aria-live="polite">
+                  <span class="ch4-temp-value" id="ch4-temp-value">40.0</span>
+                  <span class="ch4-temp-unit">&deg;C</span>
+                </div>
+
+                <div class="ch4-tm-marker">T<sub>m</sub> &asymp; 48 &deg;C</div>
+
+                <div class="ch4-metrics">
+                  <div class="metric">
+                    <div class="metric__row">
+                      <span class="metric__label">RMSD from native</span>
+                      <span class="metric__value mono" id="ch4-rmsd-value">0.0 &Aring;</span>
+                    </div>
+                    <div class="metric__bar"><div class="metric__bar-fill" id="ch4-rmsd-bar"></div></div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric__row">
+                      <span class="metric__label">Secondary structure retained</span>
+                      <span class="metric__value mono" id="ch4-ss-value">100%</span>
+                    </div>
+                    <div class="metric__bar"><div class="metric__bar-fill" id="ch4-ss-bar"></div></div>
+                  </div>
+                </div>
+
+                <p class="ch4-side-note">
+                  As you scroll this section, the visualization interpolates
+                  from a native cartoon at 40 &deg;C through a frayed ribbon at
+                  the literature melting temperature near 48 &deg;C to a
+                  disorganized wireframe at 50 &deg;C. Atoms in the underlying
+                  mmCIF do not move; <strong>3Dmol style changes stand in for
+                  the loss of structure.</strong> Reading numbers in the panel
+                  above are illustrative ranges, not measurements.
+                </p>
+              </aside>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Chapter 4 outro: separate section so the sticky stage above
+           releases cleanly before this body block renders. Same chapter
+           index so the plate badge + temp strip stay on Plate IV. -->
+      <section class="chapter chapter--ch4-outro" data-chapter="4" data-temp="50.0" data-accent="heat-41">
+        <div class="chapter__inner">
+          <div class="reading reading--centerpiece-outro">
+            <p class="body">
+              The enzyme is <strong>aldolase A</strong> (gene
+              <span class="mono">ALDOA</span>) &mdash; the human muscle
+              isoform of fructose-1,6-bisphosphate aldolase, a workhorse of
+              glycolysis. The biological assembly is a tetramer; the chapter
+              shows one subunit, captured at 1.95 &Aring; in
+              <span class="mono">PDB 6XMH</span>.
+            </p>
+            <p class="body">
+              The melting temperature of fructose-bisphosphate aldolases sits
+              in the 45&ndash;55 &deg;C range across species (one
+              thermostable archaeal homolog cited below is the family's
+              exception). Human core temperature above 42 &deg;C is medically
+              catastrophic precisely because thousands of enzymes with
+              T<sub>m</sub> in this band start failing together &mdash; not
+              because any single molecule "melts" cleanly. This chapter's
+              visualization is the cleanest possible reading of a process
+              that, at scale and in vivo, is anything but clean.
+            </p>
+            <details class="citations" id="aldolase-citations">
+              <summary>Sources for this chapter</summary>
+              <ol class="citations__list" id="aldolase-citations-list">
+                <li class="citations__loading">Loading from PubMed&hellip;</li>
+              </ol>
+            </details>
+          </div>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="5" data-temp="40.0" data-accent="heat-40">

@@ -27,6 +27,16 @@ const els = {
   viewerHsp70: document.getElementById("viewer-hsp70"),
   viewerHsp70Loading: document.querySelector("#viewer-hsp70 .viewer__loading"),
   hsp70CitationsList: document.getElementById("hsp70-citations-list"),
+  // Chapter 4
+  viewerAldolase: document.getElementById("viewer-aldolase"),
+  viewerAldolaseLoading: document.querySelector("#viewer-aldolase .viewer__loading"),
+  ch4Section: document.querySelector('section[data-chapter="4"]'),
+  ch4TempValue: document.getElementById("ch4-temp-value"),
+  ch4RmsdValue: document.getElementById("ch4-rmsd-value"),
+  ch4RmsdBar: document.getElementById("ch4-rmsd-bar"),
+  ch4SsValue: document.getElementById("ch4-ss-value"),
+  ch4SsBar: document.getElementById("ch4-ss-bar"),
+  aldolaseCitationsList: document.getElementById("aldolase-citations-list"),
   // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
@@ -120,6 +130,14 @@ function renderHsp70Citations(payload) {
     els.hsp70CitationsList,
     payload,
     "data/citations/hsp70.json"
+  );
+}
+
+function renderAldolaseCitations(payload) {
+  renderCitationsInto(
+    els.aldolaseCitationsList,
+    payload,
+    "data/citations/aldolase.json"
   );
 }
 
@@ -220,6 +238,39 @@ function styleHsp70(viewer) {
   viewer.setStyle({ hetflag: true }, { stick: { color: "#e9d8a0", radius: 0.15 } });
 }
 
+/* Chapter 4 — scroll-driven denaturation visualization. Stage transitions:
+ *   t < 0.34: NATIVE   — cartoon, slate
+ *   t < 0.67: STRESSED — ribbon (thin), warm yellow
+ *   t ≥ 0.67: DENATURED— lines/wireframe, terra-cotta
+ * 3Dmol atoms do not move; we change styles + colors and let the temperature
+ * readout + metrics carry the rest of the narrative.
+ */
+const ALDOLASE_STAGES = [
+  { until: 0.34, name: "native", style: { cartoon: { color: "#4f6b7a" } } },
+  { until: 0.67, name: "stressed", style: { cartoon: { color: "#b8a04f", thickness: 0.3 } } },
+  { until: 1.01, name: "denatured", style: { line: { color: "#b23a1f" } } },
+];
+
+let aldolaseViewer = null;
+let aldolaseLastStage = null;
+
+function setAldolaseStage(stageName) {
+  if (!aldolaseViewer || stageName === aldolaseLastStage) return;
+  const stage = ALDOLASE_STAGES.find((s) => s.name === stageName);
+  if (!stage) return;
+  aldolaseViewer.setStyle({}, {}); // clear
+  aldolaseViewer.setStyle({}, stage.style);
+  aldolaseViewer.setStyle({ hetflag: true }, { stick: { color: "#c97a2b", radius: 0.15 } });
+  aldolaseViewer.render();
+  aldolaseLastStage = stageName;
+}
+
+function styleAldolaseInitial(viewer) {
+  aldolaseViewer = viewer;
+  aldolaseLastStage = null;
+  setAldolaseStage("native");
+}
+
 async function mountHsf1Viewer() {
   return mount3DmolViewer({
     mountEl: els.viewer,
@@ -250,6 +301,114 @@ async function mountHsp70Viewer() {
     styleFn: styleHsp70,
     pdbId: "4PO2",
   });
+}
+
+async function mountAldolaseViewer() {
+  if (!els.viewerAldolase) return;
+  // Chapter 4 viewer does NOT spin — the scroll-driven stage changes carry
+  // the motion. Use a wrapper styleFn that captures the viewer reference.
+  const $3 = window.$3Dmol;
+  if (!$3) {
+    if (els.viewerAldolaseLoading)
+      els.viewerAldolaseLoading.textContent = "3Dmol.js failed to load.";
+    return;
+  }
+  let cifText;
+  try {
+    cifText = await fetchGzipText("data/structures/pdb/aldolase/pdb_00006xmh.cif.gz");
+  } catch (err) {
+    console.error(err);
+    if (els.viewerAldolaseLoading)
+      els.viewerAldolaseLoading.textContent = "Could not load PDB 6XMH.";
+    return;
+  }
+  const viewer = $3.createViewer(els.viewerAldolase, {
+    backgroundColor:
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--surface-viewer")
+        .trim() || "#0F1217",
+    antialias: true,
+  });
+  viewer.addModel(cifText, "cif");
+  styleAldolaseInitial(viewer); // sets aldolaseViewer + initial native stage
+  viewer.zoomTo();
+  viewer.render();
+  if (els.viewerAldolaseLoading) els.viewerAldolaseLoading.style.display = "none";
+  setupCh4ScrollDriver();
+}
+
+function setupCh4ScrollDriver() {
+  if (!els.ch4Section) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    // Snap to denatured end-state and bypass scroll wiring entirely.
+    setAldolaseStage("denatured");
+    if (els.ch4TempValue) els.ch4TempValue.textContent = "50.0";
+    if (els.ch4RmsdBar) {
+      els.ch4RmsdBar.style.width = "100%";
+      els.ch4RmsdBar.style.background = "var(--heat-41)";
+    }
+    if (els.ch4RmsdValue) els.ch4RmsdValue.textContent = "≈12 Å";
+    if (els.ch4SsBar) els.ch4SsBar.style.width = "30%";
+    if (els.ch4SsValue) els.ch4SsValue.textContent = "30%";
+    return;
+  }
+
+  const TEMP_LO = 40;
+  const TEMP_HI = 50;
+  const RMSD_HI = 12;
+
+  let lastFrac = -1;
+  let rafPending = false;
+  const update = () => {
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      const rect = els.ch4Section.getBoundingClientRect();
+      const viewportH = window.innerHeight;
+      // Progress 0..1: 0 when section's top hits the top of viewport,
+      // 1 when section's bottom hits the bottom of viewport.
+      const total = rect.height - viewportH;
+      let frac = (0 - rect.top) / total;
+      frac = Math.max(0, Math.min(1, frac));
+      if (Math.abs(frac - lastFrac) < 0.005) {
+        rafPending = false;
+        return;
+      }
+      lastFrac = frac;
+
+      // Temperature
+      const temp = TEMP_LO + frac * (TEMP_HI - TEMP_LO);
+      if (els.ch4TempValue) els.ch4TempValue.textContent = temp.toFixed(1);
+
+      // RMSD bar
+      if (els.ch4RmsdBar) {
+        els.ch4RmsdBar.style.width = `${(frac * 100).toFixed(1)}%`;
+        const barColor =
+          frac < 0.34
+            ? "var(--heat-37)"
+            : frac < 0.67
+            ? "var(--heat-39)"
+            : "var(--heat-41)";
+        els.ch4RmsdBar.style.background = barColor;
+      }
+      if (els.ch4RmsdValue) els.ch4RmsdValue.textContent = `${(frac * RMSD_HI).toFixed(1)} Å`;
+
+      // Secondary structure % retained
+      const ssPct = 100 - frac * 70; // 100 → 30
+      if (els.ch4SsBar) els.ch4SsBar.style.width = `${ssPct.toFixed(0)}%`;
+      if (els.ch4SsValue) els.ch4SsValue.textContent = `${Math.round(ssPct)}%`;
+
+      // 3Dmol stage transition (3-step discrete)
+      const stage = frac < 0.34 ? "native" : frac < 0.67 ? "stressed" : "denatured";
+      setAldolaseStage(stage);
+
+      rafPending = false;
+    });
+  };
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update, { passive: true });
+  update();
 }
 
 // --- Temperature strip + plate badge ---------------------------------------
@@ -335,6 +494,7 @@ function setupChapterObserver() {
     mountHsf1Viewer(),
     mountHsp90Viewer(),
     mountHsp70Viewer(),
+    mountAldolaseViewer(),
     fetchJson("data/citations/hsf1.json")
       .then(renderCitations)
       .catch((err) => {
@@ -361,6 +521,16 @@ function setupChapterObserver() {
         console.error(err);
         if (els.hsp70CitationsList) {
           els.hsp70CitationsList.innerHTML = `<li class="citations__error">Could not load HSP70 citations: ${escapeHtml(
+            err.message
+          )}</li>`;
+        }
+      }),
+    fetchJson("data/citations/aldolase.json")
+      .then(renderAldolaseCitations)
+      .catch((err) => {
+        console.error(err);
+        if (els.aldolaseCitationsList) {
+          els.aldolaseCitationsList.innerHTML = `<li class="citations__error">Could not load aldolase citations: ${escapeHtml(
             err.message
           )}</li>`;
         }

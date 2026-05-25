@@ -1,0 +1,42 @@
+{
+  "chapter": 4,
+  "topic": "When proteins melt",
+  "citations": [
+    {
+      "pmid": "34821530",
+      "title": "ALDOA maintains NLRP3 inflammasome activation by controlling AMPK activation.",
+      "authors_short": [
+        "Bai D",
+        "Du J",
+        "Bu X"
+      ],
+      "year": null,
+      "journal": "Autophagy",
+      "snippet": "ALDOA: aldolase A; AMPK: AMP-activated protein kinase; ATG: autophagy related; ATG5: autophagy related 5; ATP: adenosine triphosphate; BMDMs: bone marrow-derived macrophages; CALCOCO2: calcium binding and coiled-coil domain 2; CASP1: caspase 1; CQ: chloroquine; FOXO3: forkhead bo"
+    },
+    {
+      "pmid": "39262779",
+      "title": "Targeting ALDOA to modulate tumorigenesis and energy metabolism in retinoblastoma.",
+      "authors_short": [
+        "Wang Y",
+        "Tang J",
+        "Liu Y"
+      ],
+      "year": null,
+      "journal": "iScience",
+      "snippet": "This study aims to elucidate the pivotal role of aldolase A (ALDOA) in retinoblastoma (RB) and evaluate the potential of the ALDOA inhibitor itaconate in impeding RB progression. Utilizing single-cell RNA sequencing, ALDOA consistently exhibits overexpression across diverse cell "
+    },
+    {
+      "pmid": "28299451",
+      "title": "Pcal_0111, a highly thermostable bifunctional fructose-1,6-bisphosphate aldolase/phosphatase from Pyrobaculum calidifontis.",
+      "authors_short": [
+        "Aziz I",
+        "Rashid N",
+        "Ashraf R"
+      ],
+      "year": null,
+      "journal": "Extremophiles : life under extreme conditions",
+      "snippet": "Pyrobaculum calidifontis genome harbors an open reading frame Pcal_0111 annotated as fructose bisphosphate aldolase. Although the gene is annotated as fructose bisphosphate aldolase, it exhibits a high homology with previously reported fructose-1,6-bisphosphate aldolase/phosphata"
+    }
+  ]
+}
