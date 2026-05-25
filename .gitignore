@@ -39,6 +39,17 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Antigravity / agent scratch — keep out of git
+# (These tools tend to bake credentials inline; do not commit auto-generated
+# clients without sanitizing for API keys first. See DEVREL.md.)
+scripts/mcp_client.py
+scripts/generate_ui.py
+scripts/*_client.py
+scripts/generate_*.py
+notes/design_base64*.txt
+notes/**/scratch*
+notes/**/*.scratch
+
 # PDB / data caches (large, fetched on demand)
 data/cache/
 *.pdb.gz

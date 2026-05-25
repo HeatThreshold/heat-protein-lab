@@ -6,6 +6,8 @@
 
 A small, public, MIT-licensed scrollytelling explainer about what heat does to human proteins. Every chapter is grounded in real data fetched at build time from public scientific databases via the **Google DeepMind Science Skills plugin** that the operator has installed in Antigravity. The page itself is a static HTML/CSS/JS site that reads pre-fetched JSON and structure files from `data/`. See [PROJECT.md](./PROJECT.md) for the chapter outline and build phases.
 
+The project is also being tracked as a developer-relations case study about composing three new Google products — Antigravity 2.0, Science Skills, and Stitch — on a real brief. See [DEVREL.md](./DEVREL.md) for the publishing cadence and [notes/devrel/SESSION-TEMPLATE.md](./notes/devrel/SESSION-TEMPLATE.md) for the per-session log template. **At the start of any non-trivial session, copy SESSION-TEMPLATE.md to `notes/devrel/YYYY-MM-DD-<slug>.md` and fill it in as you work.** The session logs are the raw material every post pulls from.
+
 ## What this project is **not**
 
 - **Not a clinical or medical tool.** No diagnostic claims. No medical advice. No PII. No accounts. No analytics.

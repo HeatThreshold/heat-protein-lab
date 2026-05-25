@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Project plan (PROJECT.md)
+    url: https://github.com/HeatThreshold/heat-protein-lab/blob/main/PROJECT.md
+    about: The phased build plan with exit criteria per phase.
+  - name: Design system (DESIGN.md)
+    url: https://github.com/HeatThreshold/heat-protein-lab/blob/main/DESIGN.md
+    about: Visual system, Stitch prompt blocks, and component specs.
+  - name: Developer-relations tracking (DEVREL.md)
+    url: https://github.com/HeatThreshold/heat-protein-lab/blob/main/DEVREL.md
+    about: How this project is being tracked as a Google DevRel-style writeup.
