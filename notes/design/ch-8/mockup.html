@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plate VIII | Thermal Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "heat-38": "#6E7C73",
+                        "surface": "#fff9ea",
+                        "paper-edge": "#E9E0C8",
+                        "on-tertiary-container": "#6b8897",
+                        "on-tertiary-fixed": "#001e2b",
+                        "on-surface": "#1e1c12",
+                        "on-background": "#1e1c12",
+                        "outline-variant": "#c4c7c7",
+                        "primary-fixed": "#e5e2e1",
+                        "on-surface-variant": "#444748",
+                        "on-tertiary": "#ffffff",
+                        "ink-soft": "#3D3A33",
+                        "on-secondary-fixed-variant": "#891c1a",
+                        "inverse-surface": "#333026",
+                        "outline": "#747878",
+                        "on-primary-container": "#858383",
+                        "surface-container-low": "#f9f3e3",
+                        "tertiary-container": "#001e2b",
+                        "surface-dim": "#dfdaca",
+                        "error-container": "#ffdad6",
+                        "rule": "#221A15",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f4eede",
+                        "on-primary-fixed": "#1b1b1b",
+                        "surface-card": "#FBF6E8",
+                        "surface-container-high": "#eee8d8",
+                        "on-primary": "#ffffff",
+                        "secondary": "#aa342f",
+                        "heat-41": "#B23A1F",
+                        "ink-faint": "#8A8275",
+                        "on-secondary-fixed": "#410002",
+                        "background": "#fff9ea",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary-container": "#fe7267",
+                        "primary-container": "#1b1b1b",
+                        "surface-bright": "#fff9ea",
+                        "surface-viewer": "#0F1217",
+                        "on-secondary-container": "#70060b",
+                        "inverse-on-surface": "#f6f0e0",
+                        "on-tertiary-fixed-variant": "#2e4a58",
+                        "surface-container-highest": "#e8e2d2",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#c9e7f8",
+                        "tertiary": "#000000",
+                        "surface-variant": "#e8e2d2",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "heat-39": "#B8A04F",
+                        "primary": "#000000",
+                        "heat-37": "#4F6B7A",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "inverse-primary": "#c8c6c5",
+                        "heat-40": "#C97A2B",
+                        "heat-44": "#1B0707",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-tint": "#5f5e5e",
+                        "tertiary-fixed-dim": "#adcbdc",
+                        "heat-42": "#7F1414"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "chapter-gap": "128px",
+                        "baseline": "8px",
+                        "gutter": "24px",
+                        "paragraph-gap": "24px",
+                        "figure-padding": "48px"
+                    },
+                    "fontFamily": {
+                        "mono-data": ["IBM Plex Mono", "monospace"],
+                        "display-hero": ["Spectral", "serif"],
+                        "headline-md": ["Spectral", "serif"],
+                        "headline-lg": ["Spectral", "serif"],
+                        "marginalia": ["Spectral", "serif"],
+                        "body-md": ["Spectral", "serif"],
+                        "body-lg": ["Spectral", "serif"],
+                        "ui-label": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "mono-data": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "display-hero": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["1.75rem", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg": ["2.25rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "marginalia": ["0.8125rem", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-md": ["1.0625rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                        "body-lg": ["1.1875rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                        "ui-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #fff9ea; color: #1e1c12; }
+        .custom-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 1px;
+            background: #221A15;
+            outline: none;
+        }
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #7F1414;
+            cursor: pointer;
+            border-radius: 0;
+        }
+        .chart-container {
+            position: relative;
+            border-left: 1px solid #221A15;
+            border-bottom: 1px solid #221A15;
+        }
+        .reference-line {
+            border-top: 1px dashed #8A8275;
+            width: 100%;
+            position: absolute;
+        }
+        .data-line {
+            stroke: #221A15;
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden selection:bg-heat-42 selection:text-white">
+<!-- Progress Strip -->
+<div class="fixed top-0 left-0 w-full h-1 bg-surface-container-highest z-[100]">
+<div class="h-full bg-heat-42 transition-all duration-1000" style="width: 100%;"></div>
+<div class="absolute top-2 right-gutter font-mono-data text-ui-label text-heat-42 bg-surface px-1">
+            42.5 °C
+        </div>
+</div>
+<!-- Top App Bar (From Shared Components) -->
+<header class="fixed top-0 w-full h-12 z-50 bg-surface dark:bg-surface-dim border-b border-rule flex justify-between items-center px-gutter max-w-[1440px] mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-on-surface tracking-tight">Thermal Archive</div>
+<div class="flex gap-6 items-center">
+<span class="hidden md:block font-body-md text-body-md text-primary font-bold border-b-2 border-primary">Plate VIII</span>
+<span class="material-symbols-outlined text-primary dark:text-on-surface">thermostat</span>
+</div>
+</header>
+<!-- Side Navigation (From Shared Components) -->
+<nav class="h-screen w-64 left-0 top-0 fixed hidden lg:flex flex-col py-8 gap-y-4 bg-surface-container dark:bg-surface-container-high border-r border-rule z-40">
+<div class="px-gutter mb-8">
+<div class="font-headline-lg text-headline-lg text-primary">Thermal Archive</div>
+<div class="font-ui-label text-ui-label uppercase tracking-widest text-ink-faint">Plate 04-B</div>
+</div>
+<div class="flex flex-col flex-grow">
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">menu_book</span> Abstract
+            </a>
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">biotech</span> Methods
+            </a>
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">analytics</span> Data
+            </a>
+<a class="text-primary font-bold border-l-4 border-secondary pl-4 py-2 bg-paper-edge flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">format_quote</span> Citations
+            </a>
+</div>
+<div class="px-gutter mt-auto">
+<button class="w-full border border-rule py-2 font-ui-label uppercase tracking-widest hover:bg-primary hover:text-surface transition-colors active:scale-95 duration-150">Export PDF</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-24 px-gutter pb-chapter-gap max-w-7xl mx-auto">
+<!-- Eyebrow & Title -->
+<header class="mb-chapter-gap/2">
+<div class="font-mono-data text-ui-label uppercase text-ink-faint mb-4 tracking-[0.2em]">
+                PLATE VIII / 41.0 → 43.0 °C
+            </div>
+<h1 class="font-display-hero text-[3.5rem] md:text-display-hero leading-tight text-primary max-w-3xl">
+                Your environment, your enzymes.
+            </h1>
+<p class="font-body-lg text-body-lg text-ink-soft max-w-2xl mt-baseline text-balance italic">
+                A culmination of molecular vulnerability and environmental pressure. Adjust the variables to observe the trajectory of homeostasis collapse.
+            </p>
+</header>
+<!-- Interactive Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-chapter-gap/4 items-start">
+<!-- Left: Controls -->
+<div class="bg-surface-card p-gutter border border-rule shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-heat-42 opacity-30"></div>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-end mb-3">
+<label class="font-ui-label uppercase text-ink-soft tracking-wider">WBGT (°C)</label>
+<span class="font-mono-data text-heat-42" id="val-wbgt">32.0</span>
+</div>
+<input class="custom-slider" id="slider-wbgt" max="45" min="20" type="range" value="32"/>
+</div>
+<div>
+<div class="flex justify-between items-end mb-3">
+<label class="font-ui-label uppercase text-ink-soft tracking-wider">Exposure duration (minutes)</label>
+<span class="font-mono-data text-heat-42" id="val-duration">60</span>
+</div>
+<input class="custom-slider" id="slider-duration" max="120" min="10" type="range" value="60"/>
+</div>
+<div>
+<label class="block font-ui-label uppercase text-ink-soft tracking-wider mb-3">Baseline acclimatization</label>
+<select class="w-full bg-transparent border-b border-rule rounded-none py-2 font-body-md focus:ring-0 focus:border-heat-42 outline-none appearance-none cursor-pointer">
+<option>Unacclimatized</option>
+<option selected="">Moderately acclimatized</option>
+<option>Highly acclimatized</option>
+</select>
+</div>
+<div class="pt-4 border-t border-rule/10">
+<div class="bg-surface-container-low p-4 flex gap-4 items-start">
+<span class="material-symbols-outlined text-ink-faint shrink-0">info</span>
+<p class="font-mono-data text-[11px] italic text-ink-soft leading-relaxed">
+                                Educational model — not a clinical prediction. These curves represent theoretical protein denaturation thresholds under constant environmental stress.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Chart -->
+<div class="relative bg-surface p-figure-padding border border-rule/5">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-ui-label uppercase text-ink-faint">Projection VIII-Alpha</h3>
+<span class="font-mono-data text-[10px] text-ink-faint">REF: ISO 7243:2017</span>
+</div>
+<div class="chart-container h-80 w-full relative">
+<!-- Grid Lines / Reference Lines -->
+<div class="reference-line" style="bottom: calc((39 - 37) / 6 * 100%)">
+<span class="absolute right-0 -top-5 font-mono-data text-[10px] text-ink-faint bg-surface px-1">Plate II 39°</span>
+</div>
+<div class="reference-line" style="bottom: calc((40 - 37) / 6 * 100%)">
+<span class="absolute right-0 -top-5 font-mono-data text-[10px] text-ink-faint bg-surface px-1">Plate III 40°</span>
+</div>
+<div class="reference-line" style="bottom: calc((40.5 - 37) / 6 * 100%)">
+<span class="absolute right-0 -top-5 font-mono-data text-[10px] text-ink-faint bg-surface px-1">Plate VI 40.5°</span>
+</div>
+<div class="reference-line" style="bottom: calc((42 - 37) / 6 * 100%)">
+<span class="absolute right-0 -top-5 font-mono-data text-[10px] text-ink-faint bg-surface px-1">Plate IV 42°</span>
+</div>
+<!-- SVG Curve -->
+<svg class="absolute inset-0 w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="data-line" d="M 0,100 Q 40,80 100,20"></path>
+<!-- Intersection Points -->
+<circle cx="28" cy="85" fill="#7F1414" r="3"></circle>
+<circle cx="52" cy="70" fill="#7F1414" r="3"></circle>
+<circle cx="68" cy="60" fill="#7F1414" r="3"></circle>
+<circle cx="95" cy="25" fill="#7F1414" r="3"></circle>
+</svg>
+<!-- Axis Labels -->
+<div class="absolute -left-12 top-1/2 -translate-y-1/2 -rotate-90 font-mono-data text-[10px] text-ink-faint whitespace-nowrap">
+                        Core temperature (°C)
+                    </div>
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 font-mono-data text-[10px] text-ink-faint">
+                        Minutes
+                    </div>
+<!-- X-Axis Markers -->
+<div class="absolute -bottom-5 left-0 font-mono-data text-[9px] text-ink-faint">0</div>
+<div class="absolute -bottom-5 right-0 font-mono-data text-[9px] text-ink-faint">60</div>
+<!-- Y-Axis Markers -->
+<div class="absolute -left-5 bottom-0 font-mono-data text-[9px] text-ink-faint">37</div>
+<div class="absolute -left-5 top-0 font-mono-data text-[9px] text-ink-faint">43</div>
+</div>
+</div>
+</section>
+<!-- Colophon / Footer -->
+<footer class="mt-chapter-gap border-t border-rule pt-gutter grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="font-mono-data text-[10px] uppercase text-primary font-bold">Thermal Archive</div>
+<p class="font-marginalia text-marginalia text-ink-soft italic">
+                    © 1924 Surveyor’s Archive. Distributed under MIT License. Part of the Global Heat Threshold Consortium.
+                </p>
+<div class="flex gap-4">
+<a class="text-heat-42 font-mono-data text-[11px] underline underline-offset-4 hover:text-primary transition-colors" href="#">← Back to top</a>
+<a class="text-heat-42 font-mono-data text-[11px] underline underline-offset-4 hover:text-primary transition-colors" href="#">HeatThreshold</a>
+</div>
+</div>
+<div class="md:col-span-2 space-y-4">
+<div class="font-mono-data text-[10px] uppercase text-ink-faint">Primary Data Sources &amp; Retrieval Dates</div>
+<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 font-mono-data text-[10px] text-ink-soft">
+<div>PDB <span class="text-ink-faint">(2023-11-04)</span></div>
+<div>AlphaFold <span class="text-ink-faint">(2023-10-12)</span></div>
+<div>HPA <span class="text-ink-faint">(2023-12-01)</span></div>
+<div>PubMed <span class="text-ink-faint">(2024-01-15)</span></div>
+<div>ClinVar <span class="text-ink-faint">(2023-11-28)</span></div>
+<div>Reactome <span class="text-ink-faint">(2024-02-02)</span></div>
+</div>
+</div>
+</footer>
+</main>
+<!-- Fixed Badge -->
+<div class="fixed bottom-6 right-6 z-[60] bg-surface-card border border-rule px-4 py-2 font-mono-data text-[11px] tracking-widest shadow-sm">
+        PLATE VIII
+    </div>
+<!-- Micro-interactions Script -->
+<script>
+        const sliderWbgt = document.getElementById('slider-wbgt');
+        const sliderDuration = document.getElementById('slider-duration');
+        const valWbgt = document.getElementById('val-wbgt');
+        const valDuration = document.getElementById('val-duration');
+
+        sliderWbgt.addEventListener('input', (e) => {
+            valWbgt.textContent = parseFloat(e.target.value).toFixed(1);
+            updateChart();
+        });
+
+        sliderDuration.addEventListener('input', (e) => {
+            valDuration.textContent = e.target.value;
+            updateChart();
+        });
+
+        function updateChart() {
+            // Simple visual reactivity - change the curve opacity or subtle color shift
+            const path = document.querySelector('.data-line');
+            const intensity = (sliderWbgt.value - 20) / 25;
+            path.style.strokeWidth = 1.5 + (intensity * 2);
+            path.style.stroke = intensity > 0.6 ? '#7F1414' : '#221A15';
+        }
+    </script>
+</body></html>

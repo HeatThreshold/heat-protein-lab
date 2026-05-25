@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heat Protein Lab | Plate II</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "heat-41": "#B23A1F",
+                      "secondary-fixed-dim": "#ffb4ac",
+                      "on-tertiary": "#ffffff",
+                      "heat-44": "#1B0707",
+                      "paper-edge": "#E9E0C8",
+                      "on-primary-fixed-variant": "#474746",
+                      "inverse-surface": "#333026",
+                      "surface-container-low": "#f9f3e3",
+                      "surface": "#fff9ea",
+                      "tertiary-fixed": "#c9e7f8",
+                      "on-primary": "#ffffff",
+                      "outline": "#747878",
+                      "primary": "#000000",
+                      "rule": "#221A15",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#5f5e5e",
+                      "tertiary-container": "#001e2b",
+                      "surface-variant": "#e8e2d2",
+                      "surface-container-high": "#eee8d8",
+                      "on-tertiary-fixed": "#001e2b",
+                      "heat-40": "#C97A2B",
+                      "ink-soft": "#3D3A33",
+                      "surface-card": "#FBF6E8",
+                      "tertiary-fixed-dim": "#adcbdc",
+                      "outline-variant": "#c4c7c7",
+                      "on-surface": "#1e1c12",
+                      "ink-faint": "#8A8275",
+                      "heat-42": "#7F1414",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#1b1b1b",
+                      "inverse-on-surface": "#f6f0e0",
+                      "surface-bright": "#fff9ea",
+                      "surface-container": "#f4eede",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#2e4a58",
+                      "inverse-primary": "#c8c6c5",
+                      "on-error": "#ffffff",
+                      "on-background": "#1e1c12",
+                      "on-secondary": "#ffffff",
+                      "surface-viewer": "#0F1217",
+                      "secondary": "#aa342f",
+                      "on-secondary-fixed-variant": "#891c1a",
+                      "on-secondary-fixed": "#410002",
+                      "on-primary-container": "#858383",
+                      "heat-38": "#6E7C73",
+                      "on-tertiary-container": "#6b8897",
+                      "surface-container-highest": "#e8e2d2",
+                      "primary-fixed": "#e5e2e1",
+                      "heat-39": "#B8A04F",
+                      "secondary-container": "#fe7267",
+                      "on-surface-variant": "#444748",
+                      "primary-container": "#1b1b1b",
+                      "tertiary": "#000000",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "heat-37": "#4F6B7A",
+                      "background": "#fff9ea",
+                      "surface-dim": "#dfdaca",
+                      "on-secondary-container": "#70060b",
+                      "secondary-fixed": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "chapter-gap": "128px",
+                      "baseline": "8px",
+                      "figure-padding": "48px",
+                      "paragraph-gap": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Spectral"],
+                      "headline-lg": ["Spectral"],
+                      "body-md": ["Spectral"],
+                      "body-lg": ["Spectral"],
+                      "marginalia": ["Spectral"],
+                      "ui-label": ["Inter"],
+                      "display-hero": ["Spectral"],
+                      "mono-data": ["IBM Plex Mono"]
+              },
+              "fontSize": {
+                      "headline-md": ["1.75rem", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-lg": ["2.25rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-md": ["1.0625rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                      "body-lg": ["1.1875rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                      "marginalia": ["0.8125rem", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "ui-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-hero": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-data": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fff9ea; /* surface */
+            color: #1e1c12; /* on-surface */
+            overflow-x: hidden;
+        }
+        .temperature-strip {
+            height: 4px;
+            background: linear-gradient(to right, #B8A04F 28%, transparent 28%);
+        }
+        .figure-viewer {
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md antialiased">
+<!-- Global Progress / Temperature Strip -->
+<div class="fixed top-0 left-0 w-full z-[100] bg-surface-variant/20 backdrop-blur-sm h-12 flex items-center px-4 border-b border-rule/10">
+<div class="absolute top-0 left-0 w-full temperature-strip"></div>
+<div class="flex justify-between w-full items-baseline pt-2">
+<span class="font-mono-data text-mono-data tracking-tighter opacity-80 uppercase">Heat Protein Lab</span>
+<div class="flex items-center gap-2">
+<span class="font-mono-data text-mono-data text-heat-40">40.0 °C</span>
+<span class="text-ink-faint text-[10px] uppercase font-ui-label tracking-widest">Active Threshold</span>
+</div>
+</div>
+</div>
+<!-- Main Navigation (Shared TopAppBar Implementation) -->
+<header class="fixed top-12 left-0 w-full z-50 flex flex-col items-center bg-surface/95 backdrop-blur-sm border-b border-rule">
+<nav class="max-w-7xl w-full flex justify-between items-center h-16 px-gutter">
+<div class="text-headline-md font-headline-md font-bold tracking-tight text-on-surface">Heat Protein Lab</div>
+<div class="hidden md:flex gap-8">
+<a class="text-ink-faint hover:text-on-surface transition-colors font-ui-label text-ui-label uppercase" href="#">Lab Notes</a>
+<a class="text-on-surface border-b border-tertiary pb-1 font-ui-label text-ui-label uppercase" href="#">Protein Atlas</a>
+<a class="text-ink-faint hover:text-on-surface transition-colors font-ui-label text-ui-label uppercase" href="#">Methodology</a>
+<a class="text-ink-faint hover:text-on-surface transition-colors font-ui-label text-ui-label uppercase" href="#">Archive</a>
+</div>
+<div class="font-mono-data text-mono-data font-bold">37.2°C</div>
+</nav>
+</header>
+<!-- Sidebar (Shared SideNavBar Implementation - Hidden by logic on this specific Plate focus) -->
+<aside class="fixed left-0 top-0 h-full z-40 hidden lg:flex flex-col p-baseline bg-surface-container-low border-r border-rule w-64 pt-32">
+<div class="mb-12 px-4">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-1">Surveyor Plate 09</h2>
+<p class="text-body-md font-body-md text-ink-soft opacity-70">Batch: Alpha-Helix-7</p>
+</div>
+<nav class="flex flex-col gap-4">
+<a class="text-ink-soft pl-4 hover:text-on-surface font-body-md flex items-center gap-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span> Primary Narrative
+            </a>
+<a class="text-on-surface font-bold border-l-2 border-tertiary pl-4 bg-surface-container-highest font-body-md flex items-center gap-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">view_in_ar</span> Molecular Viewer
+            </a>
+<a class="text-ink-soft pl-4 hover:text-on-surface font-body-md flex items-center gap-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">database</span> Variant Data
+            </a>
+<a class="text-ink-soft pl-4 hover:text-on-surface font-body-md flex items-center gap-3 py-2" href="#">
+<span class="material-symbols-outlined text-[20px]">format_quote</span> Citations
+            </a>
+</nav>
+<div class="mt-auto p-4">
+<button class="w-full border border-rule py-3 font-ui-label text-ui-label uppercase hover:bg-on-surface hover:text-surface transition-all">Export Data</button>
+</div>
+</aside>
+<!-- Main Content Grid -->
+<main class="relative pt-40 pb-chapter-gap px-margin-mobile md:px-gutter max-w-[1600px] mx-auto lg:ml-64 transition-all">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-12">
+<!-- MARGINALIA (LEFT 20% on desktop) -->
+<div class="md:col-span-12 lg:col-span-2 flex flex-col gap-6 lg:border-r border-rule/10 lg:pr-gutter order-2 lg:order-1 mt-12 lg:mt-0">
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-[10px] tracking-widest text-ink-faint uppercase">Classification</span>
+<span class="font-mono-data text-mono-data font-bold text-on-surface uppercase">PLATE II</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-mono-data text-[10px] tracking-widest text-ink-faint uppercase">Range</span>
+<span class="font-mono-data text-mono-data text-heat-39">38.5 → 40.0 °C</span>
+</div>
+<div class="pt-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full border border-heat-39/30 bg-heat-39/5 text-[10px] font-mono-data text-heat-39">
+                        ACTIVATION · HSF1 → trimer
+                    </span>
+</div>
+<div class="hidden lg:block pt-baseline opacity-30 italic font-marginalia text-marginalia">
+                    "The trimerization of HSF1 constitutes the primary bottleneck in the mammalian stress response."
+                </div>
+</div>
+<!-- READING COLUMN (CENTER 50% on desktop) -->
+<div class="md:col-span-12 lg:col-span-6 order-1 lg:order-2 flex flex-col gap-paragraph-gap">
+<h1 class="font-display-hero text-headline-lg lg:text-display-hero text-on-surface leading-tight mb-baseline">
+                    When heat arrives
+                </h1>
+<div class="space-y-paragraph-gap text-body-lg text-on-surface selection:bg-heat-39/20">
+<p>
+                        The cellular response to thermal stress is governed by a precise molecular switch. In quiescent states, the Heat Shock Factor 1 (HSF1) exists as an inert monomer, tethered by its association with molecular chaperones, most notably <span class="border-b border-rule/20 font-medium">HSP90</span>. This sequestration prevents the factor from exerting its transcriptional potential prematurely.
+                    </p>
+<p>
+                        As temperatures rise—breaching the critical threshold of 38.5°C—the cellular demand for protein folding increases exponentially. This "proteotoxic stress" creates a surplus of unfolded proteins that compete for the attention of HSP90. Through a process of competitive titration, the chaperone dissociates from HSF1 to manage the broader unfolding crisis, thereby liberating the factor.
+                    </p>
+<p>
+                        Once unburdened, liberated HSF1 monomers undergo a swift conformational metamorphosis. Through hydrophobic interactions within their leucine zipper domains, three individual units coalesce into a <span class="text-heat-40 font-bold">homotrimer</span>. This trimeric structure is the prerequisite for nuclear translocation, granting the assembly access to the genomic vault.
+                    </p>
+<p>
+                        Within the nucleus, the trimer undergoes hyperphosphorylation—a series of chemical "tags" that activate its transactivation domain. The finalized complex binds with high affinity to <span class="italic">Heat-Shock Elements (HSEs)</span> on the DNA, initiating a rapid burst of mRNA synthesis for protective proteins. This is the kinetic heartbeat of cellular survival.
+                    </p>
+</div>
+<div class="mt-8 pt-gutter border-t border-rule/10">
+<details class="group">
+<summary class="flex items-center gap-2 cursor-pointer text-ui-label font-ui-label uppercase text-ink-faint hover:text-on-surface transition-colors select-none">
+<span class="material-symbols-outlined text-[18px] group-open:rotate-180 transition-transform">expand_more</span>
+                            Sources for this chapter
+                        </summary>
+<div class="mt-4 pl-6 border-l-2 border-rule/5 flex flex-col gap-3">
+<p class="font-marginalia text-marginalia text-ink-soft">
+                                [1] Åkerfelt, M., Morimoto, R. I., &amp; Sistonen, L. (2010). Heat shock factors: integrators of cell stress, development and lifespan. <span class="italic">Nature Reviews Molecular Cell Biology.</span>
+</p>
+<p class="font-marginalia text-marginalia text-ink-soft">
+                                [2] Richter, K., Haslbeck, M., &amp; Buchner, J. (2010). The Heat Shock Response: Life on the Verge of Death. <span class="italic">Molecular Cell.</span>
+</p>
+</div>
+</details>
+</div>
+</div>
+<!-- FIGURE COLUMN (RIGHT 30% on desktop) -->
+<div class="md:col-span-12 lg:col-span-4 order-3 lg:order-3 flex flex-col gap-gutter">
+<div class="bg-surface-container/50 border border-rule/10 p-4 sticky top-32">
+<div class="mb-4 text-center">
+<span class="font-mono-data text-[9px] tracking-widest text-ink-faint uppercase block mb-1">Status</span>
+<span class="font-mono-data text-[10px] font-bold text-on-surface">VISUALIZATION, NOT MOLECULAR DYNAMICS.</span>
+</div>
+<!-- Figure 1: Schematic -->
+<div class="flex flex-col gap-4 mb-12">
+<div class="bg-white/40 p-baseline border border-rule/5 flex items-center justify-center min-h-[240px]">
+<img alt="A scientific schematic illustrating the process of molecular trimerization. On the left, a single circular monomer with a short protruding line. An arrow points to the right where three similar circles overlap in a Venn-diagram like cluster to form a trimer. The style is minimalist black and white line art with a clean, academic look consistent with a botanical atlas." class="max-w-full h-auto mix-blend-multiply" src="https://lh3.googleusercontent.com/aida/ADBb0ugrGmwGj1-Nb7o9trRfNTZFN75gkI2b3kVorKZVzus25MSCfzIXuUbml5Hj4EtPRomes2yXnqcQ4zgdjSt7uZe6CiaN5JZePgb_hCkaWoo3bS2f-QeWdjLrluSNowQ86yzxSYbIT-zi06OKpK5F4bu-lkpsyhXcrD3tBpSRL9VXgQcY2zSo6fNFlOxJkzUJSeaOdGGXEo2qhetA4mZMCY1dDaHWWq8e3YDytBQaXjqzvFQz_UDvf2R1ats"/>
+</div>
+<p class="font-mono-data text-[11px] italic text-ink-soft text-center opacity-70">Fig 1.1 — Schematic of monomer to trimer (not to scale).</p>
+</div>
+<!-- Figure 2: 3D Protein Viewer -->
+<div class="flex flex-col gap-3">
+<div class="relative w-full aspect-square md:aspect-video lg:aspect-square bg-surface-viewer rounded overflow-hidden figure-viewer group">
+<img class="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105" data-alt="A highly detailed 3D molecular visualization of a protein trimer structure, specifically HSP90, against a deep black background. The protein is rendered in a ribbon diagram style with vibrant spectral colors indicating the folding regions. The lighting is dramatic, with soft highlights defining the complex coils and helices. The overall aesthetic is dark and technical, resembling high-end scientific software used in academic research environments." src="https://lh3.googleusercontent.com/aida/ADBb0ugfSin3EAvVqdXIxZ3Hepj0A57vRuH_tLQoUNA1r1QZyge0oXr961_XGAa_n_3Eejb7XdpZuELpcdCL4nscouyvyX8mDhfigg2sgxp_7s946nfLZkW2uFG4sUX-qzLqzaesMox0m66o7_V-NHLlPJiLj2OlX6lv0sWQ2hYK1tkK0I3jlGjW4mcKL6HfLUCta_S1sjI4-n5RZ7DHGOkGuW6M_HXlLK8wNp5kmWBkeAQx4oKDnOnEuUJ2-A"/>
+<!-- Overlays -->
+<div class="absolute top-3 left-3 flex flex-col">
+<span class="font-mono-data text-[10px] text-white/90 tracking-tighter bg-black/40 px-2 py-0.5 backdrop-blur-sm">PDB · 2CG9 · HSP90</span>
+</div>
+<div class="absolute bottom-3 right-3">
+<span class="font-mono-data text-[8px] text-white/40 uppercase tracking-widest">RCSB PDB · retrieved 2026-05-25</span>
+</div>
+<!-- Interactive hint -->
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+<span class="material-symbols-outlined text-white text-3xl">view_in_ar</span>
+</div>
+</div>
+<div class="flex justify-between items-center px-1">
+<p class="font-mono-data text-[11px] text-ink-faint">Structural Reference — HSP90 Dimer-Trimer interface</p>
+<span class="material-symbols-outlined text-[14px] text-ink-faint cursor-help" title="Interactive 3D model available on desktop">info</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Page Indicator -->
+<div class="fixed bottom-margin-mobile right-margin-mobile md:bottom-gutter md:right-gutter z-[60] flex items-center gap-4 group">
+<div class="flex flex-col items-end">
+<span class="font-mono-data text-[10px] text-ink-faint uppercase tracking-[0.2em]">Archived Section</span>
+<span class="font-mono-data text-mono-data font-bold text-heat-40 border-b border-heat-40/50">PLATE II</span>
+</div>
+<div class="w-10 h-10 bg-on-surface text-surface flex items-center justify-center rounded-sm transition-transform group-hover:-translate-y-1">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</div>
+</div>
+<!-- Bottom Navigation (Shared BottomNavBar Implementation for Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 md:hidden bg-surface border-t border-rule">
+<button class="flex flex-col items-center justify-center text-ink-faint hover:text-secondary group transition-all">
+<span class="material-symbols-outlined">book_2</span>
+<span class="text-ui-label font-ui-label">Chapters</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-faint hover:text-secondary group transition-all">
+<span class="material-symbols-outlined">genetics</span>
+<span class="text-ui-label font-ui-label">Variants</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary font-bold group transition-transform translate-y-[-2px]">
+<span class="material-symbols-outlined">biotech</span>
+<span class="text-ui-label font-ui-label">Figure</span>
+</button>
+<button class="flex flex-col items-center justify-center text-ink-faint hover:text-secondary group transition-all">
+<span class="material-symbols-outlined">science</span>
+<span class="text-ui-label font-ui-label">Lab</span>
+</button>
+</nav>
+<script>
+        // Micro-interaction for temperature strip progress based on scroll
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            // Map 0-100 scroll to 37.0-42.0 temperature range for flair
+            const temp = (37.2 + (scrolled * 0.05)).toFixed(1);
+            
+            const readout = document.querySelector('.font-mono-data.text-heat-40');
+            if(readout) readout.innerText = `${temp} °C`;
+            
+            const strip = document.querySelector('.temperature-strip');
+            if(strip) strip.style.background = `linear-gradient(to right, #B8A04F ${scrolled}%, transparent ${scrolled}%)`;
+        });
+    </script>
+</body></html>

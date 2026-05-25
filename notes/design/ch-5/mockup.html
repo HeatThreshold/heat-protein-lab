@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thermal Archive — Plate 04-B</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#eee8d8",
+                        "heat-39": "#B8A04F",
+                        "on-tertiary-fixed-variant": "#2e4a58",
+                        "surface-dim": "#dfdaca",
+                        "ink-faint": "#8A8275",
+                        "background": "#fff9ea",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#747878",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#c9e7f8",
+                        "paper-edge": "#E9E0C8",
+                        "inverse-surface": "#333026",
+                        "primary-fixed": "#e5e2e1",
+                        "heat-40": "#C97A2B",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#70060b",
+                        "heat-37": "#4F6B7A",
+                        "on-surface-variant": "#444748",
+                        "ink-soft": "#3D3A33",
+                        "tertiary": "#000000",
+                        "on-tertiary-container": "#6b8897",
+                        "secondary": "#aa342f",
+                        "heat-44": "#1B0707",
+                        "rule": "#221A15",
+                        "surface-tint": "#5f5e5e",
+                        "surface-variant": "#e8e2d2",
+                        "on-primary-fixed-variant": "#474746",
+                        "heat-41": "#B23A1F",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "tertiary-fixed-dim": "#adcbdc",
+                        "surface-viewer": "#0F1217",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410002",
+                        "on-background": "#1e1c12",
+                        "primary": "#000000",
+                        "surface-card": "#FBF6E8",
+                        "surface-container-highest": "#e8e2d2",
+                        "surface-container-low": "#f9f3e3",
+                        "outline-variant": "#c4c7c7",
+                        "tertiary-container": "#001e2b",
+                        "on-surface": "#1e1c12",
+                        "heat-42": "#7F1414",
+                        "on-secondary-fixed-variant": "#891c1a",
+                        "inverse-primary": "#c8c6c5",
+                        "secondary-fixed": "#ffdad6",
+                        "heat-38": "#6E7C73",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary-container": "#fe7267",
+                        "surface-bright": "#fff9ea",
+                        "on-tertiary-fixed": "#001e2b",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f4eede",
+                        "surface": "#fff9ea",
+                        "error": "#ba1a1a",
+                        "primary-container": "#1b1b1b",
+                        "inverse-on-surface": "#f6f0e0",
+                        "on-primary-container": "#858383"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "paragraph-gap": "24px",
+                        "chapter-gap": "128px",
+                        "baseline": "8px",
+                        "figure-padding": "48px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "marginalia": ["Spectral"],
+                        "headline-lg": ["Spectral"],
+                        "display-hero": ["Spectral"],
+                        "ui-label": ["Inter"],
+                        "mono-data": ["IBM Plex Mono"],
+                        "headline-md": ["Spectral"],
+                        "body-md": ["Spectral"],
+                        "body-lg": ["Spectral"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fff9ea; /* Using the exact paper tone from config */
+            scroll-behavior: smooth;
+        }
+        .heat-ramp-low { background-color: #fff9ea; border: 1px solid #e8e2d2; }
+        .heat-ramp-med { background-color: #eee8d8; }
+        .heat-ramp-high { background-color: #C97A2B; }
+        .heat-ramp-vhigh { background-color: #B23A1F; }
+        
+        /* Custom scrollbar for archival feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f4eede; }
+        ::-webkit-scrollbar-thumb { background: #8A8275; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-heat-40 selection:text-white">
+<!-- Temperature Strip (Global Progress) -->
+<div class="fixed top-0 left-0 w-full h-[4px] bg-surface-container-high z-[100]">
+<div class="h-full bg-heat-40" style="width: 50%;"></div>
+</div>
+<!-- Top Navigation Anchor (Shared Component: TopAppBar) -->
+<header class="fixed top-0 w-full h-12 z-50 bg-surface dark:bg-surface-dim border-b border-rule flex justify-between items-center px-gutter w-full max-w-[1440px] mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-on-surface tracking-tight">Thermal Archive</div>
+<div class="flex items-center gap-6">
+<span class="font-mono-data text-mono-data text-heat-40">40.0 °C</span>
+<span class="material-symbols-outlined text-primary" data-icon="thermostat">thermostat</span>
+</div>
+</header>
+<!-- Sidebar Navigation (Shared Component: SideNavBar) -->
+<nav class="h-screen w-64 left-0 top-0 fixed hidden lg:flex flex-col bg-surface-container dark:bg-surface-container-high border-r border-rule py-8 gap-y-4">
+<div class="px-6 mb-8">
+<div class="font-headline-lg text-headline-lg text-primary">Thermal Archive</div>
+<div class="font-ui-label text-ui-label uppercase tracking-widest text-ink-faint mt-1">Plate 04-B</div>
+</div>
+<div class="flex flex-col flex-1">
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span> Abstract
+            </a>
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[18px]">biotech</span> Methods
+            </a>
+<a class="text-primary font-bold border-l-4 border-secondary pl-4 py-2 bg-paper-edge flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span> Data
+            </a>
+<a class="text-ink-faint font-medium pl-4 py-2 hover:bg-paper-edge transition-all flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[18px]">format_quote</span> Citations
+            </a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full border border-rule py-2 font-ui-label text-ui-label uppercase tracking-widest hover:bg-primary hover:text-white transition-colors duration-150 active:scale-95">
+                Export PDF
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-12 min-h-screen">
+<article class="max-w-[1440px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-[20%_50%_30%] gap-8 py-chapter-gap items-start">
+<!-- Column 1: Marginalia -->
+<aside class="space-y-8 lg:sticky lg:top-24">
+<div>
+<div class="font-mono-data text-mono-data uppercase tracking-widest text-ink-faint">Reference</div>
+<div class="font-headline-md text-headline-md mt-2">PLATE V</div>
+</div>
+<div class="pt-4 border-t border-rule/10">
+<div class="font-mono-data text-mono-data text-heat-40 text-[1.25rem] font-bold">40.0 °C</div>
+<div class="font-marginalia text-marginalia italic text-ink-soft mt-1">Observation temperature for inducible chaperone clusters.</div>
+</div>
+<div class="pt-4">
+<span class="inline-block px-3 py-1 bg-surface-container-high border border-rule/20 rounded-full font-ui-label text-[10px] uppercase tracking-tighter">
+                        EXPRESSION · Human Protein Atlas
+                    </span>
+</div>
+</aside>
+<!-- Column 2: Reading -->
+<section class="space-y-paragraph-gap">
+<h1 class="font-display-hero text-headline-lg lg:text-display-hero text-primary leading-tight">
+                    Where the defenders live
+                </h1>
+<div class="space-y-paragraph-gap font-body-lg text-body-lg text-ink-soft max-w-prose">
+<p>
+                        The biological imperative of thermal stability is not localized to any single organ system. Instead, the molecular machinery of cellular protection—primarily composed of heat-shock proteins (HSPs)—is expressed across virtually every niche of the human anatomy. This cellular ubiquity ensures that whether a thermal stress is environmental or metabolic, no tissue is left without a primary line of defense against protein denaturative forces.
+                    </p>
+<p>
+                        Heat-shock proteins act as molecular chaperones, guiding the folding of new proteins and repairing those damaged by rising temperatures. In tissues such as the heart and the skeletal muscle, where metabolic heat generation is high even under normal physiological conditions, these proteins maintain a constant vigilance. In the brain, where the precision of protein folding is critical for synaptic transmission, their role becomes a vital safeguard against neurodegenerative drift.
+                    </p>
+<p>
+                        This systemic distribution is precisely what makes whole-body heat acclimatization possible. Through repeated exposure to elevated temperatures, the "basal" expression levels of these chaperones can be upregulated globally. The body does not just learn to cool itself through sweat; it hardens itself at a molecular level, transforming every cell into a more resilient vessel capable of withstanding the 40.0 °C threshold.
+                    </p>
+</div>
+<div class="mt-12 p-6 bg-surface-card border border-rule/10 rounded-lg">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-heat-40" data-icon="lightbulb" data-weight="fill">lightbulb</span>
+<p class="font-marginalia text-marginalia italic">
+                            "The chaperone network represents a universal language of survival, spoken in the same dialect by a cardiac myocyte and a dermal fibroblast alike."
+                        </p>
+</div>
+</div>
+</section>
+<!-- Column 3: Figure (Tissue Heatmap) -->
+<figure class="lg:sticky lg:top-24 space-y-4">
+<div class="bg-surface-container-low border border-rule/20 p- figure-padding overflow-hidden">
+<div class="flex justify-end mb-4">
+<div class="flex gap-4 font-mono-data text-[10px] uppercase tracking-tighter text-ink-faint">
+<span>HSPA1A</span>
+<span>HSPA8</span>
+<span>HSP90AA1</span>
+</div>
+</div>
+<div class="grid grid-cols-[1fr_repeat(3,24px)] gap-y-1 items-center">
+<!-- Tissue Rows -->
+<script>
+                            const tissues = [
+                                "Brain", "Heart", "Liver", "Kidney", "Lung", 
+                                "Skeletal muscle", "Skin", "Bone marrow", "Spleen", 
+                                "Pancreas", "Adrenal gland", "Testis", "Ovary", 
+                                "Stomach", "Colon", "Thyroid", "Prostate", "Placenta"
+                            ];
+                            const heatmapData = [
+                                [3, 4, 3], [4, 4, 4], [3, 3, 4], [3, 2, 3], [3, 3, 3],
+                                [4, 4, 4], [4, 3, 2], [2, 3, 2], [3, 2, 2],
+                                [3, 3, 4], [2, 3, 2], [4, 4, 4], [3, 3, 2],
+                                [3, 3, 3], [3, 3, 3], [2, 2, 3], [2, 3, 2], [4, 4, 3]
+                            ];
+                            const getHeatClass = (val) => {
+                                if (val === 1) return 'heat-ramp-low';
+                                if (val === 2) return 'heat-ramp-med';
+                                if (val === 3) return 'heat-ramp-high';
+                                return 'heat-ramp-vhigh';
+                            };
+
+                            tissues.forEach((tissue, i) => {
+                                document.write(`<div class="font-mono-data text-[11px] text-ink-soft pr-2 truncate">${tissue}</div>`);
+                                heatmapData[i].forEach(val => {
+                                    document.write(`<div class="w-5 h-5 ${getHeatClass(val)} border border-rule/5"></div>`);
+                                });
+                            });
+                        </script>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="flex items-center gap-4">
+<div class="flex gap-1">
+<div class="w-3 h-3 heat-ramp-low"></div>
+<div class="w-3 h-3 heat-ramp-med"></div>
+<div class="w-3 h-3 heat-ramp-high"></div>
+<div class="w-3 h-3 heat-ramp-vhigh"></div>
+</div>
+<span class="font-mono-data text-[9px] uppercase text-ink-faint">Not Detected → High</span>
+</div>
+<figcaption class="font-mono-data text-[10px] text-ink-faint leading-tight mt-2">
+                            Source: Human Protein Atlas, IHC consensus — retrieved 2026-05-25.
+                        </figcaption>
+</div>
+</div>
+<!-- Descriptive Visual Context -->
+<div class="w-full h-48 bg-surface-viewer overflow-hidden relative group">
+<img alt="Tissue Micrograph" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="A highly detailed histological micrograph of human tissue, rendered in a sophisticated scientific aesthetic. The image displays cellular structures with microscopic precision, illuminated by a warm, archival light that emphasizes organic textures. The color palette is dominated by soft creams, deep ochres, and terra cotta stains, reflecting the thermal archive brand identity. The lighting is focused and soft, suggesting a professional medical journal observation under high-quality optics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD88fIaUo4OWQ_-jIrCN-jpnSqwKDF-8X2bb7ATIMj_xxXxcSh-UUiUg4siuNWKtk63xqx6NdnLsRrV8RBDYIC7bDCfKFOQhGgf-pwrNPNNqyYft7X4rmw-ZOkK352Ei-crMZwjw_mkI4KM7S8qguPBrqSlpXXd0Aq_qKd_JGfCssOJgpBToNIL5VwBX2xaU_whP_ah-KgQzMduYG3jaqVTTFb1wu9KtB9bZNRwMAihldR-AgTe7woHwre-OZs466ZXZbF9SyFhihA"/>
+<div class="absolute bottom-4 left-4">
+<span class="font-ui-label text-[10px] bg-rule text-white px-2 py-1 uppercase tracking-widest">Fig. 12: Cellular Grains</span>
+</div>
+</div>
+</figure>
+</article>
+</main>
+<!-- Footer Cluster (Shared Component: Footer) -->
+<footer class="w-full py-12 mt-chapter-gap bg-surface-container-low dark:bg-surface-container-lowest border-t border-rule">
+<div class="max-w-[1440px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="font-mono-data text-mono-data uppercase text-primary">Surveyor's Archive</div>
+<p class="font-marginalia text-marginalia italic text-ink-soft">
+                    © 1924 Surveyor’s Archive. Distributed under Open Science License. Data integrity verified via cryptographic thermal hashing.
+                </p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-marginalia text-marginalia italic text-ink-faint hover:text-secondary transition-opacity" href="#">Accession Log</a>
+<a class="font-marginalia text-marginalia italic text-ink-faint hover:text-secondary transition-opacity" href="#">Protocol</a>
+<a class="font-marginalia text-marginalia italic text-ink-faint hover:text-secondary transition-opacity" href="#">Reference Atlas</a>
+</div>
+<div class="flex justify-end items-end">
+<div class="font-headline-md text-headline-md opacity-20 rotate-[-5deg] select-none">Plate V</div>
+</div>
+</div>
+</footer>
+<!-- Floating Badge for Chapter Confirmation -->
+<div class="fixed bottom-8 right-8 z-40 pointer-events-none">
+<div class="bg-primary text-white px-6 py-3 font-headline-md text-headline-md shadow-xl transform rotate-3">
+            Plate V
+        </div>
+</div>
+<script>
+        // Interactive Micro-Interaction: Cell Highlight
+        document.querySelectorAll('.heat-ramp-low, .heat-ramp-med, .heat-ramp-high, .heat-ramp-vhigh').forEach(cell => {
+            cell.addEventListener('mouseenter', () => {
+                cell.style.transform = 'scale(1.2)';
+                cell.style.zIndex = '10';
+                cell.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                cell.style.transition = 'all 0.15s ease';
+            });
+            cell.addEventListener('mouseleave', () => {
+                cell.style.transform = 'scale(1)';
+                cell.style.zIndex = '1';
+                cell.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body></html>

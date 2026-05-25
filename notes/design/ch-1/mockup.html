@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heat Protein Lab | Plate I</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c8c6c5",
+                    "tertiary": "#000000",
+                    "on-primary": "#ffffff",
+                    "paper-edge": "#E9E0C8",
+                    "primary-container": "#1b1b1b",
+                    "heat-42": "#7F1414",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e5e2e1",
+                    "surface-container-highest": "#e8e2d2",
+                    "heat-41": "#B23A1F",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#ffdad6",
+                    "on-secondary-fixed-variant": "#891c1a",
+                    "primary": "#000000",
+                    "tertiary-fixed": "#c9e7f8",
+                    "heat-40": "#C97A2B",
+                    "heat-37": "#4F6B7A",
+                    "tertiary-fixed-dim": "#adcbdc",
+                    "outline": "#747878",
+                    "on-surface": "#1e1c12",
+                    "surface-viewer": "#0F1217",
+                    "inverse-on-surface": "#f6f0e0",
+                    "ink-soft": "#3D3A33",
+                    "on-primary-fixed": "#1b1b1b",
+                    "on-tertiary-fixed": "#001e2b",
+                    "tertiary-container": "#001e2b",
+                    "secondary-container": "#fe7267",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1e1c12",
+                    "heat-39": "#B8A04F",
+                    "error": "#ba1a1a",
+                    "surface": "#fff9ea",
+                    "surface-container-low": "#f9f3e3",
+                    "on-tertiary-fixed-variant": "#2e4a58",
+                    "on-tertiary-container": "#6b8897",
+                    "rule": "#221A15",
+                    "on-error-container": "#93000a",
+                    "surface-card": "#FBF6E8",
+                    "surface-variant": "#e8e2d2",
+                    "surface-tint": "#5f5e5e",
+                    "outline-variant": "#c4c7c7",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#858383",
+                    "ink-faint": "#8A8275",
+                    "surface-container": "#f4eede",
+                    "heat-38": "#6E7C73",
+                    "surface-container-high": "#eee8d8",
+                    "on-secondary-fixed": "#410002",
+                    "surface-dim": "#dfdaca",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "inverse-surface": "#333026",
+                    "background": "#fff9ea",
+                    "on-secondary-container": "#70060b",
+                    "on-primary-fixed-variant": "#474746",
+                    "secondary": "#aa342f",
+                    "surface-bright": "#fff9ea",
+                    "heat-44": "#1B0707"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "chapter-gap": "128px",
+                    "baseline": "8px",
+                    "paragraph-gap": "24px",
+                    "margin-mobile": "16px",
+                    "figure-padding": "48px"
+            },
+            "fontFamily": {
+                    "mono-data": ["IBM Plex Mono"],
+                    "marginalia": ["Spectral"],
+                    "body-md": ["Spectral"],
+                    "headline-lg": ["Spectral"],
+                    "body-lg": ["Spectral"],
+                    "ui-label": ["Inter"],
+                    "headline-md": ["Spectral"],
+                    "display-hero": ["Spectral"]
+            },
+            "fontSize": {
+                    "mono-data": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "marginalia": ["0.8125rem", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "body-md": ["1.0625rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                    "headline-lg": ["2.25rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["1.1875rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                    "ui-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["1.75rem", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-hero": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        .protein-canvas {
+            background: radial-gradient(circle at center, #1a1e26 0%, #0F1217 100%);
+        }
+        /* Custom scrollbar for academic feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f4eede; }
+        ::-webkit-scrollbar-thumb { background: #6E7C73; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-heat-38 selection:text-white font-body-md overflow-x-hidden">
+<!-- Global Temperature Progress Strip -->
+<nav class="fixed top-0 left-0 w-full h-1 z-[100] bg-surface-container-high">
+<div class="h-full bg-heat-38 transition-all duration-700 ease-out" style="width: 15%;"></div>
+<div class="absolute top-2 left-gutter flex items-center gap-2">
+<span class="font-mono-data text-ui-label text-heat-38 bg-background px-2 py-0.5 border border-rule/10">38.5 °C</span>
+</div>
+</nav>
+<!-- Top App Bar (Shared Component) -->
+<header class="fixed top-0 w-full h-16 flex justify-between items-center w-full px-gutter max-w-full z-50 bg-background border-b border-rule/5">
+<div class="font-display-hero text-headline-md font-bold tracking-tight text-primary">Heat Protein Lab</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center font-ui-label text-ui-label">
+<a class="text-primary border-b-2 border-primary hover:text-primary transition-colors duration-200" href="#">Abstract</a>
+<a class="text-ink-faint hover:text-primary transition-colors duration-200" href="#">Analysis</a>
+<a class="text-ink-faint hover:text-primary transition-colors duration-200" href="#">Structural Data</a>
+<a class="text-ink-faint hover:text-primary transition-colors duration-200" href="#">Citations</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">thermostat</span>
+<span class="material-symbols-outlined text-primary cursor-pointer">settings</span>
+</div>
+</div>
+</header>
+<!-- Main Scrollytelling Section -->
+<main class="relative pt-32 pb-chapter-gap min-h-screen">
+<div class="max-w-[1600px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-[20%_50%_30%] gap-12">
+<!-- Marginalia Column (Left) -->
+<aside class="lg:sticky lg:top-32 h-fit flex flex-col gap-8 order-2 lg:order-1">
+<div class="flex flex-col gap-1 border-l-2 border-heat-38 pl-4">
+<span class="font-mono-data text-ui-label text-ink-faint uppercase tracking-widest">Plate I</span>
+<span class="font-mono-data text-body-md text-heat-38">37.0 → 38.5 °C</span>
+</div>
+<div class="bg-surface-card border border-rule/10 p-4 rounded-sm">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-heat-38 text-sm mt-0.5">info</span>
+<p class="font-mono-data text-[10px] leading-relaxed uppercase text-ink-soft">
+<span class="font-bold">Tissue Expression</span><br/>
+                            HSF1: ubiquitous<br/>
+                            (Human Protein Atlas)
+                        </p>
+</div>
+</div>
+<div class="hidden lg:block">
+<p class="font-marginalia text-marginalia text-ink-faint italic border-t border-rule/5 pt-4">
+                        Observations recorded in the thermodynamic thresholding phase. Note the rapid trimerization kinetics in vivo.
+                    </p>
+</div>
+</aside>
+<!-- Reading Column (Center) -->
+<article class="max-w-[64ch] mx-auto order-1 lg:order-2">
+<header class="mb-12">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-6">
+                        Meet your cellular thermometer
+                    </h1>
+<div class="w-12 h-0.5 bg-heat-38"></div>
+</header>
+<section class="space-y-paragraph-gap text-ink-soft">
+<p class="font-body-lg text-body-lg">
+                        In the quiet equilibrium of a resting cell, Heat-Shock Factor 1 (HSF1) exists as an inert monomer, tethered into silence by the molecular chaperone <span class="border-b border-heat-37">HSP90</span>. This partnership is the cell's primary security protocol, preventing the accidental activation of high-energy stress responses under normal physiological conditions.
+                    </p>
+<p class="font-body-lg text-body-lg">
+                        As the local environment warms—crossing the threshold from 37.0°C toward a febrile 38.5°C—the cellular landscape begins to shift. Misfolded proteins begin to accumulate, competing for the attention of HSP90. Like a security detail pulled away to a more urgent disturbance, the chaperone releases its grip on HSF1.
+                    </p>
+<p class="font-body-lg text-body-lg">
+                        Freed from its constraints, HSF1 undergoes a swift and dramatic metamorphosis. The individual monomers find one another in the crowded cytoplasm, interlocking into stable <span class="italic">trimers</span>. This triple-helical formation acts as a molecular key, exposing nuclear localization signals that were previously hidden within the protein's folded architecture.
+                    </p>
+<p class="font-body-lg text-body-lg">
+                        The newly formed trimers surge into the nucleus, binding with high affinity to Heat-Shock Elements (HSE) within the DNA. This binding event triggers the rapid transcription of proteoprotective genes, initiating a global defensive posture that preserves cellular integrity against the mounting thermal threat.
+                    </p>
+</section>
+<footer class="mt-12 border-t border-rule/10 pt-6">
+<details class="group cursor-pointer">
+<summary class="flex items-center justify-between font-ui-label text-ui-label text-ink-faint hover:text-primary transition-colors">
+<span>SOURCES FOR THIS CHAPTER</span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="mt-4 pl-4 border-l border-rule/5 space-y-3">
+<p class="font-marginalia text-marginalia text-ink-soft">
+<span class="font-bold">Anckar, J., &amp; Sistonen, L. (2011).</span> Regulation of HSF1 function in the heat stress response. <span class="italic">Annual Review of Biochemistry, 80, 1089-1115.</span>
+</p>
+<p class="font-marginalia text-marginalia text-ink-soft">
+<span class="font-bold">Vihervaara, A., et al. (2018).</span> Transcriptional response to stress is orchestratred by HSF1. <span class="italic">Nature Communications.</span>
+</p>
+</div>
+</details>
+</footer>
+</article>
+<!-- Figure Column (Right) -->
+<section class="order-3 flex flex-col gap-6 lg:sticky lg:top-32 h-fit">
+<div class="relative w-full aspect-square bg-surface-viewer rounded-lg overflow-hidden border border-rule/20 shadow-xl">
+<!-- Protein Viewer Card Content -->
+<div class="absolute inset-0 protein-canvas flex items-center justify-center">
+<img alt="3D Molecular visualization" class="w-full h-full object-cover opacity-60 mix-blend-screen" data-alt="A sophisticated 3D scientific visualization of a protein's molecular ribbon structure, specifically the DNA-binding domain of HSF1. The complex coils and beta-sheets are rendered in high detail with a soft bioluminescent glow in shades of cool olive and muted gold. It is set against a deep obsidian black background of a high-end medical viewer interface, creating a stark, dramatic contrast. The lighting is focused and cinematic, emphasizing the intricate biological architecture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPlyHF5V341bWEja2bFThJSs7Lnmk0Wnarv5ccrFGoSQOUXc5PhuWetExKA9Wn8IXuKx5QjN4hB42xtdP4OURxIVgDgL1dWZtGMWxrPDgsSJ-bqijBrC4q4W5b3Xnw7h3pUZu_brrKN5rKq5AhnPokDRMZ85BYQ4mONUGxokCoeEZgan7U1fA6QzEimfUUwfIJS3ac6RmomUoNKYe4POVMph2b_D-z4Y4pWGkhuYufrhTQh9AFQ47TnNQM3cW8n325OIFoDRnmUfU"/>
+</div>
+<!-- Overlays -->
+<div class="absolute top-4 left-4 font-mono-data text-[10px] text-white/80 bg-black/40 px-2 py-1 backdrop-blur-sm rounded-sm">
+                        PDB · 5D5W
+                    </div>
+<div class="absolute bottom-4 right-4 flex items-center gap-1.5 font-mono-data text-[9px] text-white/40">
+<span>RCSB PDB · RETRIEVED 2026-05-25</span>
+<span class="material-symbols-outlined text-[10px]">open_in_new</span>
+</div>
+<!-- Viewer Controls (Analog style) -->
+<div class="absolute bottom-4 left-4 flex gap-2">
+<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-sm">sync</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border border-rule/5 italic">
+<p class="font-marginalia text-marginalia text-ink-soft">
+                        Fig 1.1 — Trimeric configuration of HSF1 DNA-binding domain. Notice the winged-helix motif interaction with the major groove of the heat-shock element.
+                    </p>
+</div>
+</section>
+</div>
+</main>
+<!-- Fixed Page Indicator -->
+<div class="fixed bottom-8 right-8 z-40">
+<div class="bg-background border border-rule px-4 py-2 flex items-center gap-4 shadow-sm">
+<span class="font-mono-data text-ui-label text-ink-soft tracking-widest uppercase">Plate I</span>
+<div class="w-px h-4 bg-rule/10"></div>
+<div class="flex gap-1">
+<div class="w-2 h-2 bg-heat-38"></div>
+<div class="w-2 h-2 bg-surface-container-highest"></div>
+<div class="w-2 h-2 bg-surface-container-highest"></div>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 mt-chapter-gap bg-surface-container-lowest border-t border-rule">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-7xl mx-auto">
+<div class="font-ui-label text-primary mb-4 md:mb-0">© 2024 Surveyor's Notebook. Academic Use Only.</div>
+<div class="flex gap-8 font-marginalia text-marginalia text-ink-faint">
+<a class="hover:text-ink-soft transition-colors" href="#">Methods</a>
+<a class="hover:text-ink-soft transition-colors" href="#">Raw Data</a>
+<a class="hover:text-ink-soft transition-colors" href="#">Institutional Review</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for protein viewer
+        document.querySelector('.protein-canvas').addEventListener('mousemove', (e) => {
+            const img = e.currentTarget.querySelector('img');
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            
+            img.style.transform = `scale(1.05) translate(${(x - 0.5) * 20}px, ${(y - 0.5) * 20}px)`;
+        });
+
+        document.querySelector('.protein-canvas').addEventListener('mouseleave', (e) => {
+            const img = e.currentTarget.querySelector('img');
+            img.style.transform = `scale(1) translate(0, 0)`;
+        });
+    </script>
+</body></html>

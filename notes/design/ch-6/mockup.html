@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heat Protein Lab | Plate VI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@400;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#000000",
+                    "surface": "#fff9ea",
+                    "primary": "#000000",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#f4eede",
+                    "on-secondary-fixed-variant": "#891c1a",
+                    "inverse-primary": "#c8c6c5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#858383",
+                    "surface-variant": "#e8e2d2",
+                    "tertiary-fixed-dim": "#adcbdc",
+                    "heat-37": "#4F6B7A",
+                    "on-error-container": "#93000a",
+                    "heat-39": "#B8A04F",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e5e2e1",
+                    "primary-container": "#1b1b1b",
+                    "surface-card": "#FBF6E8",
+                    "surface-bright": "#fff9ea",
+                    "surface-container-highest": "#e8e2d2",
+                    "tertiary-container": "#001e2b",
+                    "on-secondary": "#ffffff",
+                    "paper-edge": "#E9E0C8",
+                    "on-secondary-container": "#70060b",
+                    "secondary-container": "#fe7267",
+                    "tertiary-fixed": "#c9e7f8",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#1e1c12",
+                    "inverse-surface": "#333026",
+                    "outline": "#747878",
+                    "ink-soft": "#3D3A33",
+                    "surface-container-low": "#f9f3e3",
+                    "secondary": "#aa342f",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "ink-faint": "#8A8275",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#c8c6c5",
+                    "rule": "#221A15",
+                    "heat-38": "#6E7C73",
+                    "on-primary-fixed-variant": "#474746",
+                    "surface-dim": "#dfdaca",
+                    "on-background": "#1e1c12",
+                    "heat-44": "#1B0707",
+                    "background": "#fff9ea",
+                    "inverse-on-surface": "#f6f0e0",
+                    "heat-42": "#7F1414",
+                    "on-tertiary-fixed": "#001e2b",
+                    "on-surface-variant": "#444748",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#5f5e5e",
+                    "on-primary-fixed": "#1b1b1b",
+                    "surface-container-high": "#eee8d8",
+                    "on-tertiary-fixed-variant": "#2e4a58",
+                    "surface-viewer": "#0F1217",
+                    "heat-40": "#C97A2B",
+                    "secondary-fixed": "#ffdad6",
+                    "outline-variant": "#c4c7c7",
+                    "on-tertiary-container": "#6b8897",
+                    "on-secondary-fixed": "#410002",
+                    "heat-41": "#B23A1F"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "paragraph-gap": "24px",
+                    "baseline": "8px",
+                    "figure-padding": "48px",
+                    "chapter-gap": "128px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "mono-data": ["IBM Plex Mono"],
+                    "headline-md": ["Spectral"],
+                    "display-hero": ["Spectral"],
+                    "ui-label": ["Inter"],
+                    "marginalia": ["Spectral"],
+                    "body-lg": ["Spectral"],
+                    "body-md": ["Spectral"],
+                    "headline-lg": ["Spectral"]
+            },
+            "fontSize": {
+                    "mono-data": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["1.75rem", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-hero": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "ui-label": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "marginalia": ["0.8125rem", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "body-lg": ["1.1875rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                    "body-md": ["1.0625rem", {"lineHeight": "1.65", "fontWeight": "400"}],
+                    "headline-lg": ["2.25rem", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #fff9ea; }
+        .temp-strip { transition: width 1s ease-in-out; }
+    </style>
+</head>
+<body class="font-body-md text-on-background">
+<!-- Temperature Strip -->
+<div class="fixed top-0 left-0 w-full h-1 bg-surface-container-high z-[60]">
+<div class="h-full bg-heat-41 temp-strip w-[55%] relative">
+<div class="absolute right-0 top-2 px-2 py-0.5 bg-heat-41 text-surface font-mono-data text-[10px] uppercase tracking-widest">40.5 °C</div>
+</div>
+</div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full h-16 bg-background dark:bg-background border-b border-rule flex justify-between items-center w-full px-gutter max-w-full z-50">
+<div class="font-display-hero text-headline-md font-bold tracking-tight text-primary">Heat Protein Lab</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="font-ui-label text-ui-label text-primary border-b-2 border-primary hover:text-primary transition-colors duration-200" href="#">Analysis</a>
+<a class="font-ui-label text-ui-label text-ink-faint hover:text-primary transition-colors duration-200" href="#">Archive</a>
+</nav>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">thermostat</span>
+<span class="material-symbols-outlined text-primary cursor-pointer">settings</span>
+</div>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-20 md:w-64 hidden lg:flex flex-col bg-surface-card border-r border-rule py-figure-padding z-40 mt-16">
+<div class="px-6 mb-12">
+<h2 class="font-headline-md text-primary text-lg">Project Archives</h2>
+<p class="font-ui-label text-ui-label text-ink-faint uppercase">Vol. 042-B</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-4 text-ink-soft hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-ui-label text-ui-label uppercase">Abstract</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 bg-primary-container text-on-primary-container font-bold scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-ui-label text-ui-label uppercase">Analysis</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-ink-soft hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="font-ui-label text-ui-label uppercase">Structural Data</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-ink-soft hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">format_quote</span>
+<span class="font-ui-label text-ui-label uppercase">Citations</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 pt-32 px-gutter pb-chapter-gap max-w-7xl mx-auto">
+<!-- Top Section: Three-column Shell -->
+<section class="grid grid-cols-1 md:grid-cols-10 gap-gutter mb-chapter-gap">
+<!-- Marginalia (20% Equivalent) -->
+<div class="md:col-span-2 flex flex-col gap-4 border-l border-rule/10 pl-4 h-fit">
+<span class="font-mono-data text-ui-label uppercase tracking-tighter text-ink-faint">PLATE VI</span>
+<div class="h-px w-8 bg-heat-41"></div>
+<span class="font-mono-data text-headline-lg text-heat-41">40.5 °C</span>
+<span class="inline-block bg-surface-container-highest px-2 py-1 font-mono-data text-[10px] text-ink-soft w-fit rounded">VARIANTS · CLINVAR</span>
+</div>
+<!-- Reading Body (50% Equivalent) -->
+<div class="md:col-span-5 flex flex-col gap-paragraph-gap">
+<h1 class="font-display-hero text-headline-lg md:text-display-hero leading-none">When the genome strains</h1>
+<p class="font-body-lg text-ink-soft">
+                    The molecular architecture of cellular stress response is a delicate equilibrium, evolved over eons to withstand thermal fluctuation. However, genetic variations within these chaperone networks—documented extensively in the ClinVar database—suggest a landscape of differential vulnerability.
+                </p>
+<p class="font-body-md text-ink-soft">
+                    Plate VI catalogues a subset of these variations, specifically focusing on Heat Shock Proteins (HSPs) and their regulatory elements. These mutations do not simply represent "errors" in the code, but rather distinct structural diversions that may alter the folding efficiency of the entire proteome under hyperthermic conditions.
+                </p>
+<!-- Disclaimer Box -->
+<div class="bg-heat-41 p-6 border-l-4 border-primary">
+<p class="font-mono-data text-surface italic text-sm">
+                        Clinical significance ≠ individual heat-illness risk prediction. Data provided for academic and archival reference only.
+                    </p>
+</div>
+<p class="font-body-md text-ink-soft">
+                    By examining the prevalence of these variants, we can begin to map the theoretical limits of human thermal adaptation at a granular, protein-by-protein level.
+                </p>
+</div>
+<!-- Figure (30% Equivalent) -->
+<div class="md:col-span-3 flex flex-col gap-4">
+<div class="aspect-[3/4] bg-surface-viewer rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A high-contrast, scientific visualization of a complex protein structure set against a pitch-black background. The molecular strands are illuminated with a subtle terra cotta glow, suggesting heat. The image is rendered in a minimalist, archival style, reminiscent of 20th-century scientific journals, with crisp details and a clean, modern medical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDelbh-2KmzHpjGiw-aG5GdZQV0hUivz9jNf4DGV05NNyhT-l3cQw8YNusOepFMSj-iFfr0Av4koTIZevKF0-mbW9TbAGURKi480A14SQf8kMG14dpTqSRen0NlNrq_4i4dyh0RdMHAwZJq8lJG15EWLNn7YR4vscIGscapysp3tn7TPuJAw9QG45RWWHt4-aOSq4pZwoRV_0J4d7QAGm4_yKNFt4vvUNGglCtrbUYWJglFRiwbZkvPN9xU1aQ7AA3JJhAcrVq0aSo"/>
+<div class="absolute bottom-4 left-4 right-4 bg-surface-card/90 p-3 text-[10px] font-mono-data text-primary backdrop-blur-sm border border-rule">
+                        FIG. 6.1: HSPA1A SUBSTRATE BINDING DOMAIN AT 313K.
+                    </div>
+</div>
+</div>
+</section>
+<!-- Variant Grid Section -->
+<section>
+<div class="flex items-center gap-4 mb-baseline">
+<h3 class="font-headline-md text-primary">Annotated Genetic Variants</h3>
+<div class="flex-grow h-px bg-rule/10"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap- gutter">
+<!-- Card 1 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSPA1A</span>
+<span class="px-2 py-0.5 bg-heat-41 text-white text-[10px] font-mono-data rounded">PATHOGENIC</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr6:31815525:G&gt;A</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Arg171His</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:3421901</a>
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:289912</a>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSF1</span>
+<span class="px-2 py-0.5 bg-heat-40 text-white text-[10px] font-mono-data rounded">LIKELY PATHOGENIC</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr8:144215882:C&gt;T</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Glu401Lys</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:1928374</a>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSP90AA1</span>
+<span class="px-2 py-0.5 bg-heat-39 text-white text-[10px] font-mono-data rounded">VUS</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr14:102081442:A&gt;G</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Leu22Pro</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:2201944</a>
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:3344112</a>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSPA1A</span>
+<span class="px-2 py-0.5 bg-heat-41 text-white text-[10px] font-mono-data rounded">PATHOGENIC</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr6:31815598:T&gt;G</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Phe202Cys</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:4002931</a>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSF1</span>
+<span class="px-2 py-0.5 bg-heat-40 text-white text-[10px] font-mono-data rounded">LIKELY PATHOGENIC</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr8:144215910:G&gt;A</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Gly412Ser</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:287716</a>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-card p-6 border border-rule/5 shadow-[0_4px_12px_rgba(30,28,18,0.03)] hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<span class="font-mono-data text-lg font-bold">HSP90AA1</span>
+<span class="px-2 py-0.5 bg-heat-39 text-white text-[10px] font-mono-data rounded">VUS</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="text-[11px] font-mono-data text-ink-faint">chr14:102081512:C&gt;G</div>
+<div class="text-[13px] font-mono-data text-ink-soft">p.Ala55Gly</div>
+</div>
+<div class="flex items-center justify-between border-t border-rule/10 pt-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">star</span>
+<span class="text-[10px] font-ui-label uppercase ml-2 text-ink-faint">Review status</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="font-marginalia italic text-[10px] text-ink-faint">Cited in:</span>
+<div class="flex gap-2 mt-1">
+<a class="text-[10px] font-mono-data text-heat-41 underline" href="#">PMID:4112093</a>
+</div>
+</div>
+</div>
+</div>
+<p class="mt-8 font-mono-data italic text-[11px] text-ink-faint">
+                Source: NCBI ClinVar — retrieved 2026-05-25. Data synchronized with Genome Assembly GRCh38.
+            </p>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 mt-chapter-gap bg-surface-container-lowest border-t border-rule">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-7xl mx-auto">
+<div class="font-ui-label text-primary uppercase text-xs tracking-widest mb-4 md:mb-0">Heat Protein Lab</div>
+<div class="flex flex-col items-center md:items-end gap-2">
+<div class="flex gap-6">
+<a class="font-marginalia text-marginalia text-ink-faint hover:text-ink-soft" href="#">Methods</a>
+<a class="font-marginalia text-marginalia text-ink-faint hover:text-ink-soft" href="#">Raw Data</a>
+<a class="font-marginalia text-marginalia text-ink-faint hover:text-ink-soft" href="#">Institutional Review</a>
+</div>
+<p class="font-marginalia text-marginalia text-ink-faint opacity-60">© 2024 Surveyor's Notebook. Academic Use Only.</p>
+</div>
+</div>
+</footer>
+<!-- Fixed Bottom Badge -->
+<div class="fixed bottom-6 right-6 z-50">
+<div class="bg-primary text-surface px-4 py-2 font-mono-data text-xs tracking-[0.2em] shadow-lg border border-rule/20">
+            PLATE VI
+        </div>
+</div>
+<script>
+        // Simple micro-interaction for temperature reading
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            const tempStrip = document.querySelector('.temp-strip');
+            const tempReadout = tempStrip.querySelector('div');
+            
+            // Adjust strip width slightly based on scroll to feel interactive
+            // Logic: start at 55%, fluctuate between 53-57%
+            const dynamicWidth = 55 + (Math.sin(window.scrollY / 200) * 2);
+            tempStrip.style.width = `${dynamicWidth}%`;
+        });
+    </script>
+</body></html>
