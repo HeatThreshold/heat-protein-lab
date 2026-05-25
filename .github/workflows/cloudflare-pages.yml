@@ -43,6 +43,13 @@ jobs:
           # posts/ contains the DevRel mirror (rendered from notes/devrel/posts/
           # via scripts/render_posts.py). Optional — only ship if present.
           if [ -d posts ]; then cp -r posts dist/; fi
+          # Screenshots referenced from the Beat posts. Source of truth lives
+          # under notes/devrel/screenshots/ so it can be regenerated via
+          # scripts/devrel_screenshots.py.
+          if [ -d notes/devrel/screenshots ]; then
+            mkdir -p dist/screenshots/heat-protein-lab
+            cp notes/devrel/screenshots/*.jpg dist/screenshots/heat-protein-lab/ 2>/dev/null || true
+          fi
           # favicon + social card live at the repo root and ship to the site root
           for f in favicon.svg og.svg; do
             if [ -f "$f" ]; then cp "$f" dist/; fi

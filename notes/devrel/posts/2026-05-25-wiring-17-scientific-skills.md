@@ -18,15 +18,33 @@ venues:
 
 # Wiring 17 scientific skills into a fresh Antigravity workspace
 
-I'm building a small public website about what heat does to human
-proteins. Eight chapters of scrollytelling, one real protein per chapter,
-all of the data fetched live from public scientific databases — RCSB
-PDB, AlphaFold, PubMed, the Human Protein Atlas, ClinVar, Reactome — and
-none of the explanations more medical than they need to be. The repo
-lives at [HeatThreshold/heat-protein-lab][repo], MIT, no analytics, no
-accounts. It is a low-stakes home for an idea that was cut from a
-[Google I/O 2026 hackathon][hackathon] submission as epistemically
-risky.
+This is the story I should have told at the [Google I/O 2026
+hackathon][hackathon].
+
+I went into that hackathon — Cerebral Valley × Google DeepMind, at
+Shack15 on the Embarcadero, May 23rd — wanting to build something
+about heat. Not heat in the [WBGT-and-clothing-color][heatthreshold-repo]
+sense; the
+[other story][heatthreshold-retro] does that already and shipped as
+`HeatThreshold/HeatThreshold` on the day. The story I kept wanting
+to tell was the one upstream of that: *what does heat actually do
+to the molecules inside a human body when core temperature climbs?*
+Why does 41 °C end an emergency department workup with the words
+"organ damage", when 37 °C is just lunch? What proteins fail first,
+how, in what order, with what consequence? I had been reading
+HSF1/HSP70 review papers for weeks. I had no science background.
+I knew the page in my head was the more compelling demo.
+
+I didn't build it. I built the other one. The molecular story
+was epistemically risky to ship inside a 48-hour window: claiming
+anything about human biology under heat stress, on a hackathon stage,
+with no domain reviewer, is a bad idea. So that idea sat in a
+README bullet and a Slack message and went quiet. Two days after
+the hackathon ended I started the repo it should have been —
+[HeatThreshold/heat-protein-lab][repo], MIT, no analytics, no
+accounts, eight chapters of scrollytelling, one real protein per
+chapter, every claim back-linked to a real source. It is alive at
+**<https://heat-protein-lab.pages.dev/>**.
 
 It is also a deliberate test of three new(ish) Google products
 composed against the same brief: [Antigravity 2.0][agy], the agentic
@@ -34,13 +52,19 @@ IDE that's replacing the Gemini CLI on 2026-06-18; the
 [Science Skills][science] bundle that Google DeepMind dropped a few
 weeks ago — seventeen skills wired up as Python CLIs covering the
 major public bio/chem databases; and [Stitch][stitch], the AI design
-tool that's now available as an MCP inside Antigravity.
+tool that's now available as an MCP inside Antigravity. *Can these
+three products, composed by one indie builder at a kitchen table,
+produce a real, citation-grounded scientific explainer?* That's the
+demo. The page is the answer.
 
-This post is about getting from a freshly-opened workspace to a
-checked-in `data/candidates.json` with every database query verified
-end to end. That's Phase 0 in the project plan. It took about ninety
-minutes total. Three things made it interesting beyond a setup
-exercise.
+This first post is about getting from a freshly-opened workspace to
+a checked-in `data/candidates.json` with every database query
+verified end to end. That's Phase 0 in the project plan. It took
+about ninety minutes total. Three things made it interesting beyond
+a setup exercise.
+
+![The Heat Protein Lab hero, rendered against the project's surveyor's-notebook visual system. The persistent temperature strip at the top moves from 37 °C to 44 °C as the reader scrolls.](/screenshots/heat-protein-lab/01-hero.jpg)
+*The lab's landing screen. The page that came out of all this Phase-0 plumbing.*
 
 ## What "verified" actually means
 
@@ -137,6 +161,9 @@ have a standard env-var path documented yet, and the IDE is doing the
 plausible thing in the absence of one. It is a real ergonomic gap.
 Worth surfacing.
 
+![Chapter 7 of the live site showing the full Reactome heat-shock-response pathway (R-HSA-3371556) inlined as SVG with HSPA1A highlighted in a magenta box near the centre.](/screenshots/heat-protein-lab/07-ch7-pathway.jpg)
+*Chapter 7. The Reactome pathway diagram, fetched live through the Science Skills `reactome_database` skill and inlined as SVG with three jump-to-chapter chips below it. The chip ringlights the diagram on hover so a reader can find HSF1, HSPA1A, or HSP90AA1 and trace what role they played a few plates earlier.*
+
 ## Lesson 3: real scientific work fell out the other end
 
 Despite the friction, the actual *science output* was excellent.
@@ -173,14 +200,17 @@ structure ("Crystal structure of human Hsf1 with HSE DNA",
 thermophilum Skn7). A "yeah it sounds right" candidate that the
 verification step caught before any code shipped against it.
 
+![Chapter 1 of the live site showing the human HSF1 structure (PDB 5D5U) rendered as an interactive 3Dmol.js cartoon — protein chains in ochre, the HSE DNA strands in slate, the citation accordion below, the tissue-expression badge in the marginalia column.](/screenshots/heat-protein-lab/02-ch1-hsf1.jpg)
+*Chapter 1's first paint. The marginalia column on the left carries the tissue expression badge sourced from the Human Protein Atlas skill; the figure column on the right renders the actual mmCIF file with `DecompressionStream` decoding the committed `.cif.gz` in-browser. This is what every database query upstream of it is for.*
+
 ## What lands next
 
 Chapter 1's page now renders the real 5D5U structure in 3Dmol.js,
 sticky in the figure column, citations pulled live from the
 three PubMed papers above, the tissue badge rendering Human Protein
 Atlas data across forty-nine tissues. That's Phase 1 in the build
-plan; it'll be its own writeup. The page is at the repo, license MIT,
-no medical claims.
+plan; it'll be [its own writeup][beat-2]. The page is at the repo,
+license MIT, no medical claims.
 
 If you're starting your own Antigravity workspace with the Science
 Skills bundle: open the AGENTS.md in this repo as a worked example
@@ -188,8 +218,19 @@ for how to brief the IDE on a science project, and prepopulate the
 gitignore patterns above before your first session. The cost of doing
 that first is essentially zero. The cost of not is a soft reset.
 
+And if you were at the I/O hackathon and saw `HeatThreshold` go up:
+this is the second half of that story, the part I didn't trust
+myself to ship under a deadline. The lab is at
+<https://heat-protein-lab.pages.dev/>. The repo is at
+[HeatThreshold/heat-protein-lab][repo]. The hackathon retro is
+[here on craigmerry.com][heatthreshold-retro]. Read in any order;
+they cohere either way.
+
 [repo]: https://github.com/HeatThreshold/heat-protein-lab
+[heatthreshold-repo]: https://github.com/HeatThreshold/HeatThreshold
 [hackathon]: https://github.com/HeatThreshold/HeatThreshold
+[heatthreshold-retro]: https://craigmerry.com/blog/2026-05-24-heat-threshold-google-io-hackathon/
+[beat-2]: https://craigmerry.com/blog/2026-05-26-meeting-hsf1/
 [agy]: https://antigravity.google
 [science]: https://github.com/google-deepmind/science-skills
 [stitch]: https://stitch.withgoogle.com

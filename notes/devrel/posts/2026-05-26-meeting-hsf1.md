@@ -19,16 +19,29 @@ venues:
 
 # Meeting HSF1 in Antigravity 2.0 — the first chapter shipped
 
-[Beat 1][beat-1] described wiring seventeen scientific skills into a
-fresh Antigravity 2.0 workspace and getting `data/candidates.json`
-checked in. This is what happened next: a real chapter of the
-[heat-protein-lab][repo] page, anchored on a real protein structure,
-fetched from real public databases, citations and tissue expression
-included. The chapter renders at
-[HeatThreshold/heat-protein-lab#chapter-1][live]. It is built around
-the heat-shock master regulator **HSF1**.
+[Beat 1][beat-1] reframed this project: the molecular-heat story is the
+one I should have told at the [I/O hackathon][hackathon] and didn&apos;t,
+because shipping any claim about human biology under a hackathon
+deadline is asking for trouble. Two days later I started the repo
+properly. This post is what happened when the project hit its first
+chapter — a real protein, rendered from a real structure file, with
+real citations, sourced live from public databases through Google
+DeepMind&apos;s [Science Skills][science] bundle in [Antigravity
+2.0][agy]. The chapter is live at
+[heat-protein-lab.pages.dev/#chapter-1][live]. The protein is
+**HSF1** — the cellular thermometer.
 
-Three things in here were worth a post on their own.
+Why HSF1 to start? Because the body&apos;s response to heat is
+ultimately a transcriptional response, and HSF1 is the switch that
+fires it. If a single protein deserves the first chapter of an
+explainer about heat-shock biology, this is the one. The reader meets
+it before they meet the heat-shock proteins it activates, because
+otherwise the narrative starts in the middle.
+
+![Chapter 1 of heat-protein-lab.pages.dev. The marginalia column on the left lists Plate I, the temperature band (37.0 → 38.5 °C), and a tissue-expression badge sourced from the Human Protein Atlas. The body in the middle introduces HSF1 in plain English. The figure column on the right shows the live 3Dmol viewer rendering PDB 5D5U — the human HSF1 structure bound to its heat-shock-element DNA target.](/screenshots/heat-protein-lab/02-ch1-hsf1.jpg)
+*Chapter 1, rendered. The structure is the same `.cif.gz` you would download from RCSB if you queried for 5D5U yourself; the citation accordion lists the same PubMed papers; the tissue expression is the same Human Protein Atlas IHC consensus. Just composed into reading flow.*
+
+Three things from the build were worth a post on their own.
 
 ## A scientific correction caught by the verification step
 
@@ -69,6 +82,10 @@ species is the kind of mistake that, once it shows up rendered with a
 citation underneath it, is much harder to detect.
 
 ## The build pattern
+
+![A 390 × 844 screenshot of Chapter 1 on a phone-shaped viewport. The three-column desktop layout collapses to a single column with the marginalia floated above the body and the 3Dmol viewer below it.](/screenshots/heat-protein-lab/10-mobile-ch1.jpg)
+*The same chapter on mobile. The three-column shell collapses cleanly: marginalia stacks on top, body next, figure last. The temperature strip and Plate badge stay anchored on every viewport.*
+
 
 The Chapter 1 page is plain HTML, plain CSS, one ES module of
 JavaScript, and no bundler. No React, no Tailwind, no Vite. The full
@@ -202,6 +219,9 @@ For anyone setting up a similar workspace:
   same plugin, stalled forever on a six-skill orchestration prompt.
   Don&apos;t generalise from one to the other.
 
+![Chapter 3 of heat-protein-lab.pages.dev, showing the human HSP70 substrate-binding domain (PDB 4PO2) rendered in 3Dmol with a small in-figure schematic of how HSPA1A sits between HSF1 and a misfolded client.](/screenshots/heat-protein-lab/03-ch3-hsp70.jpg)
+*Chapter 3 in the pipe. HSP70 is the chaperone that actually refolds damaged proteins; chapter 3 will be the subject of Beat 3 once the denaturation centerpiece in chapter 4 ships.*
+
 ## What&apos;s next
 
 The chapter is the first of nine sections on the page. Chapters 2
@@ -215,9 +235,12 @@ The repo is at [HeatThreshold/heat-protein-lab][repo], MIT-licensed,
 no medical claims, no analytics. If you&apos;re working in the same
 space, the issue templates ask the questions I&apos;d want asked.
 
-[beat-1]: https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills
+[beat-1]: https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/
+[hackathon]: https://craigmerry.com/blog/2026-05-24-heat-threshold-google-io-hackathon/
 [repo]: https://github.com/HeatThreshold/heat-protein-lab
-[live]: https://github.com/HeatThreshold/heat-protein-lab#chapter-1
+[live]: https://heat-protein-lab.pages.dev/#chapter-1
+[agy]: https://antigravity.google
+[science]: https://github.com/google-deepmind/science-skills
 [5d5u-rcsb]: https://www.rcsb.org/structure/5D5U
 [neuro]: https://pubmed.ncbi.nlm.nih.gov/30467350/
 [sumo]: https://pubmed.ncbi.nlm.nih.gov/33493517/

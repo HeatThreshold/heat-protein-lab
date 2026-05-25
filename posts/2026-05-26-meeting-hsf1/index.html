@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta name="description" content="Beat 1 reframed this project: the molecular-heat story is the one I should have told at the I/O hackathon and didn&amp;apos;t, because shipping any claim about human biology under a hackathon deadline is asking for trouble. Two days later I started the repo properly. This post is..." />
     <meta name="color-scheme" content="light" />
     <title>Meeting HSF1 in Antigravity 2.0 — the first chapter shipped — Heat Protein Lab</title>
     <link rel="canonical" href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/" />
@@ -12,13 +12,13 @@
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Heat Protein Lab" />
     <meta property="og:title" content="Meeting HSF1 in Antigravity 2.0 — the first chapter shipped" />
-    <meta property="og:description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta property="og:description" content="Beat 1 reframed this project: the molecular-heat story is the one I should have told at the I/O hackathon and didn&amp;apos;t, because shipping any claim about human biology under a hackathon deadline is asking for trouble. Two days later I started the repo properly. This post is..." />
     <meta property="og:url" content="https://heat-protein-lab.pages.dev/posts/2026-05-26-meeting-hsf1/" />
     <meta property="og:image" content="https://heat-protein-lab.pages.dev/og.svg" />
     <meta property="article:published_time" content="2026-05-28" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Meeting HSF1 in Antigravity 2.0 — the first chapter shipped" />
-    <meta name="twitter:description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta name="twitter:description" content="Beat 1 reframed this project: the molecular-heat story is the one I should have told at the I/O hackathon and didn&amp;apos;t, because shipping any claim about human biology under a hackathon deadline is asking for trouble. Two days later I started the repo properly. This post is..." />
     <meta name="twitter:image" content="https://heat-protein-lab.pages.dev/og.svg" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -43,15 +43,26 @@
 
     <article id="post-body" class="post-body">
       <h1>Meeting HSF1 in Antigravity 2.0 — the first chapter shipped</h1>
-<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills">Beat 1</a> described wiring seventeen scientific skills into a
-fresh Antigravity 2.0 workspace and getting <code>data/candidates.json</code>
-checked in. This is what happened next: a real chapter of the
-<a href="https://github.com/HeatThreshold/heat-protein-lab">heat-protein-lab</a> page, anchored on a real protein structure,
-fetched from real public databases, citations and tissue expression
-included. The chapter renders at
-<a href="https://github.com/HeatThreshold/heat-protein-lab#chapter-1">HeatThreshold/heat-protein-lab#chapter-1</a>. It is built around
-the heat-shock master regulator <strong>HSF1</strong>.</p>
-<p>Three things in here were worth a post on their own.</p>
+<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">Beat 1</a> reframed this project: the molecular-heat story is the
+one I should have told at the <a href="https://craigmerry.com/blog/2026-05-24-heat-threshold-google-io-hackathon/">I/O hackathon</a> and didn&apos;t,
+because shipping any claim about human biology under a hackathon
+deadline is asking for trouble. Two days later I started the repo
+properly. This post is what happened when the project hit its first
+chapter — a real protein, rendered from a real structure file, with
+real citations, sourced live from public databases through Google
+DeepMind&apos;s <a href="https://github.com/google-deepmind/science-skills">Science Skills</a> bundle in <a href="https://antigravity.google">Antigravity
+2.0</a>. The chapter is live at
+<a href="https://heat-protein-lab.pages.dev/#chapter-1">heat-protein-lab.pages.dev/#chapter-1</a>. The protein is
+<strong>HSF1</strong> — the cellular thermometer.</p>
+<p>Why HSF1 to start? Because the body&apos;s response to heat is
+ultimately a transcriptional response, and HSF1 is the switch that
+fires it. If a single protein deserves the first chapter of an
+explainer about heat-shock biology, this is the one. The reader meets
+it before they meet the heat-shock proteins it activates, because
+otherwise the narrative starts in the middle.</p>
+<p><img alt="Chapter 1 of heat-protein-lab.pages.dev. The marginalia column on the left lists Plate I, the temperature band (37.0 → 38.5 °C), and a tissue-expression badge sourced from the Human Protein Atlas. The body in the middle introduces HSF1 in plain English. The figure column on the right shows the live 3Dmol viewer rendering PDB 5D5U — the human HSF1 structure bound to its heat-shock-element DNA target." src="/screenshots/heat-protein-lab/02-ch1-hsf1.jpg">
+<em>Chapter 1, rendered. The structure is the same <code>.cif.gz</code> you would download from RCSB if you queried for 5D5U yourself; the citation accordion lists the same PubMed papers; the tissue expression is the same Human Protein Atlas IHC consensus. Just composed into reading flow.</em></p>
+<p>Three things from the build were worth a post on their own.</p>
 <h2>A scientific correction caught by the verification step</h2>
 <p>The chapter&rsquo;s hero protein is HSF1, the transcription factor that
 senses heat and switches on the genes that make HSP70 and HSP90. The
@@ -86,6 +97,8 @@ before any rendering code is written. The wrong protein at the wrong
 species is the kind of mistake that, once it shows up rendered with a
 citation underneath it, is much harder to detect.</p>
 <h2>The build pattern</h2>
+<p><img alt="A 390 × 844 screenshot of Chapter 1 on a phone-shaped viewport. The three-column desktop layout collapses to a single column with the marginalia floated above the body and the 3Dmol viewer below it." src="/screenshots/heat-protein-lab/10-mobile-ch1.jpg">
+<em>The same chapter on mobile. The three-column shell collapses cleanly: marginalia stacks on top, body next, figure last. The temperature strip and Plate badge stay anchored on every viewport.</em></p>
 <p>The Chapter 1 page is plain HTML, plain CSS, one ES module of
 JavaScript, and no bundler. No React, no Tailwind, no Vite. The full
 file count for this chapter:</p>
@@ -125,7 +138,7 @@ protein is in view the entire time it&apos;s being discussed. It is
 the single biggest readability improvement I made in the chapter, and
 it is four lines of CSS.</p>
 <h2>The agy CLI stall, and what it told me about prompts</h2>
-<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills">Beat 1</a> mentioned the &ldquo;specific small prompts beat
+<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">Beat 1</a> mentioned the &ldquo;specific small prompts beat
 orchestration prompts&rdquo; rule in passing. Chapter 1&apos;s build
 made me believe it.</p>
 <p>The Phase 1 data layer required four fetches: PDB structure file,
@@ -201,6 +214,8 @@ project script in tree.</p>
   same plugin, stalled forever on a six-skill orchestration prompt.
   Don&apos;t generalise from one to the other.</li>
 </ul>
+<p><img alt="Chapter 3 of heat-protein-lab.pages.dev, showing the human HSP70 substrate-binding domain (PDB 4PO2) rendered in 3Dmol with a small in-figure schematic of how HSPA1A sits between HSF1 and a misfolded client." src="/screenshots/heat-protein-lab/03-ch3-hsp70.jpg">
+<em>Chapter 3 in the pipe. HSP70 is the chaperone that actually refolds damaged proteins; chapter 3 will be the subject of Beat 3 once the denaturation centerpiece in chapter 4 ships.</em></p>
 <h2>What&apos;s next</h2>
 <p>The chapter is the first of nine sections on the page. Chapters 2
 through 8 follow the same pattern: marginalia + reading body + a
