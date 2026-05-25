@@ -52,6 +52,24 @@
     "verified": true,
     "retrieved_at": "2026-05-25"
   },
+  "hsp90": {
+    "uniprot_human": "P07900",
+    "pdb_chapter_hero": "7L7J",
+    "pdb_verified_title": "Cryo-EM structure of Hsp90:p23 closed-state complex",
+    "pdb_method": "ELECTRON MICROSCOPY",
+    "pdb_resolution_angstrom": 3.1,
+    "pdb_organism": "Homo sapiens",
+    "verified": true,
+    "verified_at": "2026-05-25",
+    "downloaded_to": "data/structures/pdb/hsp90/pdb_00007l7j.cif.gz",
+    "correction_notes": "DESIGN.md originally listed 2CG9 as the HSP90 candidate. PDB metadata via pdb_database skill confirmed 2CG9 is yeast Saccharomyces cerevisiae Hsp82-Sba1, NOT human HSP90. Chapter 2 now anchors on 7L7J. Second non-human candidate caught by the same verification pattern (first was Ch1's 5D5W -> 5D5U)."
+  },
+  "hsf1_activation": {
+    "pubmed_top_pmids": ["9727490", "32844464", "34331200"],
+    "verified_example_title": "Repression of heat shock transcription factor HSF1 activation by HSP90 (HSP90 complex) that forms a stress-sensitive complex with HSF1.",
+    "verified": true,
+    "retrieved_at": "2026-05-25"
+  },
   "hsf1": {
     "uniprot": "Q00613",
     "pdb_chapter_hero": "5D5U",

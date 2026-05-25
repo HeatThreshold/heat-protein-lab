@@ -1,0 +1,42 @@
+{
+  "chapter": 2,
+  "topic": "HSF1 activation",
+  "citations": [
+    {
+      "pmid": "9727490",
+      "title": "Repression of heat shock transcription factor HSF1 activation by HSP90 (HSP90 complex) that forms a stress-sensitive complex with HSF1.",
+      "authors_short": [
+        "Zou J",
+        "Guo Y",
+        "Guettouche T"
+      ],
+      "year": null,
+      "journal": "Cell",
+      "snippet": "Heat shock and other proteotoxic stresses cause accumulation of nonnative proteins that trigger activation of heat shock protein (Hsp) genes. A chaperone/Hsp functioning as repressor of heat shock transcription factor (HSF) could make activation of hsp genes dependent on protein "
+    },
+    {
+      "pmid": "32844464",
+      "title": "The role and therapeutic potential of Hsp90, Hsp70, and smaller heat shock proteins in peripheral and central neuropathies.",
+      "authors_short": [
+        "Chaudhury S",
+        "Keegan BM",
+        "Blagg BSJ"
+      ],
+      "year": null,
+      "journal": "Medicinal research reviews",
+      "snippet": "Heat shock proteins (Hsps) are molecular chaperones that also play important roles in the activation of the heat shock response (HSR). The HSR is an evolutionary conserved and protective mechanism that is used to counter abnormal physiological conditions, stressors, and disease s"
+    },
+    {
+      "pmid": "34331200",
+      "title": "Gambogic acid and gambogenic acid induce a thiol-dependent heat shock response and disrupt the interaction between HSP90 and HSF1 or HSF2.",
+      "authors_short": [
+        "Pesonen L",
+        "Svartsj\u00f6 S",
+        "B\u00e4ck V"
+      ],
+      "year": null,
+      "journal": "Cell stress & chaperones",
+      "snippet": "Cancer cells rely on heat shock proteins (HSPs) for growth and survival. Especially HSP90 has multiple client proteins and plays a critical role in malignant transformation, and therefore different types of HSP90 inhibitors are being developed. The bioactive natural compound gamb"
+    }
+  ]
+}

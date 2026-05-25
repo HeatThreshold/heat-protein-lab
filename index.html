@@ -167,11 +167,135 @@
         Chapter stubs 2-8 — visible so reading flow doesn't dead-end at Ch1.
         Full implementations land in subsequent commits.
       -->
-      <section class="chapter chapter--stub" data-chapter="2" data-temp="40.0" data-accent="heat-39">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate II / 38.5 &rarr; 40.0 &deg;C</p>
-          <h2 class="chapter__title">When heat arrives</h2>
-          <p class="body stub-note">Chapter under construction. HSF1 activation kinetics + HSP90 structure pending Phase 2.</p>
+      <!--
+        Chapter 2 — When heat arrives (HSF1 activation kinetics + HSP90).
+        Reads from:
+          data/structures/pdb/hsp90/pdb_00007l7j.cif.gz
+          data/citations/hsf1_activation.json
+      -->
+      <section
+        class="chapter"
+        data-chapter="2"
+        data-temp="40.0"
+        data-accent="heat-39"
+        id="chapter-2"
+      >
+        <div class="chapter__inner">
+          <aside class="marginalia" aria-label="Chapter 2 metadata">
+            <p class="eyebrow">Plate II</p>
+            <p class="margin-temp">38.5 &rarr; 40.0 &deg;C</p>
+            <div class="badge badge--activation">
+              <p class="badge__label">Activation</p>
+              <p class="badge__body">HSF1 &rarr; trimer</p>
+              <p class="badge__source">Source: Zou et al. (1998), <em>Cell</em></p>
+            </div>
+          </aside>
+
+          <div class="reading">
+            <h2 class="chapter__title">When heat arrives</h2>
+
+            <p class="body">
+              When core temperature climbs even a degree or two above
+              baseline, the chaperone <strong>HSP90</strong> that had been
+              holding HSF1 inactive has a new and more pressing job: it gets
+              recruited away to refold a growing population of other
+              proteins that are starting to come apart at the seams. As it
+              leaves, HSF1 is released.
+            </p>
+            <p class="body">
+              Three HSF1 monomers find each other and assemble into a
+              <strong>trimer</strong>, held together by a leucine-zipper
+              bundle in the trimerization domain. The trimer enters the
+              nucleus, gets phosphorylated at multiple sites (S326 is the
+              canonical activation mark), and binds heat-shock elements on
+              DNA. Within a few minutes the cell&rsquo;s heat-shock genes
+              are transcribing furiously.
+            </p>
+            <p class="body">
+              The structure on the right is <span class="mono">PDB 7L7J</span> —
+              a cryo-EM reconstruction of human HSP90 in its closed,
+              ATP-bound state with the co-chaperone p23 stabilising it. This
+              is the configuration HSP90 occupies when it&rsquo;s holding a
+              client steady; the same conformational machinery that lets it
+              hold HSF1 also lets it abandon HSF1 when more urgent clients
+              demand its time.
+            </p>
+
+            <details class="citations" id="hsf1-activation-citations">
+              <summary>Sources for this chapter</summary>
+              <ol class="citations__list" id="hsf1-activation-citations-list">
+                <li class="citations__loading">Loading from PubMed&hellip;</li>
+              </ol>
+            </details>
+          </div>
+
+          <div class="figure figure--stacked">
+            <figure class="schematic-card">
+              <p class="schematic-banner">Visualization, not molecular dynamics.</p>
+              <svg
+                class="schematic"
+                viewBox="0 0 320 200"
+                role="img"
+                aria-label="Schematic of HSF1 monomer transitioning into a trimer when heat arrives"
+              >
+                <g class="schematic__monomer" transform="translate(20, 60)">
+                  <path
+                    d="M 0 40 Q 15 0 30 40 T 60 40"
+                    fill="none"
+                    stroke="var(--rule)"
+                    stroke-width="2"
+                  />
+                  <circle cx="0" cy="40" r="8" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.5" />
+                  <circle cx="60" cy="40" r="8" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.5" />
+                  <text x="30" y="92" text-anchor="middle" class="schematic__label">HSF1 monomer</text>
+                  <text x="30" y="106" text-anchor="middle" class="schematic__sublabel">+ HSP90</text>
+                </g>
+
+                <g class="schematic__arrow" transform="translate(110, 100)">
+                  <line x1="0" y1="0" x2="100" y2="0" stroke="var(--rule)" stroke-width="1.5" stroke-dasharray="3,3" />
+                  <polygon points="100,0 92,-5 92,5" fill="var(--rule)" />
+                  <text x="50" y="-12" text-anchor="middle" class="schematic__label schematic__heat">+ heat</text>
+                  <text x="50" y="18" text-anchor="middle" class="schematic__sublabel">HSP90 dissociates</text>
+                </g>
+
+                <g class="schematic__trimer" transform="translate(230, 100)">
+                  <path d="M -25 -25 Q -10 -10 0 0" fill="none" stroke="var(--heat-39)" stroke-width="2.5" />
+                  <path d="M 25 -25 Q 10 -10 0 0" fill="none" stroke="var(--heat-39)" stroke-width="2.5" />
+                  <path d="M 0 30 Q 0 15 0 0" fill="none" stroke="var(--heat-39)" stroke-width="2.5" />
+                  <circle cx="-25" cy="-25" r="7" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.5" />
+                  <circle cx="25" cy="-25" r="7" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.5" />
+                  <circle cx="0" cy="30" r="7" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.5" />
+                  <circle cx="0" cy="0" r="5" fill="var(--heat-39)" />
+                  <text x="0" y="55" text-anchor="middle" class="schematic__label">HSF1 trimer</text>
+                  <text x="0" y="69" text-anchor="middle" class="schematic__sublabel">enters nucleus</text>
+                </g>
+              </svg>
+              <figcaption class="schematic-caption">
+                <em>Schematic &mdash; not to scale.</em>
+              </figcaption>
+            </figure>
+
+            <figure class="viewer-card viewer-card--compact">
+              <div
+                class="viewer"
+                id="viewer-hsp90"
+                role="img"
+                aria-label="3D ribbon model of human HSP90:p23 closed-state complex, PDB 7L7J"
+              >
+                <p class="viewer__loading">Loading PDB&nbsp;7L7J&hellip;</p>
+              </div>
+              <figcaption class="viewer-card__caption">
+                <a
+                  class="mono viewer-card__pdb-link"
+                  href="https://www.rcsb.org/structure/7L7J"
+                  target="_blank"
+                  rel="noopener"
+                  >PDB &middot; 7L7J &nbsp;<span aria-hidden="true">&#8599;</span></a
+                >
+                <span class="viewer-card__source">retrieved 2026-05-25</span>
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="3" data-temp="40.0" data-accent="heat-40">

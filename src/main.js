@@ -14,10 +14,16 @@
 // --- DOM refs --------------------------------------------------------------
 
 const els = {
+  // Chapter 1
   viewer: document.getElementById("viewer-hsf1"),
   viewerLoading: document.querySelector("#viewer-hsf1 .viewer__loading"),
   citationsList: document.getElementById("hsf1-citations-list"),
   expressionSummary: document.getElementById("hsf1-expression-summary"),
+  // Chapter 2
+  viewerHsp90: document.getElementById("viewer-hsp90"),
+  viewerHsp90Loading: document.querySelector("#viewer-hsp90 .viewer__loading"),
+  activationCitationsList: document.getElementById("hsf1-activation-citations-list"),
+  // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
   plateBadge: document.getElementById("plate-badge"),
@@ -65,10 +71,10 @@ const PLATE_LABELS = [
 
 // --- Chapter 1 data renderers ---------------------------------------------
 
-function renderCitations(payload) {
+function renderCitationsInto(target, payload, sourcePath) {
+  if (!target) return;
   if (!payload || !Array.isArray(payload.citations)) {
-    els.citationsList.innerHTML =
-      '<li class="citations__error">No citations found in data/citations/hsf1.json.</li>';
+    target.innerHTML = `<li class="citations__error">No citations found in ${escapeHtml(sourcePath)}.</li>`;
     return;
   }
   const items = payload.citations.map((c) => {
@@ -90,7 +96,19 @@ function renderCitations(payload) {
       </li>
     `;
   });
-  els.citationsList.innerHTML = items.join("");
+  target.innerHTML = items.join("");
+}
+
+function renderCitations(payload) {
+  renderCitationsInto(els.citationsList, payload, "data/citations/hsf1.json");
+}
+
+function renderActivationCitations(payload) {
+  renderCitationsInto(
+    els.activationCitationsList,
+    payload,
+    "data/citations/hsf1_activation.json"
+  );
 }
 
 function renderTissueExpression(rows) {
@@ -126,52 +144,82 @@ function escapeHtml(s) {
 
 // --- 3Dmol viewer ----------------------------------------------------------
 
-async function mountHsf1Viewer() {
-  // 3Dmol attaches to window. If the CDN script hasn't finished yet, bail
-  // with a readable error so the user can refresh.
+async function mount3DmolViewer({
+  mountEl,
+  loadingEl,
+  cifUrl,
+  styleFn,
+  pdbId,
+}) {
   const $3 = window.$3Dmol;
   if (!$3) {
-    els.viewerLoading.textContent = "3Dmol.js failed to load (CDN blocked?)";
+    if (loadingEl) loadingEl.textContent = "3Dmol.js failed to load (CDN blocked?)";
     return;
   }
-
-  // Fetch + decompress the gzipped mmCIF.
   let cifText;
   try {
-    cifText = await fetchGzipText("data/structures/pdb/hsf1/pdb_00005d5u.cif.gz");
+    cifText = await fetchGzipText(cifUrl);
   } catch (err) {
     console.error(err);
-    els.viewerLoading.textContent = "Could not load PDB 5D5U from data/.";
+    if (loadingEl) loadingEl.textContent = `Could not load PDB ${pdbId} from data/.`;
     return;
   }
 
-  const viewer = $3.createViewer(els.viewer, {
-    backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--surface-viewer").trim() || "#0F1217",
+  const viewer = $3.createViewer(mountEl, {
+    backgroundColor:
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--surface-viewer")
+        .trim() || "#0F1217",
     antialias: true,
   });
 
   viewer.addModel(cifText, "cif");
-
-  // Color the protein on a constrained warm palette so it sits inside the
-  // page's heat-ramp aesthetic rather than reading as generic chemistry candy.
-  viewer.setStyle({ chain: "A" }, { cartoon: { color: "#c97a2b" } });
-  viewer.setStyle({ chain: "B" }, { cartoon: { color: "#c97a2b" } });
-  viewer.setStyle({ chain: "C" }, { cartoon: { color: "#c97a2b" } });
-  // DNA strands (heat-shock element) — cool slate so they read distinct.
-  viewer.setStyle({ chain: "D" }, { cartoon: { color: "#4f6b7a" } });
-  viewer.setStyle({ chain: "E" }, { cartoon: { color: "#4f6b7a" } });
-  // Anything else (ligands, ions): a soft outline.
-  viewer.setStyle({ hetflag: true }, { stick: { color: "#b8a04f", radius: 0.15 } });
-
+  styleFn(viewer);
   viewer.zoomTo();
   viewer.render();
 
-  // Gentle continuous rotation, halted under reduced-motion.
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     viewer.spin("y", 0.4);
   }
+  if (loadingEl) loadingEl.style.display = "none";
+}
 
-  if (els.viewerLoading) els.viewerLoading.style.display = "none";
+function styleHsf1(viewer) {
+  // Protein chains in ochre, DNA strands in slate, ligands/ions thin stick in yellow.
+  viewer.setStyle({ chain: "A" }, { cartoon: { color: "#c97a2b" } });
+  viewer.setStyle({ chain: "B" }, { cartoon: { color: "#c97a2b" } });
+  viewer.setStyle({ chain: "C" }, { cartoon: { color: "#c97a2b" } });
+  viewer.setStyle({ chain: "D" }, { cartoon: { color: "#4f6b7a" } });
+  viewer.setStyle({ chain: "E" }, { cartoon: { color: "#4f6b7a" } });
+  viewer.setStyle({ hetflag: true }, { stick: { color: "#b8a04f", radius: 0.15 } });
+}
+
+function styleHsp90(viewer) {
+  // HSP90 dimer + p23 + ATP. Apply a single warm-yellow cartoon to all
+  // protein chains; bound nucleotides/ions read as thin sticks.
+  viewer.setStyle({ cartoon: { color: "#b8a04f" } });
+  viewer.setStyle({ hetflag: true }, { stick: { color: "#c97a2b", radius: 0.18 } });
+}
+
+async function mountHsf1Viewer() {
+  return mount3DmolViewer({
+    mountEl: els.viewer,
+    loadingEl: els.viewerLoading,
+    cifUrl: "data/structures/pdb/hsf1/pdb_00005d5u.cif.gz",
+    styleFn: styleHsf1,
+    pdbId: "5D5U",
+  });
+}
+
+async function mountHsp90Viewer() {
+  if (!els.viewerHsp90) return;
+  return mount3DmolViewer({
+    mountEl: els.viewerHsp90,
+    loadingEl: els.viewerHsp90Loading,
+    cifUrl: "data/structures/pdb/hsp90/pdb_00007l7j.cif.gz",
+    styleFn: styleHsp90,
+    pdbId: "7L7J",
+  });
 }
 
 // --- Temperature strip + plate badge ---------------------------------------
@@ -252,22 +300,37 @@ function setupChapterObserver() {
 (async function boot() {
   setupChapterObserver();
 
-  // Parallel: viewer, citations, expression. Independent.
+  // Parallel: all viewers + all citation/expression fetches. Independent.
   await Promise.allSettled([
     mountHsf1Viewer(),
+    mountHsp90Viewer(),
     fetchJson("data/citations/hsf1.json")
       .then(renderCitations)
       .catch((err) => {
         console.error(err);
-        els.citationsList.innerHTML = `<li class="citations__error">Could not load citations: ${escapeHtml(
-          err.message
-        )}</li>`;
+        if (els.citationsList) {
+          els.citationsList.innerHTML = `<li class="citations__error">Could not load citations: ${escapeHtml(
+            err.message
+          )}</li>`;
+        }
+      }),
+    fetchJson("data/citations/hsf1_activation.json")
+      .then(renderActivationCitations)
+      .catch((err) => {
+        console.error(err);
+        if (els.activationCitationsList) {
+          els.activationCitationsList.innerHTML = `<li class="citations__error">Could not load activation citations: ${escapeHtml(
+            err.message
+          )}</li>`;
+        }
       }),
     fetchJson("data/expression/hsf1.json")
       .then(renderTissueExpression)
       .catch((err) => {
         console.error(err);
-        els.expressionSummary.textContent = `Could not load tissue expression: ${err.message}`;
+        if (els.expressionSummary) {
+          els.expressionSummary.textContent = `Could not load tissue expression: ${err.message}`;
+        }
       }),
   ]);
 })();

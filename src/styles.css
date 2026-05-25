@@ -376,6 +376,77 @@ a:focus-visible {
   }
 }
 
+/* Two-figure stack (Ch 2: schematic + viewer) */
+.figure--stacked {
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* ---------- Schematic card (Ch 2 monomer -> trimer diagram) ---------- */
+
+.schematic-card {
+  margin: 0;
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 12px 16px 8px;
+}
+
+.schematic-banner {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--heat-41);
+  margin: 0 0 8px 0;
+  text-align: center;
+  border-bottom: 1px dashed var(--heat-41);
+  padding-bottom: 6px;
+}
+
+.schematic {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.schematic__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  fill: var(--ink);
+}
+
+.schematic__sublabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  fill: var(--ink-faint);
+}
+
+.schematic__heat {
+  fill: var(--heat-41);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.schematic-caption {
+  margin: 4px 0 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+/* Compact variant of the viewer card for when it's stacked below a schematic */
+.viewer-card--compact .viewer {
+  aspect-ratio: 4 / 3;
+}
+
 /* ---------- Protein viewer card ---------- */
 
 .viewer-card {
