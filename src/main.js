@@ -772,11 +772,69 @@ function setupCh8Bridge() {
   renderCh8();
 }
 
+// --- Chapter 7: inline Reactome SVG + chip hover cues ----------------------
+//
+// The Reactome SVG ships as a Batik-flattened image: protein labels are
+// rendered as raw <path> strokes, not <text>, so we can't hook hover
+// behaviour to individual protein boxes. Instead we inject the SVG inline
+// (a11y win: zoomable, scalable, themeable) and provide three "Jump to
+// chapter" chips below the diagram for HSF1, HSP90AA1, HSPA1A. Hovering a
+// chip ringlights the diagram so the connection between the chips and
+// the figure is visually obvious.
+
+async function setupCh7Pathway() {
+  const host = document.getElementById("pathway-svg-host");
+  if (!host) return;
+  const src = host.getAttribute("data-svg-src");
+  if (!src) return;
+
+  // Inject inline. Keep the static <img> fallback live until inject succeeds
+  // so failure produces no visible regression.
+  try {
+    const res = await fetch(src);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    const doc = new DOMParser().parseFromString(text, "image/svg+xml");
+    const svg = doc.documentElement;
+    if (!svg || svg.nodeName.toLowerCase() !== "svg") {
+      throw new Error("response was not an SVG document");
+    }
+    svg.setAttribute("class", "pathway-svg-inline");
+    svg.setAttribute("role", "img");
+    svg.setAttribute(
+      "aria-label",
+      "Reactome heat shock response pathway R-HSA-3371556 with HSPA1A highlighted"
+    );
+    // Remove the static fallback once the inline replaces it.
+    const fallback = host.querySelector(".pathway-image--fallback");
+    if (fallback) fallback.remove();
+    host.appendChild(svg);
+  } catch (err) {
+    console.warn(
+      "Could not inline Reactome SVG; static <img> fallback remains:",
+      err
+    );
+    // No throw — the static fallback still renders the figure correctly.
+  }
+
+  // Wire the chip hover/focus cues regardless of whether the inline succeeded.
+  const chips = document.querySelectorAll(".pathway-chip");
+  chips.forEach((chip) => {
+    const setHover = () => host.classList.add("pathway-card-fullbleed--hover");
+    const clearHover = () => host.classList.remove("pathway-card-fullbleed--hover");
+    chip.addEventListener("mouseenter", setHover);
+    chip.addEventListener("mouseleave", clearHover);
+    chip.addEventListener("focus", setHover);
+    chip.addEventListener("blur", clearHover);
+  });
+}
+
 // --- Boot ------------------------------------------------------------------
 
 (async function boot() {
   setupChapterObserver();
   setupCh8Bridge();
+  setupCh7Pathway();
 
   // Parallel: all viewers + all citation/expression fetches. Independent.
   await Promise.allSettled([

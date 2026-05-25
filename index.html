@@ -739,15 +739,35 @@
         </div>
 
         <figure class="pathway-fullbleed">
-          <div class="pathway-card-fullbleed">
+          <div
+            class="pathway-card-fullbleed"
+            id="pathway-svg-host"
+            data-svg-src="data/diagrams/hsr-pathway-hspa1a.svg"
+            aria-label="Reactome heat shock response pathway R-HSA-3371556 with HSPA1A highlighted"
+          >
+            <!-- Inline SVG is injected here at runtime so the diagram is
+                 zoomable, scalable, and themeable. Static <img> fallback
+                 below renders for no-JS visitors and during the inject. -->
             <img
-              class="pathway-image"
+              class="pathway-image pathway-image--fallback"
               src="data/diagrams/hsr-pathway-hspa1a.svg"
               alt="Reactome heat shock response pathway R-HSA-3371556 with HSPA1A highlighted"
               loading="lazy"
               decoding="async"
             />
           </div>
+          <nav class="pathway-jumpnav" aria-label="Jump to a protein on the pathway diagram">
+            <span class="pathway-jumpnav__label">Find a chapter for:</span>
+            <a class="pathway-chip" href="#chapter-1" data-protein="HSF1">
+              HSF1 <span class="pathway-chip__hint">→ Ch 1</span>
+            </a>
+            <a class="pathway-chip" href="#chapter-2" data-protein="HSP90AA1">
+              HSP90AA1 <span class="pathway-chip__hint">→ Ch 2</span>
+            </a>
+            <a class="pathway-chip" href="#chapter-3" data-protein="HSPA1A">
+              HSPA1A <span class="pathway-chip__hint">→ Ch 3</span>
+            </a>
+          </nav>
           <figcaption class="pathway-fullbleed-caption">
             Source: <a href="https://reactome.org/PathwayBrowser/#/R-HSA-3371556" target="_blank" rel="noopener">Reactome &middot; R-HSA-3371556</a>
             &middot; &ldquo;Cellular response to heat stress&rdquo; &middot; diagram

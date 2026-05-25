@@ -976,15 +976,69 @@ a:focus-visible {
     0 1px 0 var(--paper-edge);
   overflow: auto;            /* horizontal scroll on small screens */
   -webkit-overflow-scrolling: touch;
+  transition: box-shadow 0.18s ease, outline 0.18s ease;
 }
 
-.pathway-image {
+.pathway-card-fullbleed--hover {
+  outline: 2px solid var(--heat-39, #C9A95C);
+  outline-offset: 4px;
+  box-shadow: 0 12px 36px -10px rgba(34, 26, 21, 0.35),
+    0 1px 0 var(--paper-edge);
+}
+
+.pathway-image,
+.pathway-svg-inline {
   display: block;
   width: 100%;
   height: auto;
   min-width: 720px;          /* keep labels legible; user scrolls horizontally if narrower */
   max-width: 100%;
   background: var(--paper);
+}
+
+/* Jump-nav chips below the pathway diagram */
+.pathway-jumpnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  justify-content: center;
+  max-width: 80ch;
+  margin: 16px auto 0;
+  padding: 0 var(--gutter);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.pathway-jumpnav__label {
+  font-style: italic;
+}
+
+.pathway-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  background: color-mix(in srgb, var(--ink) 6%, var(--paper));
+  border: 1px solid var(--paper-edge);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: background 0.14s ease, border-color 0.14s ease;
+}
+.pathway-chip:hover,
+.pathway-chip:focus-visible {
+  background: color-mix(in srgb, var(--ink) 14%, var(--paper));
+  border-color: var(--ink);
+  outline: none;
+}
+.pathway-chip__hint {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
 }
 
 @media (min-width: 720px) {
