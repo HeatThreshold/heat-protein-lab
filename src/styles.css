@@ -178,6 +178,7 @@ a:focus-visible {
 
 .chapter {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--section-gap-y) var(--gutter);
   display: flex;
   align-items: center;
@@ -986,6 +987,31 @@ a:focus-visible {
     0 1px 0 var(--paper-edge);
 }
 
+/* Hint on mobile that the diagram scrolls horizontally inside its card. */
+@media (max-width: 720px) {
+  .pathway-card-fullbleed::after {
+    content: "↔ swipe to see the full diagram";
+    display: block;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    padding: 4px 0 0;
+  }
+}
+
+/* Universal keyboard-focus ring on interactive elements without one. */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--heat-39);
+  outline-offset: 2px;
+}
+
 .pathway-image,
 .pathway-svg-inline {
   display: block;
@@ -1155,6 +1181,7 @@ a:focus-visible {
   width: 100%;
   grid-column: 1 / 2;
   accent-color: var(--heat-41);
+  min-height: 44px; /* meet WCAG 2.5.5 / mobile touch target */
 }
 
 .bridge-input output {
@@ -1169,7 +1196,8 @@ a:focus-visible {
   grid-column: 1 / -1;
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  padding: 6px 8px;
+  padding: 10px 12px;
+  min-height: 44px; /* meet WCAG 2.5.5 / mobile touch target */
   background: var(--paper);
   border: 1px solid var(--paper-edge);
   border-radius: 2px;
