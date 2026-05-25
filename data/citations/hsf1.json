@@ -1,0 +1,42 @@
+{
+  "chapter": 1,
+  "gene": "HSF1",
+  "citations": [
+    {
+      "pmid": "30467350",
+      "title": "Neuroprotection by Heat Shock Factor-1 (HSF1) and Trimerization-Deficient Mutant Identifies Novel Alterations in Gene Expression.",
+      "authors_short": [
+        "Qu Z",
+        "Titus ASCLS",
+        "Xuan Z"
+      ],
+      "year": null,
+      "journal": "Scientific reports",
+      "snippet": "Heat shock factor-1 (HSF1) protects neurons from death caused by the accumulation of misfolded proteins by stimulating the transcription of genes encoding heat shock proteins (HSPs). This stimulatory action depends on the association of trimeric HSF1 to sequences within HSP gene "
+    },
+    {
+      "pmid": "33493517",
+      "title": "Heat shock transcription factor 1 is SUMOylated in the activated trimeric state.",
+      "authors_short": [
+        "Kmiecik SW",
+        "Drzewicka K",
+        "Melchior F"
+      ],
+      "year": null,
+      "journal": "The Journal of biological chemistry",
+      "snippet": "The heat shock response is a transcriptional program of organisms to counteract an imbalance in protein homeostasis. It is orchestrated in all eukaryotic cells by heat shock transcription factor 1 (Hsf1). Despite very intensive research, the intricacies of the Hsf1 activation-att"
+    },
+    {
+      "pmid": "27354066",
+      "title": "Heat Shock Factor 1 Is a Substrate for p38 Mitogen-Activated Protein Kinases.",
+      "authors_short": [
+        "Dayalan Naidu S",
+        "Sutherland C",
+        "Zhang Y"
+      ],
+      "year": null,
+      "journal": "Molecular and cellular biology",
+      "snippet": "Heat shock factor 1 (HSF1) monitors the structural integrity of the proteome. Phosphorylation at S326 is a hallmark for HSF1 activation, but the identity of the kinase(s) phosphorylating this site has remained elusive. We show here that the dietary agent phenethyl isothiocyanate "
+    }
+  ]
+}
