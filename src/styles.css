@@ -64,6 +64,28 @@ html {
   line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* ---------- Skip to content (keyboard accessibility) ---------- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 2px;
+  z-index: 200;
+  transition: top 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.skip-link:focus {
+  top: 8px;
+  outline: 2px solid var(--heat-39);
+  outline-offset: 2px;
 }
 
 body {
@@ -345,6 +367,15 @@ a:focus-visible {
   justify-content: flex-start;
 }
 
+/* Sticky figure on desktop — protein stays visible while reading body text */
+@media (min-width: 1024px) {
+  .figure {
+    position: sticky;
+    top: calc(var(--temp-strip-height) + 32px);
+    align-self: start;
+  }
+}
+
 /* ---------- Protein viewer card ---------- */
 
 .viewer-card {
@@ -356,6 +387,14 @@ a:focus-visible {
   overflow: hidden;
   box-shadow: 0 6px 24px -8px rgba(34, 26, 21, 0.25),
     0 1px 0 var(--paper-edge);
+  transition: box-shadow 240ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.viewer-card:hover {
+  box-shadow: 0 10px 32px -8px rgba(34, 26, 21, 0.32),
+    0 1px 0 var(--paper-edge);
+  transform: translateY(-1px);
 }
 
 .viewer {
@@ -387,6 +426,7 @@ a:focus-visible {
 .viewer-card__caption {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   padding: 8px 12px;
   background: var(--surface-viewer);
@@ -394,6 +434,18 @@ a:focus-visible {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.04em;
+}
+
+.viewer-card__pdb-link {
+  color: #d9d2bb;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.viewer-card__pdb-link:hover,
+.viewer-card__pdb-link:focus-visible {
+  color: #f5efdf;
+  border-bottom-color: #d9d2bb;
 }
 
 .viewer-card__source {
@@ -424,6 +476,7 @@ a:focus-visible {
   content: "▾";
   color: var(--ink-faint);
   font-size: 0.9em;
+  display: inline-block;
   transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

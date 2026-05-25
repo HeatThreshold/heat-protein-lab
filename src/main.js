@@ -105,12 +105,14 @@ function renderTissueExpression(rows) {
     if (buckets[lvl]) buckets[lvl].push(row.tissue);
   }
   const total = rows.length;
+  const expressedCount = total - buckets["not detected"].length;
   const highSample = buckets.high.slice(0, 4).join(", ");
-  const more = buckets.high.length > 4 ? ` (+${buckets.high.length - 4} more)` : "";
-  els.expressionSummary.innerHTML = `
-    Expressed across ${total - buckets["not detected"].length} of ${total} tissues; high in
-    <strong>${escapeHtml(highSample)}</strong>${escapeHtml(more)}.
-  `;
+  const remaining = buckets.high.length - 4;
+  const tail = remaining > 0 ? ` (+${remaining} more)` : "";
+  // Single sentence, single line — let CSS handle wrapping naturally.
+  els.expressionSummary.innerHTML = `Expressed across ${expressedCount} of ${total} tissues; high in <strong>${escapeHtml(
+    highSample
+  )}</strong>${escapeHtml(tail)}.`;
 }
 
 function escapeHtml(s) {
@@ -224,14 +226,21 @@ function setupChapterObserver() {
   chapters.forEach((c) => observer.observe(c));
 
   // Tie the fill width to overall scroll progress (independent of which
-  // chapter is highlighted — handled separately).
+  // chapter is highlighted — handled separately). Throttle with rAF to keep
+  // the scroll thread cheap.
+  let rafPending = false;
   const updateScrollFill = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-    if (els.tempStripFill) {
-      els.tempStripFill.style.setProperty("--fill-width", `${Math.min(100, Math.max(0, pct))}%`);
-      els.tempStripFill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
-    }
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      const clamped = Math.min(100, Math.max(0, pct));
+      if (els.tempStripFill) {
+        els.tempStripFill.style.width = `${clamped}%`;
+      }
+      rafPending = false;
+    });
   };
   updateScrollFill();
   window.addEventListener("scroll", updateScrollFill, { passive: true });
