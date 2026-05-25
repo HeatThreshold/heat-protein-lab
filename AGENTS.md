@@ -40,6 +40,7 @@ Other science skills exist (PubChem, ChEMBL, UniBind, ENCODE cCREs, UCSC conserv
 
 - `modern-web-guidance-plugin` — **mandatory first stop** for any HTML/CSS/JS feature per its own SKILL.md. Run `npx -y modern-web-guidance@latest search "<query>"` before writing scroll-driven animation code, intersection-observer code, container queries, view transitions, etc.
 - `chrome-devtools-plugin` — for debugging the running page (CWV, INP, LCP, memory, a11y). The page is the deliverable, so use this before declaring a chapter visually done.
+- **Stitch MCP** (Google's AI design tool, installed in Antigravity) — generates UI mockups from natural-language prompts. [DESIGN.md](./DESIGN.md) contains a self-contained Stitch prompt per chapter (`### Stitch prompt — Chapter N`). The workflow: ask the IDE to "generate the chapter N mockup with Stitch from `DESIGN.md`"; the IDE locates the corresponding prompt block, sends it to Stitch, and drops the resulting mockup into `notes/design/ch-N/`. Iterate the prompt in `DESIGN.md`, not in the chat — drift between code, design, and doc compounds.
 - `firebase`, `android-cli-plugin`, `agy-plugin-demo` — irrelevant to this project, ignore.
 
 ## Prerequisites the IDE should establish in Phase 0

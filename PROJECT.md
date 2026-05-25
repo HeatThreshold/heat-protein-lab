@@ -24,7 +24,7 @@ The site at `index.html` is a single scrollytelling page. Sections are full-view
 
 Single goal: make every science skill we plan to use return real data into this repo's `data/` directory, end to end.
 
-1. **Install `uv` on the Pi** (currently missing). Verify `uv --version`. Capture the install command and resulting version in `notes/0-bootstrap.md`.
+1. **Install `uv` on the Pi.** ~~Currently missing~~ Installed 2026-05-25 at `~/.local/bin/uv` v0.11.16 via `curl -LsSf https://astral.sh/uv/install.sh | sh`. Verify with `uv --version`.
 2. **Confirm `~/.env`** exists (it does). If a `NCBI_API_KEY` is not already there, prompt the operator with the exact `printf | read -s | >> $HOME/.env` recipe from the SKILL.md files. Never read or print `~/.env` content.
 3. **Create LICENSE_NOTIFICATION files** in each science skill directory on first use (PDB, AlphaFold, HPA, PubMed, ClinVar, Reactome). These live in the skill's directory under `~/.gemini/config/plugins/science/skills/<name>/`, not in this repo.
 4. **Smoke test each skill** the project will use. One trivial call each, into `/tmp/`:
@@ -42,7 +42,7 @@ Single goal: make every science skill we plan to use return real data into this 
 
 The first chapter is the template. Everything that gets built here defines the pattern for chapters 2–7.
 
-1. Pre-flight: Use `modern-web-guidance` skill to pick a scroll-driven animation pattern (likely scroll-driven CSS animations + `IntersectionObserver` for chapter transitions) before writing any HTML/CSS.
+1. Pre-flight: Use `modern-web-guidance` skill to pick a scroll-driven animation pattern (likely scroll-driven CSS animations + `IntersectionObserver` for chapter transitions) before writing any HTML/CSS. Then use Antigravity's Stitch MCP to generate the Chapter 1 mockup from the `### Stitch prompt — Chapter 1` block in [DESIGN.md](./DESIGN.md). Save the mockup to `notes/design/ch-1/`.
 2. **Data fetch script** at `scripts/01_hsf1.py`:
    - PDB metadata + structure download for the HSF1 DBD (sequence search will identify the right entry if 5D5W isn't confirmed).
    - PubMed search for the canonical HSF1 paper(s); fetch abstracts; slim with `jq` into `data/citations/hsf1.json`.

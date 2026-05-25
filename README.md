@@ -24,7 +24,7 @@ The narrative arc:
 | 7 | The full pathway | Reactome "Cellular response to heat stress" diagram (R-HSA-3371556, candidate) |
 | 8 | Bridge to HeatThreshold | A WBGT input → predicted core-temperature progression → chapter checkpoint markers |
 
-The full phased build plan lives in [PROJECT.md](./PROJECT.md). The running bibliography lives in [references.md](./references.md). Project context for Antigravity 2.0 lives in [AGENTS.md](./AGENTS.md).
+The full phased build plan lives in [PROJECT.md](./PROJECT.md). The visual & UX design system — including per-chapter prompts the Antigravity Stitch MCP can consume — lives in [DESIGN.md](./DESIGN.md). The running bibliography lives in [references.md](./references.md). Project context for Antigravity 2.0 lives in [AGENTS.md](./AGENTS.md).
 
 ## How the project is built
 
