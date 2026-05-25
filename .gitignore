@@ -1,0 +1,44 @@
+# Node
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Antigravity / agent state — not committed
+.antigravity/
+.gemini/
+.claude/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# PDB / data caches (large, fetched on demand)
+data/cache/
+*.pdb.gz
