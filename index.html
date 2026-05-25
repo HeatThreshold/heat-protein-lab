@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="What heat does to the molecules that keep you alive — an educational scrollytelling lab. Not medical advice." />
+    <meta name="color-scheme" content="light" />
+    <title>Heat Protein Lab</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <!--
+      3Dmol.js, pinned. TODO before publishing: add an SRI hash on this
+      script tag once we lock the exact version for the first published cut.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/3dmol@2.5.1/build/3Dmol-min.js"></script>
+  </head>
+  <body>
+    <!-- Persistent global UI: temperature strip and plate corner -->
+    <div
+      class="temp-strip"
+      role="progressbar"
+      aria-label="Reading progress and current chapter temperature"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div class="temp-strip__fill" style="--fill-width: 5%; background: var(--heat-37);"></div>
+      <span class="temp-strip__readout" id="temp-readout">37.0 °C</span>
+    </div>
+
+    <div class="plate-corner" aria-hidden="true" id="plate-badge">Plate 0</div>
+
+    <main>
+      <!--
+        Chapter 0 — The premise (type-only hero).
+      -->
+      <section
+        class="chapter chapter--hero"
+        data-chapter="0"
+        data-temp="37.0"
+        data-accent="heat-37"
+      >
+        <div class="chapter__inner">
+          <p class="eyebrow">Plate 0 / 37.0 °C</p>
+          <h1 class="chapter__title chapter__title--hero">Heat Protein Lab</h1>
+          <hr class="rule" />
+          <p class="lede">
+            What heat does to the molecules that keep you alive — told one real
+            protein at a time.
+          </p>
+          <p class="body">
+            This page is an educational scrollytelling lab. Every chapter is
+            anchored on a real protein with a real structure, with citations
+            you can verify, drawing live data from public scientific databases
+            (PDB, AlphaFold, PubMed, Human Protein Atlas, ClinVar, Reactome).
+            It is built in the open as an experiment with Antigravity 2.0, the
+            Google DeepMind Science Skills plugin, and Stitch.
+          </p>
+
+          <section class="not-list" aria-label="What this is not">
+            <p class="not-list__heading">What this is not</p>
+            <ul>
+              <li>Not medical advice.</li>
+              <li>Not a record of any individual&rsquo;s biology.</li>
+              <li>Not a molecular dynamics engine.</li>
+              <li>Not a product.</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <!--
+        Chapter 1 — Meet your cellular thermometer (HSF1).
+        Reads from:
+          data/structures/pdb/hsf1/pdb_00005d5u.cif.gz   (PDB 5D5U mmCIF, gzipped)
+          data/citations/hsf1.json                      (top 3 PubMed papers)
+          data/expression/hsf1.json                      (HPA tissue expression)
+      -->
+      <section
+        class="chapter"
+        data-chapter="1"
+        data-temp="38.5"
+        data-accent="heat-38"
+      >
+        <div class="chapter__inner">
+          <aside class="marginalia" aria-label="Chapter metadata">
+            <p class="eyebrow">Plate I</p>
+            <p class="margin-temp">37.0 → 38.5 &deg;C</p>
+            <div class="badge badge--expression">
+              <p class="badge__label">Tissue expression · HSF1</p>
+              <p class="badge__body" id="hsf1-expression-summary">
+                Loading from Human Protein Atlas&hellip;
+              </p>
+              <p class="badge__source">Source: Human Protein Atlas</p>
+            </div>
+          </aside>
+
+          <div class="reading">
+            <h2 class="chapter__title">Meet your cellular thermometer</h2>
+
+            <p class="body">
+              Inside every one of your cells is a small protein called
+              <strong>HSF1</strong> — heat-shock factor 1. At your normal core
+              temperature it sits quietly, bound to a chaperone called HSP90
+              and effectively switched off. When the temperature climbs even a
+              little above baseline, HSP90 has more urgent work to do
+              elsewhere; it lets go. HSF1 is now free.
+            </p>
+            <p class="body">
+              Liberated, three copies of HSF1 find each other and assemble into
+              a <strong>trimer</strong>. The trimer travels into the nucleus
+              and binds short DNA sequences called heat-shock elements,
+              switching on dozens of genes that build the cell&rsquo;s defense
+              against heat damage. The structure on the right is
+              <span class="mono">PDB 5D5U</span> — human HSF1 captured in the
+              moment of contact with its target DNA.
+            </p>
+            <p class="body">
+              HSF1 itself is partly flexible by design: its DNA-binding domain
+              is well-folded, its trimerization domain is well-folded, and the
+              region in between is a flexible linker the cell uses to assemble
+              and disassemble the response quickly. AlphaFold predicts a
+              global pLDDT of <span class="mono" id="hsf1-plddt">61.31</span>
+              for full-length HSF1 — confident in the two structured domains,
+              disordered elsewhere, exactly the architecture of a fast sensor.
+            </p>
+
+            <details class="citations" id="hsf1-citations">
+              <summary>Sources for this chapter</summary>
+              <ol class="citations__list" id="hsf1-citations-list">
+                <li class="citations__loading">Loading from PubMed&hellip;</li>
+              </ol>
+            </details>
+          </div>
+
+          <div class="figure">
+            <figure class="viewer-card">
+              <div
+                class="viewer"
+                id="viewer-hsf1"
+                role="img"
+                aria-label="3D ribbon model of human HSF1 with HSE DNA, PDB 5D5U"
+              >
+                <p class="viewer__loading">Loading PDB&nbsp;5D5U&hellip;</p>
+              </div>
+              <figcaption class="viewer-card__caption">
+                <span class="mono">PDB · 5D5U</span>
+                <span class="viewer-card__source">RCSB PDB · retrieved 2026-05-25</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!--
+        Chapter stubs 2-8 — visible so reading flow doesn't dead-end at Ch1.
+        Full implementations land in subsequent commits.
+      -->
+      <section class="chapter chapter--stub" data-chapter="2" data-temp="40.0" data-accent="heat-39">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate II / 38.5 &rarr; 40.0 &deg;C</p>
+          <h2 class="chapter__title">When heat arrives</h2>
+          <p class="body stub-note">Chapter under construction. HSF1 activation kinetics + HSP90 structure pending Phase 2.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="3" data-temp="40.0" data-accent="heat-40">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate III / 40.0 &deg;C</p>
+          <h2 class="chapter__title">The first line of defense</h2>
+          <p class="body stub-note">Chapter under construction. HSP70 structure + Reactome snippet pending Phase 3.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="4" data-temp="46.3" data-accent="heat-41">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate IV / 40.0 &rarr; 50.0 &deg;C &middot; T<sub>m</sub> &asymp; 48 &deg;C</p>
+          <h2 class="chapter__title">When proteins melt</h2>
+          <p class="body stub-note">Chapter under construction. Visualization, not molecular dynamics.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="5" data-temp="40.0" data-accent="heat-40">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate V / 40.0 &deg;C</p>
+          <h2 class="chapter__title">Where the defenders live</h2>
+          <p class="body stub-note">Chapter under construction. HPA tissue heatmap pending Phase 5.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="6" data-temp="40.5" data-accent="heat-41">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate VI / 40.5 &deg;C</p>
+          <h2 class="chapter__title">When the genome strains</h2>
+          <p class="body stub-note">Chapter under construction. ClinVar variants pending Phase 6.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="7" data-temp="41.0" data-accent="heat-42">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate VII / 41.0 &deg;C</p>
+          <h2 class="chapter__title">All of it, all at once</h2>
+          <p class="body stub-note">Chapter under construction. Reactome pathway diagram pending Phase 7.</p>
+        </div>
+      </section>
+      <section class="chapter chapter--stub" data-chapter="8" data-temp="42.5" data-accent="heat-42">
+        <div class="chapter__inner chapter__inner--stub">
+          <p class="eyebrow">Plate VIII / 41.0 &rarr; 43.0 &deg;C</p>
+          <h2 class="chapter__title">Your environment, your enzymes</h2>
+          <p class="body stub-note">Chapter under construction. WBGT &rarr; core-temperature bridge pending Phase 8.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <p>
+        Heat Protein Lab &middot; MIT licensed &middot;
+        <a href="https://github.com/HeatThreshold/heat-protein-lab">source on GitHub</a>.
+      </p>
+      <p>
+        Data: <a href="https://www.rcsb.org/">RCSB PDB</a>,
+        <a href="https://alphafold.ebi.ac.uk/">AlphaFold</a>,
+        <a href="https://pubmed.ncbi.nlm.nih.gov/">PubMed</a>,
+        <a href="https://www.proteinatlas.org/">Human Protein Atlas</a>,
+        <a href="https://www.ncbi.nlm.nih.gov/clinvar/">ClinVar</a>,
+        <a href="https://reactome.org/">Reactome</a>.
+      </p>
+    </footer>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,506 @@
+/*
+ * heat-protein-lab — design tokens + Chapter 1 layout.
+ * Tokens follow DESIGN.md. Phase 1 scaffolds Chapter 0 hero + Chapter 1.
+ */
+
+:root {
+  /* Heat ramp (DESIGN.md § Visual system) */
+  --paper: #f5efdf;
+  --paper-edge: #e9e0c8;
+  --ink: #1b1b1b;
+  --ink-soft: #3d3a33;
+  --ink-faint: #8a8275;
+  --rule: #221a15;
+
+  --heat-37: #4f6b7a;
+  --heat-38: #6e7c73;
+  --heat-39: #b8a04f;
+  --heat-40: #c97a2b;
+  --heat-41: #b23a1f;
+  --heat-42: #7f1414;
+  --heat-44: #1b0707;
+
+  --accent-link: var(--heat-42);
+  --accent-link-hover: var(--heat-41);
+  --surface-card: #fbf6e8;
+  --surface-viewer: #0f1217;
+
+  /* Type */
+  --font-display: "GT Sectra Display", "Spectral", "Charter", Georgia, serif;
+  --font-body: "Spectral", "Charter", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, "SF Mono",
+    Menlo, monospace;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --reading-max: 64ch;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-gap-y: clamp(96px, 12vw, 192px);
+  --temp-strip-height: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.1875rem);
+}
+
+main {
+  display: block;
+}
+
+a {
+  color: var(--accent-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover,
+a:focus-visible {
+  color: var(--accent-link-hover);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Persistent global UI: temperature strip ---------- */
+
+.temp-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--temp-strip-height);
+  background: var(--paper-edge);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.temp-strip__fill {
+  height: 100%;
+  width: var(--fill-width, 5%);
+  background: var(--heat-37);
+  transition: width 240ms cubic-bezier(0.4, 0, 0.2, 1),
+    background 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.temp-strip__readout {
+  position: fixed;
+  top: calc(var(--temp-strip-height) + 6px);
+  right: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  z-index: 100;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Plate corner badge ---------- */
+
+.plate-corner {
+  position: fixed;
+  bottom: 16px;
+  right: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  padding: 6px 10px;
+  border-radius: 2px;
+  z-index: 90;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .plate-corner {
+    display: none;
+  }
+}
+
+/* ---------- Chapter shell ---------- */
+
+.chapter {
+  min-height: 100vh;
+  padding: var(--section-gap-y) var(--gutter);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+}
+
+.chapter:not(:last-of-type) {
+  border-bottom-color: var(--paper-edge);
+}
+
+.chapter__inner {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+@media (min-width: 1024px) {
+  .chapter__inner {
+    grid-template-columns: 20% minmax(0, 50%) minmax(0, 30%);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+  }
+}
+
+.chapter__inner--stub {
+  grid-template-columns: 1fr;
+  text-align: left;
+  max-width: 80ch;
+}
+
+/* Hero chapter is type-only; collapse columns */
+.chapter--hero .chapter__inner {
+  grid-template-columns: 1fr;
+  max-width: 80ch;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 1rem 0;
+}
+
+.chapter__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem 0;
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.625rem);
+  color: var(--ink);
+}
+
+.chapter__title--hero {
+  font-size: clamp(4rem, 3rem + 6vw, 7rem);
+  letter-spacing: -0.02em;
+  margin-top: 0.5rem;
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 1.5rem 0 1.5rem 0;
+  max-width: 6rem;
+}
+
+.lede {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 0 0 2rem 0;
+  font-style: italic;
+}
+
+.body {
+  margin: 0 0 1rem 0;
+  max-width: var(--reading-max);
+}
+
+.body + .body {
+  margin-top: 1.25rem;
+}
+
+.stub-note {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------- "What this is not" list ---------- */
+
+.not-list {
+  margin: 2rem 0 0 0;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--rule);
+  background: rgba(34, 26, 21, 0.03);
+}
+
+.not-list__heading {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem 0;
+}
+
+.not-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.not-list li {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  padding: 0.2rem 0;
+}
+
+.not-list li::before {
+  content: "—";
+  color: var(--ink-faint);
+  margin-right: 0.6em;
+}
+
+/* ---------- Chapter 1 layout pieces ---------- */
+
+.marginalia {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.marginalia .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.margin-temp {
+  font-family: var(--font-mono);
+  margin: 0 0 1.5rem 0;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+.badge {
+  border-top: 1px solid var(--paper-edge);
+  border-bottom: 1px solid var(--paper-edge);
+  padding: 1rem 0;
+  margin-top: 1.5rem;
+}
+
+.badge__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.5rem 0;
+}
+
+.badge__body {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.badge__source {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+.reading {
+  /* explicit max-width to enforce 64ch even at large viewports */
+  max-width: var(--reading-max);
+}
+
+.figure {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ---------- Protein viewer card ---------- */
+
+.viewer-card {
+  margin: 0;
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface-viewer);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px -8px rgba(34, 26, 21, 0.25),
+    0 1px 0 var(--paper-edge);
+}
+
+.viewer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--surface-viewer);
+  overflow: hidden;
+}
+
+.viewer canvas {
+  display: block;
+}
+
+.viewer__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #d9d2bb;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.viewer-card__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 8px 12px;
+  background: var(--surface-viewer);
+  color: #d9d2bb;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.viewer-card__source {
+  color: #8d8674;
+}
+
+/* ---------- Citation block ---------- */
+
+.citations {
+  margin-top: 2rem;
+  border-top: 1px solid var(--paper-edge);
+  padding-top: 1rem;
+}
+
+.citations > summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.citations > summary::after {
+  content: "▾";
+  color: var(--ink-faint);
+  font-size: 0.9em;
+  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.citations[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.citations__list {
+  list-style: none;
+  padding: 1rem 0 0 0;
+  margin: 0;
+}
+
+.citations__list li {
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--paper-edge);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.citations__list li:first-child {
+  border-top: 0;
+}
+
+.citation__authors {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.citation__title {
+  font-style: italic;
+  color: var(--ink);
+}
+.citation__journal {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+}
+.citation__pmid {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  margin-left: 0.5em;
+}
+
+.citations__loading {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.citations__error {
+  color: var(--heat-41);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ---------- Footer / colophon ---------- */
+
+.colophon {
+  padding: 2rem var(--gutter) 3rem;
+  border-top: 1px solid var(--paper-edge);
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.colophon p {
+  margin: 0.5rem 0;
+}
+
+/* ---------- Stub chapter styling (distinguishable from Ch 1) ---------- */
+
+.chapter--stub {
+  min-height: 60vh;
+}
+
+.chapter--stub .chapter__title {
+  font-size: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  color: var(--ink-soft);
+}
