@@ -9,7 +9,164 @@
  *   - Citation list rendering
  *   - Tissue-expression summary badge
  *   - Persistent temperature strip + plate badge tied to chapter in view
+ *   - Celsius / Fahrenheit unit toggle (heatLab namespace)
  */
+
+// --- Celsius / Fahrenheit toggle ------------------------------------------
+
+const LS_UNIT_KEY = "hpl-unit";
+const heatLab = (window.heatLab = window.heatLab || {});
+heatLab.unit = (() => {
+  try {
+    return localStorage.getItem(LS_UNIT_KEY) === "F" ? "F" : "C";
+  } catch {
+    return "C";
+  }
+})();
+heatLab.cToF = (c) => (c * 9) / 5 + 32;
+heatLab.formatTemp = function (c, opts = {}) {
+  const decimals = opts.decimals ?? 1;
+  const withUnit = opts.withUnit ?? true;
+  const sym = opts.bare ? "" : (heatLab.unit === "F" ? "°F" : "°C");
+  if (c === null || c === undefined || Number.isNaN(c)) return withUnit ? `— ${sym}` : "—";
+  const val = heatLab.unit === "F" ? heatLab.cToF(Number(c)) : Number(c);
+  const text = val.toFixed(decimals);
+  return withUnit ? `${text} ${sym}`.trim() : text;
+};
+
+// Auto-wrap every "NN[.N] °C" or "NN-NN °C" in the document so the toggle
+// can convert them in place. Skips elements we update dynamically (those
+// use heatLab.formatTemp directly). Skips <script>, <style>, code blocks.
+const TEMP_RE =
+  /(\d+(?:\.\d+)?(?:\s*[→\-–—]\s*\d+(?:\.\d+)?)*)\s*°\s*C(?![a-zA-Z])/g;
+const NO_WALK = new Set([
+  "SCRIPT",
+  "STYLE",
+  "CODE",
+  "PRE",
+  "NOSCRIPT",
+  "TEXTAREA",
+  "INPUT",
+]);
+const NO_WALK_IDS = new Set([
+  "temp-readout",
+  "ch8-peak",
+  "ch8-state",
+  "ch8-chart",
+]);
+const NO_WALK_CLASSES = ["ch4-temp-readout", "bridge-input", "no-temp-convert"];
+
+function shouldSkip(node) {
+  if (NO_WALK.has(node.nodeName)) return true;
+  if (node.id && NO_WALK_IDS.has(node.id)) return true;
+  if (node.classList) {
+    for (const cls of NO_WALK_CLASSES) {
+      if (node.classList.contains(cls)) return true;
+    }
+  }
+  if (node.hasAttribute?.("data-no-temp-convert")) return true;
+  return false;
+}
+
+function walkAndWrapTemps(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      // Reject if any ancestor is in the no-walk set.
+      let p = node.parentNode;
+      while (p && p !== root) {
+        if (shouldSkip(p)) return NodeFilter.FILTER_REJECT;
+        p = p.parentNode;
+      }
+      return TEMP_RE.test(node.nodeValue || "")
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const targets = [];
+  let n;
+  while ((n = walker.nextNode())) targets.push(n);
+  for (const textNode of targets) {
+    const text = textNode.nodeValue;
+    TEMP_RE.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    let m;
+    while ((m = TEMP_RE.exec(text))) {
+      if (m.index > last) {
+        frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      }
+      const numbersBlob = m[1]; // "37.0" or "40.0 → 50.0" or "45-55"
+      // Split into numbers + separators, wrap each number.
+      const parts = numbersBlob.split(/(\d+(?:\.\d+)?)/);
+      for (const part of parts) {
+        if (/^\d+(?:\.\d+)?$/.test(part)) {
+          const span = document.createElement("span");
+          span.className = "temp-num";
+          span.setAttribute("data-temp-c", part);
+          span.textContent = part;
+          frag.appendChild(span);
+        } else if (part) {
+          frag.appendChild(document.createTextNode(part));
+        }
+      }
+      frag.appendChild(document.createTextNode(" "));
+      const unitSpan = document.createElement("span");
+      unitSpan.className = "temp-unit-label";
+      unitSpan.textContent = "°C";
+      frag.appendChild(unitSpan);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(last)));
+    }
+    textNode.parentNode.replaceChild(frag, textNode);
+  }
+}
+
+function applyUnitsToWrappedTemps() {
+  const isF = heatLab.unit === "F";
+  document.querySelectorAll(".temp-num").forEach((el) => {
+    const c = parseFloat(el.dataset.tempC);
+    if (Number.isNaN(c)) return;
+    const v = isF ? heatLab.cToF(c) : c;
+    // Preserve original number of decimals from the source markup.
+    const decimals = el.dataset.tempC.includes(".") ? 1 : 0;
+    el.textContent = v.toFixed(decimals);
+  });
+  document.querySelectorAll(".temp-unit-label").forEach((el) => {
+    el.textContent = isF ? "°F" : "°C";
+  });
+}
+
+heatLab.setUnit = function (u) {
+  heatLab.unit = u === "F" ? "F" : "C";
+  try {
+    localStorage.setItem(LS_UNIT_KEY, heatLab.unit);
+  } catch {
+    /* no-op when storage is blocked */
+  }
+  document.documentElement.dataset.unit = heatLab.unit;
+  applyUnitsToWrappedTemps();
+  // Refresh dynamic readouts that don't use the auto-walker.
+  if (typeof renderCh8 === "function") renderCh8();
+  // Re-emit a scroll event so the temp-readout / plate-badge picks up
+  // the new unit on the next animation frame.
+  document.dispatchEvent(new CustomEvent("heatlab:unit-change", { detail: { unit: heatLab.unit } }));
+  // Update the toggle UI itself.
+  document.querySelectorAll(".unit-toggle__btn").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.unit === heatLab.unit ? "true" : "false");
+  });
+};
+
+function setupUnitToggle() {
+  document.documentElement.dataset.unit = heatLab.unit;
+  walkAndWrapTemps(document.body);
+  applyUnitsToWrappedTemps();
+  document.querySelectorAll(".unit-toggle__btn").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.unit === heatLab.unit ? "true" : "false");
+    btn.addEventListener("click", () => heatLab.setUnit(btn.dataset.unit));
+  });
+}
 
 // --- DOM refs --------------------------------------------------------------
 
@@ -519,7 +676,7 @@ function setupCh4ScrollDriver() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     // Snap to denatured end-state and bypass scroll wiring entirely.
     setAldolaseStage("denatured");
-    if (els.ch4TempValue) els.ch4TempValue.textContent = "50.0";
+    if (els.ch4TempValue) els.ch4TempValue.textContent = heatLab.formatTemp(50.0, { decimals: 1, withUnit: false });
     if (els.ch4RmsdBar) {
       els.ch4RmsdBar.style.width = "100%";
       els.ch4RmsdBar.style.background = "var(--heat-41)";
@@ -555,7 +712,7 @@ function setupCh4ScrollDriver() {
 
       // Temperature
       const temp = TEMP_LO + frac * (TEMP_HI - TEMP_LO);
-      if (els.ch4TempValue) els.ch4TempValue.textContent = temp.toFixed(1);
+      if (els.ch4TempValue) els.ch4TempValue.textContent = heatLab.formatTemp(temp, { decimals: 1, withUnit: false });
 
       // RMSD bar
       if (els.ch4RmsdBar) {
@@ -585,6 +742,12 @@ function setupCh4ScrollDriver() {
 
   window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update, { passive: true });
+  // Re-render the Ch4 readout on unit toggle so the value (in C) is
+  // converted immediately, not on the next scroll tick.
+  document.addEventListener("heatlab:unit-change", () => {
+    lastFrac = -1;
+    update();
+  });
   update();
 }
 
@@ -609,12 +772,21 @@ function setupChapterObserver() {
       els.tempStripFill.style.background = accentColor || "var(--heat-37)";
     }
     if (els.tempReadout) {
-      els.tempReadout.textContent = `${Number(tempStr).toFixed(1)} °C`;
+      els.tempReadout.textContent = heatLab.formatTemp(parseFloat(tempStr), { decimals: 1 });
     }
     if (els.plateBadge) {
       els.plateBadge.textContent = PLATE_LABELS[chapterIdx] ?? `Plate ${chapterIdx}`;
     }
   };
+
+  let lastChapter = null;
+  const apply = (chapter) => {
+    if (chapter) lastChapter = chapter;
+    update(lastChapter);
+  };
+  // On unit toggle, re-apply to the last-seen chapter so the temp-readout
+  // converts immediately rather than waiting on the next scroll tick.
+  document.addEventListener("heatlab:unit-change", () => apply(null));
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -627,7 +799,7 @@ function setupChapterObserver() {
           best = e.target;
         }
       }
-      if (best) update(best);
+      if (best) apply(best);
     },
     {
       // Fire when chapters are at least 40% visible — keeps the strip stable
@@ -691,7 +863,7 @@ function renderCh8() {
   const duration = parseInt(els.ch8Duration.value, 10);
   const acclim = parseFloat(els.ch8Acclim.value);
 
-  if (els.ch8WbgtValue) els.ch8WbgtValue.textContent = wbgt.toFixed(1);
+  if (els.ch8WbgtValue) els.ch8WbgtValue.textContent = heatLab.formatTemp(wbgt, { decimals: 1 });
   if (els.ch8DurationValue) els.ch8DurationValue.textContent = String(duration);
 
   // Sample curve along 0..duration minutes.
@@ -713,10 +885,13 @@ function renderCh8() {
   // Axes
   svg += `<line class="axis-line" x1="${PAD_L}" y1="${H - PAD_B}" x2="${W - PAD_R}" y2="${H - PAD_B}" />`;
   svg += `<line class="axis-line" x1="${PAD_L}" y1="${PAD_T}" x2="${PAD_L}" y2="${H - PAD_B}" />`;
-  // Y ticks at integer °C
+  // Y ticks at integer °C in the model domain; LABELS shown in the
+  // currently-selected unit (so F mode shows ≈99° / ≈100° etc).
+  const isF = heatLab.unit === "F";
   for (let c = 37; c <= 43; c++) {
     const y = yToPx(c);
-    svg += `<text class="axis-label" x="${PAD_L - 6}" y="${y + 3}" text-anchor="end">${c}°</text>`;
+    const labelVal = isF ? Math.round(heatLab.cToF(c)) : c;
+    svg += `<text class="axis-label" x="${PAD_L - 6}" y="${y + 3}" text-anchor="end">${labelVal}°</text>`;
   }
   // X ticks: 0 / mid / duration
   const xTicks = [0, duration / 2, duration];
@@ -727,8 +902,11 @@ function renderCh8() {
   // Threshold lines + labels + crossing dots
   for (const th of CH8_THRESHOLDS) {
     const y = yToPx(th.temp);
+    const thLabel = isF
+      ? th.label.replace(/(\d+)°/, (_m, n) => `${Math.round(heatLab.cToF(Number(n)))}°`)
+      : th.label;
     svg += `<line class="threshold-line" x1="${PAD_L}" y1="${y}" x2="${W - PAD_R}" y2="${y}" />`;
-    svg += `<text class="threshold-label" x="${W - PAD_R + 6}" y="${y + 3}">${escapeHtml(th.label)}</text>`;
+    svg += `<text class="threshold-label" x="${W - PAD_R + 6}" y="${y + 3}">${escapeHtml(thLabel)}</text>`;
     // First minute the curve crosses this threshold (if at all)
     for (let i = 1; i < points.length; i++) {
       const [t0, c0] = points[i - 1];
@@ -749,7 +927,7 @@ function renderCh8() {
 
   els.ch8Chart.innerHTML = svg;
 
-  if (els.ch8Peak) els.ch8Peak.textContent = `${peakTemp.toFixed(1)} °C`;
+  if (els.ch8Peak) els.ch8Peak.textContent = heatLab.formatTemp(peakTemp, { decimals: 1 });
   if (els.ch8State) {
     let strain, msg;
     if (peakTemp < 38.5) { strain = "low"; msg = "Compensable. No strain region reached."; }
@@ -832,6 +1010,8 @@ async function setupCh7Pathway() {
 // --- Boot ------------------------------------------------------------------
 
 (async function boot() {
+  // Unit toggle FIRST so subsequent setup uses the right unit on first paint.
+  setupUnitToggle();
   setupChapterObserver();
   setupCh8Bridge();
   setupCh7Pathway();

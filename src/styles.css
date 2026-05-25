@@ -138,7 +138,7 @@ a:focus-visible {
 .temp-strip__readout {
   position: fixed;
   top: calc(var(--temp-strip-height) + 6px);
-  right: var(--gutter);
+  right: calc(var(--gutter) + 88px); /* leave room for unit-toggle */
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--ink-soft);
@@ -146,6 +146,57 @@ a:focus-visible {
   pointer-events: none;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+/* ---------- Celsius / Fahrenheit toggle ---------- */
+.unit-toggle {
+  position: fixed;
+  top: calc(var(--temp-strip-height) + 6px);
+  right: var(--gutter);
+  z-index: 101;
+  display: inline-flex;
+  align-items: stretch;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  border: 1px solid var(--paper-edge);
+  background: var(--surface-card);
+  border-radius: 999px;
+  overflow: hidden;
+  user-select: none;
+}
+.unit-toggle__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 4px 10px;
+  font: inherit;
+  letter-spacing: 0.04em;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+.unit-toggle__btn:hover {
+  color: var(--ink);
+}
+.unit-toggle__btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.unit-toggle__btn:focus-visible {
+  outline: 2px solid var(--heat-39);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .unit-toggle {
+    font-size: 0.65rem;
+  }
+  .unit-toggle__btn {
+    padding: 4px 8px;
+  }
+  .temp-strip__readout {
+    right: calc(var(--gutter) + 76px);
+  }
 }
 
 /* ---------- Plate corner badge ---------- */

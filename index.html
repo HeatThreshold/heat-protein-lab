@@ -56,6 +56,22 @@
       <span class="temp-strip__readout" id="temp-readout">37.0 °C</span>
     </div>
 
+    <!-- Celsius / Fahrenheit toggle. State lives on <html data-unit>, persisted in localStorage. -->
+    <div class="unit-toggle" role="group" aria-label="Temperature unit">
+      <button
+        type="button"
+        class="unit-toggle__btn"
+        data-unit="C"
+        aria-pressed="true"
+      >°C</button>
+      <button
+        type="button"
+        class="unit-toggle__btn"
+        data-unit="F"
+        aria-pressed="false"
+      >°F</button>
+    </div>
+
     <div class="plate-corner" aria-hidden="true" id="plate-badge">Plate 0</div>
 
     <main>
@@ -514,7 +530,7 @@
               <aside class="ch4-side">
                 <div class="ch4-temp-readout" aria-live="polite">
                   <span class="ch4-temp-value" id="ch4-temp-value">40.0</span>
-                  <span class="ch4-temp-unit">&deg;C</span>
+                  <span class="ch4-temp-unit temp-unit-label">&deg;C</span>
                 </div>
 
                 <div class="ch4-tm-marker">T<sub>m</sub> &asymp; 48 &deg;C</div>
@@ -834,7 +850,7 @@
           <div class="bridge-pane">
             <aside class="bridge-controls" aria-label="Environmental inputs">
               <div class="bridge-input">
-                <label for="ch8-wbgt">WBGT (&deg;C)</label>
+                <label for="ch8-wbgt">WBGT (<span class="temp-unit-label">&deg;C</span>)</label>
                 <input type="range" id="ch8-wbgt" min="20" max="40" step="0.5" value="32" />
                 <output id="ch8-wbgt-value" class="mono">32.0</output>
               </div>
