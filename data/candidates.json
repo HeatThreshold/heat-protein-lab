@@ -52,6 +52,20 @@
     "verified": true,
     "retrieved_at": "2026-05-25"
   },
+  "hsp70": {
+    "uniprot_human": "P0DMV8",
+    "pdb_chapter_hero": "4PO2",
+    "pdb_verified_title": "Crystal Structure of the Stress-Inducible Human Heat Shock Protein HSP70 Substrate-Binding Domain in Complex with Peptide Substrate",
+    "pdb_domain": "Substrate-binding domain (SBD) only",
+    "verified": true,
+    "verified_at": "2026-05-25",
+    "downloaded_to": "data/structures/pdb/hsp70/pdb_00004po2.cif.gz",
+    "pubmed_top_pmids": ["28679534", "40412983", "41096856"],
+    "reactome_pathway_diagram": "data/diagrams/hsr-pathway-hspa1a.svg",
+    "reactome_diagram_size_bytes": 670061,
+    "reactome_diagram_viewport": "Full HSR pathway with HSPA1A highlighted. Deferred to Chapter 7 for full-bleed render; Chapter 3 uses a hand-built mini-SVG snippet for inline pathway context.",
+    "skill_bug_caught_during_export": "Third upstream science-skills bug: reactome_database skill had an incorrect Accept header for SVG export, breaking diagram fetch. agy patched in-place. Worth filing alongside the AlphaFold UA + HPA hpa_cli ValueError reports."
+  },
   "hsp90": {
     "uniprot_human": "P07900",
     "pdb_chapter_hero": "7L7J",

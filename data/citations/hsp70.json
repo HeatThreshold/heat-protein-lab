@@ -1,0 +1,42 @@
+{
+  "chapter": 3,
+  "topic": "HSP70 chaperone",
+  "citations": [
+    {
+      "pmid": "28679534",
+      "title": "Hsp70's RNA-binding and mRNA-stabilizing activities are independent of its protein chaperone functions.",
+      "authors_short": [
+        "Kishor A",
+        "White EJF",
+        "Matsangos AE"
+      ],
+      "year": null,
+      "journal": "The Journal of biological chemistry",
+      "snippet": "Hsp70 is a protein chaperone that prevents protein aggregation and aids protein folding by binding to hydrophobic peptide domains through a reversible mechanism directed by an ATPase cycle. However, Hsp70 also binds U-rich RNA including some AU-rich elements (AREs) that regulate "
+    },
+    {
+      "pmid": "40412983",
+      "title": "Heat shock protein 70 mitigates black carbon particles-induced cardiac damage.",
+      "authors_short": [
+        "Zuo B",
+        "Wang F",
+        "Li Z"
+      ],
+      "year": null,
+      "journal": "Journal of environmental sciences (China)",
+      "snippet": "Studies have demonstrated the association between black carbon (BC) particles and elevated risk of cardiovascular disease. However, the mechanisms underlying this relationship remain unclear. This study aims to investigate the effects of BC exposure on gene expressions in mice my"
+    },
+    {
+      "pmid": "41096856",
+      "title": "HSPA1A Can Alleviate CFA-Induced Inflammatory Pain by Modulating Macrophages.",
+      "authors_short": [
+        "Zhang W",
+        "Xie X",
+        "Xiong X"
+      ],
+      "year": null,
+      "journal": "International journal of molecular sciences",
+      "snippet": "Current clinical approaches for managing inflammatory pain are frequently accompanied by adverse effects, significantly compromising patients' quality of life. This study investigates the analgesic potential of Heat Shock Protein Family A Member 1A (HSPA1A) in alleviating Complet"
+    }
+  ]
+}

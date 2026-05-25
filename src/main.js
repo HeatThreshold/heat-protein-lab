@@ -23,6 +23,10 @@ const els = {
   viewerHsp90: document.getElementById("viewer-hsp90"),
   viewerHsp90Loading: document.querySelector("#viewer-hsp90 .viewer__loading"),
   activationCitationsList: document.getElementById("hsf1-activation-citations-list"),
+  // Chapter 3
+  viewerHsp70: document.getElementById("viewer-hsp70"),
+  viewerHsp70Loading: document.querySelector("#viewer-hsp70 .viewer__loading"),
+  hsp70CitationsList: document.getElementById("hsp70-citations-list"),
   // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
@@ -108,6 +112,14 @@ function renderActivationCitations(payload) {
     els.activationCitationsList,
     payload,
     "data/citations/hsf1_activation.json"
+  );
+}
+
+function renderHsp70Citations(payload) {
+  renderCitationsInto(
+    els.hsp70CitationsList,
+    payload,
+    "data/citations/hsp70.json"
   );
 }
 
@@ -201,6 +213,13 @@ function styleHsp90(viewer) {
   viewer.setStyle({ hetflag: true }, { stick: { color: "#c97a2b", radius: 0.18 } });
 }
 
+function styleHsp70(viewer) {
+  // HSP70 SBD + bound peptide. Cartoon in ochre (chapter accent).
+  // Bound peptide substrate stands out in a softer cream-yellow.
+  viewer.setStyle({ cartoon: { color: "#c97a2b" } });
+  viewer.setStyle({ hetflag: true }, { stick: { color: "#e9d8a0", radius: 0.15 } });
+}
+
 async function mountHsf1Viewer() {
   return mount3DmolViewer({
     mountEl: els.viewer,
@@ -219,6 +238,17 @@ async function mountHsp90Viewer() {
     cifUrl: "data/structures/pdb/hsp90/pdb_00007l7j.cif.gz",
     styleFn: styleHsp90,
     pdbId: "7L7J",
+  });
+}
+
+async function mountHsp70Viewer() {
+  if (!els.viewerHsp70) return;
+  return mount3DmolViewer({
+    mountEl: els.viewerHsp70,
+    loadingEl: els.viewerHsp70Loading,
+    cifUrl: "data/structures/pdb/hsp70/pdb_00004po2.cif.gz",
+    styleFn: styleHsp70,
+    pdbId: "4PO2",
   });
 }
 
@@ -304,6 +334,7 @@ function setupChapterObserver() {
   await Promise.allSettled([
     mountHsf1Viewer(),
     mountHsp90Viewer(),
+    mountHsp70Viewer(),
     fetchJson("data/citations/hsf1.json")
       .then(renderCitations)
       .catch((err) => {
@@ -320,6 +351,16 @@ function setupChapterObserver() {
         console.error(err);
         if (els.activationCitationsList) {
           els.activationCitationsList.innerHTML = `<li class="citations__error">Could not load activation citations: ${escapeHtml(
+            err.message
+          )}</li>`;
+        }
+      }),
+    fetchJson("data/citations/hsp70.json")
+      .then(renderHsp70Citations)
+      .catch((err) => {
+        console.error(err);
+        if (els.hsp70CitationsList) {
+          els.hsp70CitationsList.innerHTML = `<li class="citations__error">Could not load HSP70 citations: ${escapeHtml(
             err.message
           )}</li>`;
         }

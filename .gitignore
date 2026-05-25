@@ -46,6 +46,17 @@ scripts/mcp_client.py
 scripts/generate_ui.py
 scripts/*_client.py
 scripts/generate_*.py
+# Vendored copies of upstream science-skill scripts agy re-creates with
+# hardcoded local absolute paths. Project fetchers call the upstream
+# scripts at their canonical path under ~/.gemini/config/plugins/.
+scripts/reactome_analysis.py
+scripts/pubmed_api.py
+scripts/hpa_cli.py
+scripts/clinvar_api.py
+scripts/fetch_pdb_metadata.py
+scripts/fetch_structure.py
+scripts/analyze_plddt.py
+scripts/analyze_pae.py
 notes/design_base64*.txt
 notes/**/scratch*
 notes/**/*.scratch

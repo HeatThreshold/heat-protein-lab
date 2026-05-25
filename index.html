@@ -298,11 +298,150 @@
           </div>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="3" data-temp="40.0" data-accent="heat-40">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate III / 40.0 &deg;C</p>
-          <h2 class="chapter__title">The first line of defense</h2>
-          <p class="body stub-note">Chapter under construction. HSP70 structure + Reactome snippet pending Phase 3.</p>
+      <!--
+        Chapter 3 — The first line of defense (HSP70 / HSPA1A).
+        Reads from:
+          data/structures/pdb/hsp70/pdb_00004po2.cif.gz
+          data/citations/hsp70.json
+          (Full Reactome pathway diagram at data/diagrams/hsr-pathway-hspa1a.svg
+           reserved for Chapter 7's full-bleed render.)
+      -->
+      <section
+        class="chapter"
+        data-chapter="3"
+        data-temp="40.0"
+        data-accent="heat-40"
+        id="chapter-3"
+      >
+        <div class="chapter__inner">
+          <aside class="marginalia" aria-label="Chapter 3 metadata">
+            <p class="eyebrow">Plate III</p>
+            <p class="margin-temp">40.0 &deg;C</p>
+            <div class="badge badge--chaperone">
+              <p class="badge__label">Chaperone</p>
+              <p class="badge__body">HSP70 / HSPA1A</p>
+              <p class="badge__source">Source: RCSB PDB &middot; NCBI PubMed</p>
+            </div>
+          </aside>
+
+          <div class="reading">
+            <h2 class="chapter__title">The first line of defense</h2>
+
+            <p class="body">
+              Now the heat-shock genes are transcribing, and the protein
+              they produce most prominently is
+              <strong>HSP70</strong> &mdash; in humans, the stress-induced
+              gene <span class="mono">HSPA1A</span>. HSP70 is the
+              workhorse of the response. It does not break heat; it
+              undoes the damage heat is causing.
+            </p>
+            <p class="body">
+              The molecule has two domains that work in tandem. A
+              <strong>nucleotide-binding domain</strong> (NBD) hydrolyses
+              ATP, and a <strong>substrate-binding domain</strong> (SBD)
+              uses the conformational energy of that hydrolysis to grip
+              and release hydrophobic patches on partially-unfolded
+              client proteins. The viewer on the right is
+              <span class="mono">PDB 4PO2</span>, the SBD specifically,
+              captured in the act of holding a peptide substrate.
+            </p>
+            <p class="body">
+              HSP70 does not act alone. Co-chaperones called
+              <strong>J-proteins</strong> deliver clients to it; nucleotide-
+              exchange factors recycle ADP for ATP; in the broader heat
+              shock response, HSP70 hands particularly stuck clients off
+              to HSP90 for higher-order refolding. The snippet below
+              places HSP70 in that network.
+            </p>
+
+            <details class="citations" id="hsp70-citations">
+              <summary>Sources for this chapter</summary>
+              <ol class="citations__list" id="hsp70-citations-list">
+                <li class="citations__loading">Loading from PubMed&hellip;</li>
+              </ol>
+            </details>
+          </div>
+
+          <div class="figure figure--stacked">
+            <figure class="viewer-card">
+              <div
+                class="viewer"
+                id="viewer-hsp70"
+                role="img"
+                aria-label="3D ribbon model of human HSP70 substrate-binding domain, PDB 4PO2"
+              >
+                <p class="viewer__loading">Loading PDB&nbsp;4PO2&hellip;</p>
+              </div>
+              <figcaption class="viewer-card__caption">
+                <a
+                  class="mono viewer-card__pdb-link"
+                  href="https://www.rcsb.org/structure/4PO2"
+                  target="_blank"
+                  rel="noopener"
+                  >PDB &middot; 4PO2 &nbsp;<span aria-hidden="true">&#8599;</span></a
+                >
+                <span class="viewer-card__source">retrieved 2026-05-25</span>
+              </figcaption>
+            </figure>
+
+            <figure class="pathway-snippet">
+              <p class="schematic-banner">Pathway context &mdash; schematic, not to scale.</p>
+              <svg
+                class="pathway-svg"
+                viewBox="0 0 320 180"
+                role="img"
+                aria-label="Mini schematic of the heat shock response pathway placing HSPA1A between HSF1 and a client protein"
+              >
+                <!-- Edge labels first so they render under the nodes -->
+                <defs>
+                  <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+                    <polygon points="0 0, 6 3, 0 6" fill="var(--rule)" />
+                  </marker>
+                </defs>
+
+                <!-- Edges -->
+                <line x1="60" y1="50" x2="125" y2="80" stroke="var(--rule)" stroke-width="1.5" marker-end="url(#arrowhead)" />
+                <line x1="170" y1="90" x2="240" y2="50" stroke="var(--rule)" stroke-width="1.5" marker-end="url(#arrowhead)" />
+                <line x1="170" y1="100" x2="240" y2="140" stroke="var(--rule)" stroke-width="1.5" marker-end="url(#arrowhead)" />
+                <line x1="170" y1="90" x2="170" y2="50" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3,3" />
+
+                <!-- HSF1 node -->
+                <g class="path-node">
+                  <rect x="12" y="38" width="56" height="24" rx="3" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.2" />
+                  <text x="40" y="54" text-anchor="middle" class="pathway-label">HSF1</text>
+                </g>
+
+                <!-- HSPA1A node (highlighted) -->
+                <g class="path-node path-node--highlight">
+                  <rect x="120" y="78" width="60" height="28" rx="3" fill="var(--heat-40)" stroke="var(--rule)" stroke-width="1.5" />
+                  <text x="150" y="96" text-anchor="middle" class="pathway-label pathway-label--inverted">HSPA1A</text>
+                </g>
+
+                <!-- Client protein node -->
+                <g class="path-node">
+                  <rect x="248" y="128" width="64" height="24" rx="3" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.2" />
+                  <text x="280" y="144" text-anchor="middle" class="pathway-label">misfolded client</text>
+                </g>
+
+                <!-- HSP90 node -->
+                <g class="path-node">
+                  <rect x="248" y="38" width="60" height="24" rx="3" fill="var(--paper-edge)" stroke="var(--rule)" stroke-width="1.2" />
+                  <text x="278" y="54" text-anchor="middle" class="pathway-label">HSP90</text>
+                </g>
+
+                <!-- DNA glyph under HSPA1A pointing back to its origin -->
+                <text x="150" y="40" text-anchor="middle" class="pathway-sublabel">heat-shock gene</text>
+                <text x="150" y="138" text-anchor="middle" class="pathway-sublabel">refolds</text>
+              </svg>
+              <figcaption class="pathway-caption">
+                Snippet of the heat-shock response. Full Reactome pathway
+                <span class="mono">R-HSA-3371556</span> with HSPA1A
+                highlighted lives at
+                <span class="mono">data/diagrams/hsr-pathway-hspa1a.svg</span>
+                and renders full-bleed in Chapter 7.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="4" data-temp="46.3" data-accent="heat-41">
