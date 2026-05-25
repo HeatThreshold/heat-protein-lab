@@ -7,8 +7,11 @@ status: draft (sitting 48h before publish per DEVREL.md cadence)
 beat: 1
 project: heat-protein-lab
 target_words: 1200-1500
+live_url: https://heat-protein-lab.pages.dev/
+canonical_url: https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/
 venues:
-  - craigmerry.com (canonical)
+  - craigmerry.com (canonical) — https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/
+  - heat-protein-lab.pages.dev/posts/ (mirror, same content)
   - dev.to (canonical_url back to personal site)
   - x.com (5-7 tweet thread, links back)
 ---

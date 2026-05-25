@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Heat Protein Lab — heat-ramp temperature strip with serif H">
+  <title>Heat Protein Lab</title>
+  <!-- cream surveyor's-paper background -->
+  <rect width="64" height="64" rx="8" ry="8" fill="#F5EFDF"/>
+  <!-- heat-ramp strip 37 -> 44 -->
+  <g>
+    <rect x="6" y="46" width="7.4" height="12" fill="#4F6B7A"/>
+    <rect x="13.4" y="46" width="7.4" height="12" fill="#7C8B6A"/>
+    <rect x="20.8" y="46" width="7.4" height="12" fill="#C9A95C"/>
+    <rect x="28.2" y="46" width="7.4" height="12" fill="#D88838"/>
+    <rect x="35.6" y="46" width="7.4" height="12" fill="#B85431"/>
+    <rect x="43" y="46" width="7.4" height="12" fill="#7B2F22"/>
+    <rect x="50.4" y="46" width="7.6" height="12" fill="#1B0707"/>
+  </g>
+  <!-- serif H, ink ash -->
+  <text x="32" y="38" text-anchor="middle" font-family="'Spectral','Georgia',serif" font-weight="600" font-size="40" fill="#1B1B1B">H</text>
+</svg>

@@ -44,6 +44,10 @@ The full phased build plan lives in [PROJECT.md](./PROJECT.md). The visual & UX 
 
 Open `index.html` in a browser. There is no build step for the page itself. To refresh the underlying scientific data, run the fetcher scripts in `scripts/` — they require `uv`, `jq`, and the Science Skills plugin installed in Antigravity (see [PROJECT.md § Phase 0](./PROJECT.md#phase-0--bootstrap)).
 
+## Where it lives
+
+Live at **<https://heat-protein-lab.pages.dev/>**. The two project-anchored DevRel posts are mirrored at [`/posts/`](https://heat-protein-lab.pages.dev/posts/) and canonical on [craigmerry.com](https://craigmerry.com/blog/).
+
 ## How to deploy it
 
 The site auto-deploys to **Cloudflare Pages** via [`.github/workflows/cloudflare-pages.yml`](./.github/workflows/cloudflare-pages.yml) on every push to `main`. One-time operator setup:

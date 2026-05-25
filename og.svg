@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Heat Protein Lab — title card with a 37 to 44 Celsius heat ramp">
+  <title>Heat Protein Lab</title>
+  <desc>Social-share card for heat-protein-lab.pages.dev. Eyebrow reads PLATE 0 — 37.0 °C, title reads Heat Protein Lab, lede reads a citation-grounded explainer of human heat-shock biology, bottom bar is a continuous heat ramp from slate 37 °C through ash 44 °C.</desc>
+
+  <!-- cream surveyor's paper -->
+  <rect width="1200" height="630" fill="#F5EFDF"/>
+
+  <!-- subtle paper grain (very low alpha) -->
+  <g opacity="0.05">
+    <rect x="0" y="80" width="1200" height="1" fill="#1B1B1B"/>
+    <rect x="0" y="80.4" width="1200" height="0.4" fill="#1B1B1B"/>
+    <rect x="0" y="540" width="1200" height="1" fill="#1B1B1B"/>
+  </g>
+
+  <!-- top eyebrow strip 4px (matches the live site's temp strip) -->
+  <rect x="0" y="0" width="1200" height="6" fill="#4F6B7A"/>
+
+  <!-- eyebrow text: plate badge style -->
+  <g font-family="'IBM Plex Mono','Menlo','Courier New',monospace" fill="#1B1B1B">
+    <text x="80" y="120" font-size="22" letter-spacing="6">PLATE 0 — 37.0 °C — HEAT-PROTEIN-LAB.PAGES.DEV</text>
+  </g>
+
+  <!-- title -->
+  <text x="80" y="280" font-family="'Spectral','Georgia',serif" font-weight="600" font-size="116" fill="#1B1B1B">Heat Protein Lab</text>
+
+  <!-- italic lede, 64 char column -->
+  <g font-family="'Spectral','Georgia',serif" font-style="italic" fill="#1B1B1B">
+    <text x="80" y="360" font-size="34">What heat does to the molecules that keep you alive —</text>
+    <text x="80" y="404" font-size="34">a citation-grounded scrollytelling lab.</text>
+  </g>
+
+  <!-- attribution line -->
+  <g font-family="'IBM Plex Mono','Menlo','Courier New',monospace" fill="#1B1B1B" opacity="0.7">
+    <text x="80" y="470" font-size="20">Built in Antigravity 2.0 · Google DeepMind Science Skills · 3Dmol.js</text>
+  </g>
+  <g font-family="'IBM Plex Mono','Menlo','Courier New',monospace" fill="#1B1B1B" opacity="0.55">
+    <text x="80" y="500" font-size="18">Educational. Not medical advice.</text>
+  </g>
+
+  <!-- continuous heat ramp band 37 → 44 °C across bottom -->
+  <g>
+    <rect x="0" y="540" width="171.4" height="90" fill="#4F6B7A"/>
+    <rect x="171.4" y="540" width="171.4" height="90" fill="#7C8B6A"/>
+    <rect x="342.8" y="540" width="171.4" height="90" fill="#C9A95C"/>
+    <rect x="514.3" y="540" width="171.4" height="90" fill="#D88838"/>
+    <rect x="685.7" y="540" width="171.4" height="90" fill="#B85431"/>
+    <rect x="857.1" y="540" width="171.4" height="90" fill="#7B2F22"/>
+    <rect x="1028.6" y="540" width="171.4" height="90" fill="#1B0707"/>
+  </g>
+
+  <!-- temperature ticks on the ramp -->
+  <g font-family="'IBM Plex Mono','Menlo','Courier New',monospace" font-size="18" fill="#F5EFDF" font-weight="500">
+    <text x="20" y="610">37</text>
+    <text x="191" y="610">38</text>
+    <text x="362" y="610">39</text>
+    <text x="534" y="610">40</text>
+    <text x="705" y="610">41</text>
+    <text x="877" y="610">42</text>
+    <text x="1048" y="610">43</text>
+    <text x="1148" y="610" text-anchor="end">44 °C</text>
+  </g>
+</svg>

@@ -98,7 +98,8 @@ By tier, with notes on each.
 
 ### Tier 1 (controlled, ship-ready any time)
 
-- **Personal blog at craigmerry.com.** The canonical post lives here. Other venues link back. Operator already publishes there ([[personalsite-2026-three-post-series-shipped-2026-05-19]] reference).
+- **Personal blog at craigmerry.com.** The canonical post lives here. Other venues link back. Operator already publishes there ([[personalsite-2026-three-post-series-shipped-2026-05-19]] reference). Beat 1 will canonical-resolve at `https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/`; Beat 2 at `https://craigmerry.com/blog/2026-05-26-meeting-hsf1/`.
+- **Lab site at <https://heat-protein-lab.pages.dev/posts/>.** Same posts mirrored on the lab domain itself for discoverability from the page; their `<link rel="canonical">` points back to craigmerry.com.
 - **GitHub README hero block** on this repo, updated as beats ship.
 
 ### Tier 2 (community, low friction)

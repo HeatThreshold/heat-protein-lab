@@ -7,8 +7,11 @@ status: draft (sits 48h per DEVREL.md cadence)
 beat: 2
 project: heat-protein-lab
 target_words: 1500-2000
+live_url: https://heat-protein-lab.pages.dev/#chapter-1
+canonical_url: https://craigmerry.com/blog/2026-05-26-meeting-hsf1/
 venues:
-  - craigmerry.com (canonical)
+  - craigmerry.com (canonical) — https://craigmerry.com/blog/2026-05-26-meeting-hsf1/
+  - heat-protein-lab.pages.dev/posts/ (mirror, same content)
   - dev.to (canonical_url back)
   - x.com (6-8 tweet thread)
   - linkedin (long-form)

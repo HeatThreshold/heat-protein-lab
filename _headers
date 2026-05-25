@@ -23,6 +23,14 @@
   Content-Type: image/svg+xml; charset=utf-8
   Cache-Control: public, max-age=86400
 
+# Favicon + social card at the site root.
+/favicon.svg
+  Content-Type: image/svg+xml; charset=utf-8
+  Cache-Control: public, max-age=86400
+/og.svg
+  Content-Type: image/svg+xml; charset=utf-8
+  Cache-Control: public, max-age=86400
+
 # index.html: never cache the entrypoint hard — keeps redeploys honest.
 /index.html
   Cache-Control: public, max-age=0, must-revalidate

@@ -40,6 +40,10 @@ jobs:
           mkdir -p dist
           cp -r index.html src data dist/
           cp LICENSE README.md dist/ 2>/dev/null || true
+          # favicon + social card live at the repo root and ship to the site root
+          for f in favicon.svg og.svg; do
+            if [ -f "$f" ]; then cp "$f" dist/; fi
+          done
           # _headers + _redirects (if present at repo root) move into dist
           for f in _headers _redirects; do
             if [ -f "$f" ]; then cp "$f" dist/; fi
