@@ -9,13 +9,16 @@
     <link rel="stylesheet" href="src/styles.css" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <!--
-      3Dmol.js, pinned. TODO before publishing: add an SRI hash on this
-      script tag once we lock the exact version for the first published cut.
-      `defer` so it loads in parallel with HTML parsing and doesn't block
-      first paint of the hero — the page's text-only sections render before
-      3Dmol arrives.
+      3Dmol.js pinned to 2.5.1, SRI-locked. `defer` so it loads in parallel
+      with HTML parsing and doesn't block first paint of the hero — the
+      page's text-only sections render before 3Dmol arrives.
     -->
-    <script defer src="https://cdn.jsdelivr.net/npm/3dmol@2.5.1/build/3Dmol-min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/3dmol@2.5.1/build/3Dmol-min.js"
+      integrity="sha384-eSk/lKgyYMlwe+Qy3OY0OiEbJNbEow47PCjUWFaWjKwulp404eOco9QZgngDwSgv"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <a class="skip-link" href="#chapter-1">Skip to Chapter 1</a>
