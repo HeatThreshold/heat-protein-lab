@@ -1,0 +1,71 @@
+{
+  "$schema_comment": "Verified candidate identifiers from Phase 0 smoke tests (PROJECT.md). Every later phase reads from this file. Re-running a smoke test that contradicts a value here is a real signal — update both.",
+  "phase_0_completed_at": "2026-05-25T09:44:00Z",
+  "phase_0_executed_by": "agy 1.0.2 CLI, 5 parallel single-skill prompts after one failed batch attempt",
+  "pdb": {
+    "hsp70_substrate_binding_domain": "4PO2",
+    "verified_title": "Crystal Structure of the Stress-Inducible Human Heat Shock Protein HSP70 Substrate-Binding Domain in Complex with Peptide Substrate",
+    "verified": true,
+    "retrieved_at": "2026-05-25",
+    "notes": "Note: 4PO2 is the substrate-binding domain (SBD), not the nucleotide-binding domain (NBD). PROJECT.md Phase 3 originally implied NBD/SBD split-view; for the NBD a separate PDB entry (e.g. 1S3X or 3JXU) will need to be chosen and verified."
+  },
+  "alphafold": {
+    "hspa1a_uniprot": "P0DMV8",
+    "global_plddt": 88.88,
+    "alternate_uniprot_considered": "P08107",
+    "alternate_used": false,
+    "verified": true,
+    "retrieved_at": "2026-05-25",
+    "downloaded_to": "data/structures/alphafold/hspa1a/",
+    "files": {
+      "metadata": "AF-P0DMV8-F1-metadata.json",
+      "structure_mmcif": "AF-P0DMV8-F1-model_v6.cif",
+      "pae_matrix_local_only": "AF-P0DMV8-F1-predicted_aligned_error_v6.json (951 KB, kept in /tmp/ not committed; re-fetch on demand)"
+    },
+    "notes": "AlphaFold endpoint returned 403 on the first request; agy bypassed by setting SCIENCE_SKILLS_USER_AGENT env var. Future fetcher scripts should set this env var in their environment."
+  },
+  "human_protein_atlas": {
+    "hspa1a_ensembl": "ENSG00000204389",
+    "example_tissue_expression": {
+      "tissue": "Lung",
+      "level": "High"
+    },
+    "verified": true,
+    "retrieved_at": "2026-05-25",
+    "notes": "The HPA skill's hpa_cli.py had a ValueError in the tissue-expression call; agy patched the script in place at ~/.gemini/config/plugins/science/skills/human_protein_atlas_database/scripts/hpa_cli.py — a separate HttpClient instance with the XML base URL was needed. Future operators picking up the science plugin clean may hit the same bug; worth reporting upstream to DeepMind."
+  },
+  "pubmed": {
+    "hsf1_trimerization_top_pmids": ["38537598", "24478344", "41028522"],
+    "verified_example_title": "pH Dependence of HSF1 trimerization is shaped by intramolecular interactions.",
+    "verified": true,
+    "retrieved_at": "2026-05-25"
+  },
+  "clinvar": {
+    "hspa1a_variant_count": 47,
+    "verified": true,
+    "retrieved_at": "2026-05-25",
+    "notes": "47 is the unfiltered count across all clinical significances. Chapter 6 work will filter by Pathogenic / Likely Pathogenic / VUS and present only a curated subset."
+  },
+  "reactome": {
+    "heat_stress_pathway_stable_id": "R-HSA-3371556",
+    "verified_name": "Cellular response to heat stress",
+    "verified": true,
+    "retrieved_at": "2026-05-25"
+  },
+  "hsf1_notes": {
+    "uniprot_to_verify_next": "Q00613 (canonical HSF1)",
+    "pdb_to_verify_next": "5D5W or 5D5U (HSF1 DBD candidates from DESIGN.md)",
+    "status": "DESIGN.md and AGENTS.md reference HSF1 in chapters 1-2; HSF1 PDB ID needs Phase-0-style verification before Chapter 1 work begins."
+  },
+  "license_notification_status": {
+    "all_six_skill_dirs_have_LICENSE_NOTIFICATION_txt": true,
+    "skill_dirs": [
+      "~/.gemini/config/plugins/science/skills/pdb_database/",
+      "~/.gemini/config/plugins/science/skills/alphafold_database_fetch_and_analyze/",
+      "~/.gemini/config/plugins/science/skills/human_protein_atlas_database/",
+      "~/.gemini/config/plugins/science/skills/pubmed_database/",
+      "~/.gemini/config/plugins/science/skills/clinvar_database/",
+      "~/.gemini/config/plugins/science/skills/reactome_database/"
+    ]
+  }
+}
