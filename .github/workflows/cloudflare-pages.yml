@@ -40,6 +40,9 @@ jobs:
           mkdir -p dist
           cp -r index.html src data dist/
           cp LICENSE README.md dist/ 2>/dev/null || true
+          # posts/ contains the DevRel mirror (rendered from notes/devrel/posts/
+          # via scripts/render_posts.py). Optional — only ship if present.
+          if [ -d posts ]; then cp -r posts dist/; fi
           # favicon + social card live at the repo root and ship to the site root
           for f in favicon.svg og.svg; do
             if [ -f "$f" ]; then cp "$f" dist/; fi

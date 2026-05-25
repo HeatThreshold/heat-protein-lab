@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta name="color-scheme" content="light" />
+    <title>Meeting HSF1 in Antigravity 2.0 — the first chapter shipped — Heat Protein Lab</title>
+    <link rel="canonical" href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Heat Protein Lab" />
+    <meta property="og:title" content="Meeting HSF1 in Antigravity 2.0 — the first chapter shipped" />
+    <meta property="og:description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta property="og:url" content="https://heat-protein-lab.pages.dev/posts/2026-05-26-meeting-hsf1/" />
+    <meta property="og:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+    <meta property="article:published_time" content="2026-05-28" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Meeting HSF1 in Antigravity 2.0 — the first chapter shipped" />
+    <meta name="twitter:description" content="Beat 1 described wiring seventeen scientific skills into a fresh Antigravity 2.0 workspace and getting data/candidates.json checked in. This is what happened next: a real chapter of the heat-protein-lab page, anchored on a real protein structure, fetched from real public datab..." />
+    <meta name="twitter:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/post.css" />
+  </head>
+  <body class="post">
+    <a class="skip-link" href="#post-body">Skip to post</a>
+    <header class="post-header">
+      <div class="post-header__row">
+        <span class="post-header__plate">Plate 02</span>
+        <a class="post-header__home" href="/">Heat Protein Lab</a>
+        <a class="post-header__index" href="/posts/">All posts</a>
+      </div>
+      <h1 class="post-title">Meeting HSF1 in Antigravity 2.0 — the first chapter shipped</h1>
+      <p class="post-meta">
+        <time datetime="2026-05-28">May 28, 2026</time>
+        · Beat 2 of 5
+        · <a href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/">canonical on craigmerry.com</a>
+      </p>
+    </header>
+
+    <article id="post-body" class="post-body">
+      <h1>Meeting HSF1 in Antigravity 2.0 — the first chapter shipped</h1>
+<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills">Beat 1</a> described wiring seventeen scientific skills into a
+fresh Antigravity 2.0 workspace and getting <code>data/candidates.json</code>
+checked in. This is what happened next: a real chapter of the
+<a href="https://github.com/HeatThreshold/heat-protein-lab">heat-protein-lab</a> page, anchored on a real protein structure,
+fetched from real public databases, citations and tissue expression
+included. The chapter renders at
+<a href="https://github.com/HeatThreshold/heat-protein-lab#chapter-1">HeatThreshold/heat-protein-lab#chapter-1</a>. It is built around
+the heat-shock master regulator <strong>HSF1</strong>.</p>
+<p>Three things in here were worth a post on their own.</p>
+<h2>A scientific correction caught by the verification step</h2>
+<p>The chapter&rsquo;s hero protein is HSF1, the transcription factor that
+senses heat and switches on the genes that make HSP70 and HSP90. The
+design document I&apos;d written before any code went in listed
+&ldquo;PDB 5D5W or 5D5U&rdquo; as the candidate human HSF1 structure to
+render in the 3D viewer.</p>
+<p>The first thing the Phase 1 fetcher did was query the <code>pdb_database</code>
+skill for metadata on both. The result took thirty seconds:</p>
+<ul>
+<li><strong>5D5U</strong> &mdash; <em>&ldquo;Crystal structure of human Hsf1 with HSE
+  DNA&rdquo;</em>, X-ray diffraction, 2.91 Å, <em>Homo sapiens</em>. The right
+  answer.</li>
+<li><strong>5D5W</strong> &mdash; <em>Chaetomium thermophilum</em> Skn7 with HSE DNA. A
+  fungal homolog, not human HSF1. Wrong taxon entirely.</li>
+</ul>
+<p>I had written down a structure that wouldn&apos;t have been wrong if
+you only read the abstract carelessly (the gene family is conserved
+across kingdoms; both proteins bind the same DNA motif), but it
+absolutely would have been wrong rendered as &ldquo;your cells contain
+this.&rdquo; A short PDB metadata query caught it in seconds, before
+any code or any narrative depended on it.</p>
+<p>This happened <em>twice</em> on the same day. The Chapter 2 design draft
+listed PDB 2CG9 as the human HSP90 candidate; the same kind of query
+showed 2CG9 is yeast (<em>Saccharomyces cerevisiae</em>), and the right human
+structure is 7L7J, a cryo-EM Hsp90:p23 complex at 3.1 Å. Two non-human
+candidates caught by the same one-line verification pattern in twelve
+hours of work.</p>
+<p>The pattern is small but the conclusion isn&apos;t: when a design
+document picks anchor data, it is worth running a thirty-second
+verification query against that data&apos;s authoritative source
+before any rendering code is written. The wrong protein at the wrong
+species is the kind of mistake that, once it shows up rendered with a
+citation underneath it, is much harder to detect.</p>
+<h2>The build pattern</h2>
+<p>The Chapter 1 page is plain HTML, plain CSS, one ES module of
+JavaScript, and no bundler. No React, no Tailwind, no Vite. The full
+file count for this chapter:</p>
+<ul>
+<li><code>index.html</code> &mdash; the document, with a <code>&lt;section data-chapter="1"&gt;</code>
+  block holding marginalia + body + a 3Dmol viewer container</li>
+<li><code>src/styles.css</code> &mdash; the design tokens (cream paper, Spectral
+  serif, IBM Plex Mono labels, a heat-ramp accent system from slate at
+  37 °C through terra-cotta at 41 °C)</li>
+<li><code>src/main.js</code> &mdash; an ES module that fetches the chapter&apos;s
+  data files, mounts the 3Dmol viewer, hides the loading overlay, and
+  wires an <code>IntersectionObserver</code> for the chapter-aware temperature
+  strip pinned at the top of the viewport</li>
+</ul>
+<p>That&apos;s it. The structure is committed in tree at
+<code>data/structures/pdb/hsf1/pdb_00005d5u.cif.gz</code> (74 KB gzipped), and at
+runtime the JS does this:</p>
+<pre><code class="language-js">const buf = await (await fetch(url)).arrayBuffer();
+const view = new Uint8Array(buf);
+if (view[0] === 0x1f &amp;&amp; view[1] === 0x8b) {
+  const ds = new DecompressionStream(&quot;gzip&quot;);
+  const stream = new Blob([buf]).stream().pipeThrough(ds);
+  cifText = await new Response(stream).text();
+}
+viewer.addModel(cifText, &quot;cif&quot;);
+</code></pre>
+<p><code>DecompressionStream</code> is in every modern browser and means the
+repo can hold the file gzipped (a quarter of the uncompressed size)
+without a build step. The magic-byte check (<code>0x1f 0x8b</code>) makes the
+code robust to whether the dev server adds a <code>Content-Encoding: gzip</code>
+header. Python&apos;s <code>http.server</code> doesn&apos;t.</p>
+<p>The sticky figure trick is also worth flagging. On screens 1024 px
+wide and up, the figure column gets <code>position: sticky; top: var(--temp-strip-height) + 32px; align-self: start;</code>,
+so the spinning HSF1 ribbon stays glued to the same screen position
+while the reader scrolls through the chapter&apos;s body text. The
+protein is in view the entire time it&apos;s being discussed. It is
+the single biggest readability improvement I made in the chapter, and
+it is four lines of CSS.</p>
+<h2>The agy CLI stall, and what it told me about prompts</h2>
+<p><a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills">Beat 1</a> mentioned the &ldquo;specific small prompts beat
+orchestration prompts&rdquo; rule in passing. Chapter 1&apos;s build
+made me believe it.</p>
+<p>The Phase 1 data layer required four fetches: PDB structure file,
+AlphaFold structure file, top-three PubMed papers on HSF1
+trimerization, and Human Protein Atlas tissue expression. Asking <code>agy
+--print</code> to do all four in one prompt produced the exact same 0.0%-CPU
+stall I&apos;d hit during Phase 0. PID alive, one open network socket,
+no <code>uv</code> subprocesses spawned, no output for fifteen minutes. The
+agent was stuck in its planning step.</p>
+<p>The pivot that worked: write a small project Python script
+(<code>scripts/01_hsf1.py</code>, hundred lines) that shells out to the canonical
+skill CLIs at their plugin path:</p>
+<pre><code class="language-py">PUBMED_SCRIPTS = Path.home() / &quot;.gemini/config/plugins/science/skills/pubmed_database/scripts&quot;
+
+run([
+    &quot;uv&quot;, &quot;run&quot;, str(PUBMED_SCRIPTS / &quot;pubmed_api.py&quot;),
+    str(search_path), &quot;search_pubmed&quot;,
+    &quot;heat shock factor 1 HSF1 trimerization activation&quot;,
+    &quot;--max_results&quot;, &quot;5&quot;,
+])
+</code></pre>
+<p>It ran end-to-end in under a minute. PDB and AlphaFold were already
+cached from Phase 0&apos;s smoke tests, so it short-circuited; PubMed
+hit, returned three real papers (PMIDs 30467350, 33493517, 27354066),
+and HPA resolved HSF1 to <code>ENSG00000185122</code> and reported tissue
+expression across forty-nine tissues. The same Human Protein Atlas
+fetch that stalled under <code>agy --print</code> returned a 4.5 KB JSON in
+seconds when called as a <code>subprocess.run</code>. Same skill, same arguments,
+two invocation paths, very different reliability.</p>
+<p>The rule that came out of it: when you can write down the exact
+shell command, write it down; don&apos;t make the IDE plan it for
+you. The IDE&apos;s value is <em>between</em> commands, not in choosing them.</p>
+<h2>What rendered</h2>
+<p>Chapter 1 on the page now shows the marginalia column with a tissue-
+expression badge sourced from live Human Protein Atlas data
+(&ldquo;Expressed across 49 of 49 tissues; high in adrenal gland,
+breast, bronchus, cerebellum (+20 more)&rdquo;), a 64-character-wide
+reading column with body copy that introduces HSF1, an inline 3Dmol
+viewer rendering the actual 5D5U mmCIF with the protein chains in
+ochre cartoon and the HSE DNA strands in slate, a citation accordion
+exposing the three PubMed papers above with author lists and PMIDs
+linked out to NCBI, and a small AlphaFold-derived note about HSF1&apos;s
+global pLDDT of 61.31 confirming the protein is partly disordered by
+design.</p>
+<p>The PDB overlay at the bottom-left of the viewer is a real link to
+<a href="https://www.rcsb.org/structure/5D5U">RCSB&apos;s 5D5U entry</a>. The PubMed citations are real
+PubMed entries (the <a href="https://pubmed.ncbi.nlm.nih.gov/30467350/">Neuroprotection by HSF1 paper</a> in
+<em>Scientific Reports</em>, the <a href="https://pubmed.ncbi.nlm.nih.gov/33493517/">SUMOylation paper</a> in <em>JBC</em>, the
+<a href="https://pubmed.ncbi.nlm.nih.gov/27354066/">p38 MAPK substrate paper</a> in <em>MCB</em>). The HPA tissue claim is
+sourced from the live IHC consensus and re-fetchable by running the
+project script in tree.</p>
+<h2>Three sharp edges worth lifting</h2>
+<p>For anyone setting up a similar workspace:</p>
+<ul>
+<li><strong><code>scripts/generate_*.py</code> files Antigravity writes need to be in
+  <code>.gitignore</code> from day one.</strong> The IDE auto-generates Python clients
+  that embed API keys inline. We caught two before commit on the same
+  day and the gitignore patterns at the project&apos;s <code>.gitignore</code>
+  catch the family of file names the IDE chooses (mostly
+  <code>mcp_client.py</code>, <code>generate_*.py</code>, <code>*_client.py</code>).</li>
+<li><strong>The science-skills plugin has three upstream bugs as of v1.0.0</strong>
+  worth filing if you hit them: AlphaFold returns HTTP 403 without
+  <code>SCIENCE_SKILLS_USER_AGENT</code> set; HPA <code>hpa_cli.py
+  get-tissue-expression</code> raises a <code>ValueError</code> and needs a separate
+  HTTP client for its XML endpoint; the Reactome diagram&apos;s
+  <code>Accept</code> header for SVG needed a one-character fix. All three
+  patched locally on my Pi; drafted issues are in tree at
+  <a href="https://github.com/HeatThreshold/heat-protein-lab/tree/main/notes/devrel/upstream-issues"><code>notes/devrel/upstream-issues/</code></a>.</li>
+<li><strong>The IDE&apos;s desktop and CLI modes behave very differently.</strong>
+  Antigravity Desktop ran a nine-Stitch-screen mockup generation in
+  parallel via Python <code>threading</code> from a single prompt and converged
+  in two minutes. The CLI&apos;s <code>--print</code> mode on the same machine,
+  same plugin, stalled forever on a six-skill orchestration prompt.
+  Don&apos;t generalise from one to the other.</li>
+</ul>
+<h2>What&apos;s next</h2>
+<p>The chapter is the first of nine sections on the page. Chapters 2
+through 8 follow the same pattern: marginalia + reading body + a
+figure column with a 3Dmol viewer or schematic or heatmap or chart,
+all reading from data files committed to <code>data/</code>. Chapter 4 is the
+visual centerpiece, scroll-driven, and is the trigger for the next
+post (Beat 3).</p>
+<p>The repo is at <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>, MIT-licensed,
+no medical claims, no analytics. If you&apos;re working in the same
+space, the issue templates ask the questions I&apos;d want asked.</p>
+    </article>
+
+    <footer class="post-footer">
+      <p>
+        The live page this post writes about is at <a href="https://heat-protein-lab.pages.dev/#chapter-1">https://heat-protein-lab.pages.dev/#chapter-1</a>.
+        Repo: <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>.
+      </p>
+      <p class="post-footer__nav">
+        <a href="/posts/">← All posts</a>
+        ·
+        <a href="/">Home</a>
+      </p>
+    </footer>
+  </body>
+</html>
