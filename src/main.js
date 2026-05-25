@@ -30,13 +30,15 @@ const els = {
   // Chapter 4
   viewerAldolase: document.getElementById("viewer-aldolase"),
   viewerAldolaseLoading: document.querySelector("#viewer-aldolase .viewer__loading"),
-  ch4Section: document.querySelector('section[data-chapter="4"]'),
+  ch4Section: document.querySelector('section.chapter--centerpiece[data-chapter="4"]'),
   ch4TempValue: document.getElementById("ch4-temp-value"),
   ch4RmsdValue: document.getElementById("ch4-rmsd-value"),
   ch4RmsdBar: document.getElementById("ch4-rmsd-bar"),
   ch4SsValue: document.getElementById("ch4-ss-value"),
   ch4SsBar: document.getElementById("ch4-ss-bar"),
   aldolaseCitationsList: document.getElementById("aldolase-citations-list"),
+  // Chapter 5
+  hspHeatmap: document.getElementById("hsp-heatmap"),
   // Global UI
   tempStripFill: document.querySelector(".temp-strip__fill"),
   tempReadout: document.getElementById("temp-readout"),
@@ -139,6 +141,89 @@ function renderAldolaseCitations(payload) {
     payload,
     "data/citations/aldolase.json"
   );
+}
+
+/* Chapter 5 — Render an HSP tissue heatmap. Inputs: arrays of
+ * {tissue, organ, level} per gene. Tissues are union-merged with rows
+ * grouped by organ. */
+const HSP_GENES = ["HSPA1A", "HSPA8", "HSP90AA1"];
+const HEATMAP_LEVEL_KEYS = ["high", "medium", "low", "not detected"];
+
+function renderHeatmap(perGene) {
+  if (!els.hspHeatmap) return;
+
+  // Build union of all tissue names across the three genes, keyed by tissue.
+  // Each entry: { tissue, organ, levels: { HSPA1A: 'high', ... } }
+  const tissueMap = new Map();
+  HSP_GENES.forEach((gene) => {
+    const rows = perGene[gene] || [];
+    rows.forEach((row) => {
+      const key = row.tissue;
+      if (!tissueMap.has(key)) {
+        tissueMap.set(key, { tissue: key, organ: row.organ || "", levels: {} });
+      }
+      tissueMap.get(key).levels[gene] = String(row.level || "").toLowerCase();
+    });
+  });
+
+  // Group rows by organ, sort organs alphabetically, then tissues within.
+  const byOrgan = new Map();
+  for (const entry of tissueMap.values()) {
+    const key = entry.organ || "Other";
+    if (!byOrgan.has(key)) byOrgan.set(key, []);
+    byOrgan.get(key).push(entry);
+  }
+  const sortedOrgans = Array.from(byOrgan.keys()).sort();
+  for (const k of sortedOrgans) {
+    byOrgan.get(k).sort((a, b) => a.tissue.localeCompare(b.tissue));
+  }
+
+  // Header row.
+  const header = `
+    <div class="heatmap__header" role="row">
+      <div class="heatmap__corner" role="columnheader">Tissue</div>
+      ${HSP_GENES.map((g) => `<div role="columnheader">${escapeHtml(g)}</div>`).join("")}
+    </div>
+  `;
+
+  // Rows, grouped by organ.
+  const groups = sortedOrgans
+    .map((organ) => {
+      const tissueRows = byOrgan
+        .get(organ)
+        .map((entry) => {
+          const cells = HSP_GENES.map((gene) => {
+            const lvl = entry.levels[gene] || "n/a";
+            const display =
+              lvl === "high"
+                ? "H"
+                : lvl === "medium"
+                ? "M"
+                : lvl === "low"
+                ? "L"
+                : lvl === "not detected"
+                ? "·"
+                : "—";
+            return `<div class="heatmap__cell" role="cell" data-level="${escapeHtml(
+              lvl
+            )}" title="${escapeHtml(gene)} · ${escapeHtml(entry.tissue)}: ${escapeHtml(
+              lvl
+            )}">${escapeHtml(display)}</div>`;
+          }).join("");
+          return `
+            <div class="heatmap__tissue" role="rowheader">${escapeHtml(entry.tissue)}</div>
+            ${cells}
+          `;
+        })
+        .join("");
+      return `
+        <div class="heatmap__group-break" role="presentation">${escapeHtml(organ)}</div>
+        ${tissueRows}
+      `;
+    })
+    .join("");
+
+  els.hspHeatmap.innerHTML = header + groups;
 }
 
 function renderTissueExpression(rows) {
@@ -533,6 +618,22 @@ function setupChapterObserver() {
           els.aldolaseCitationsList.innerHTML = `<li class="citations__error">Could not load aldolase citations: ${escapeHtml(
             err.message
           )}</li>`;
+        }
+      }),
+    Promise.all([
+      fetchJson("data/expression/hspa1a.json"),
+      fetchJson("data/expression/hspa8.json"),
+      fetchJson("data/expression/hsp90aa1.json"),
+    ])
+      .then(([hspa1a, hspa8, hsp90aa1]) =>
+        renderHeatmap({ HSPA1A: hspa1a, HSPA8: hspa8, HSP90AA1: hsp90aa1 })
+      )
+      .catch((err) => {
+        console.error(err);
+        if (els.hspHeatmap) {
+          els.hspHeatmap.innerHTML = `<p class="heatmap__loading">Could not load tissue expression: ${escapeHtml(
+            err.message
+          )}</p>`;
         }
       }),
     fetchJson("data/expression/hsf1.json")

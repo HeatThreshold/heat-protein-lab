@@ -645,6 +645,128 @@ a:focus-visible {
   }
 }
 
+/* ---------- Chapter 5: HPA tissue heatmap ---------- */
+
+.figure--heatmap {
+  flex-direction: column;
+  width: 100%;
+}
+
+.heatmap-card {
+  margin: 0;
+  width: 100%;
+  background: var(--surface-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 14px 14px 12px;
+}
+
+.heatmap {
+  display: grid;
+  /* tissue label | three gene cells */
+  grid-template-columns: minmax(0, 1fr) 36px 36px 36px;
+  gap: 2px 8px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink);
+  width: 100%;
+}
+
+.heatmap__loading {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ink-faint);
+  font-style: italic;
+  font-family: var(--font-body);
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.heatmap__header {
+  display: contents;
+}
+.heatmap__header > * {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--paper-edge);
+  text-align: center;
+}
+.heatmap__header > .heatmap__corner {
+  text-align: left;
+}
+
+.heatmap__tissue {
+  text-align: left;
+  padding: 3px 0;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  /* Wrap long tissue names gracefully */
+  overflow-wrap: anywhere;
+}
+
+.heatmap__cell {
+  width: 100%;
+  height: 22px;
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  background: var(--paper-edge);
+  color: var(--ink-faint);
+}
+
+/* Four expression-level steps mapped onto a single warm ramp */
+.heatmap__cell[data-level="high"] {
+  background: var(--heat-41);
+  color: var(--paper);
+  font-weight: 600;
+}
+.heatmap__cell[data-level="medium"] {
+  background: var(--heat-40);
+  color: var(--paper);
+}
+.heatmap__cell[data-level="low"] {
+  background: #e8c896;
+  color: var(--ink-soft);
+}
+.heatmap__cell[data-level="not detected"] {
+  background: var(--paper);
+  color: var(--ink-faint);
+  border: 1px dashed var(--paper-edge);
+}
+.heatmap__cell[data-level="n/a"] {
+  background: transparent;
+  color: var(--ink-faint);
+}
+
+.heatmap__group-break {
+  grid-column: 1 / -1;
+  border-top: 1px dashed var(--paper-edge);
+  margin-top: 6px;
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.heatmap-caption {
+  margin: 12px 0 0 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
 /* ---------- Pathway snippet (Ch 3 mini-Reactome) ---------- */
 
 .pathway-snippet {

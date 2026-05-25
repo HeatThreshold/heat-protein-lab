@@ -562,11 +562,80 @@
           </div>
         </div>
       </section>
-      <section class="chapter chapter--stub" data-chapter="5" data-temp="40.0" data-accent="heat-40">
-        <div class="chapter__inner chapter__inner--stub">
-          <p class="eyebrow">Plate V / 40.0 &deg;C</p>
-          <h2 class="chapter__title">Where the defenders live</h2>
-          <p class="body stub-note">Chapter under construction. HPA tissue heatmap pending Phase 5.</p>
+      <!--
+        Chapter 5 — Where the defenders live (HPA tissue heatmap).
+        Reads from:
+          data/expression/hspa1a.json
+          data/expression/hspa8.json
+          data/expression/hsp90aa1.json
+      -->
+      <section
+        class="chapter"
+        data-chapter="5"
+        data-temp="40.0"
+        data-accent="heat-40"
+        id="chapter-5"
+      >
+        <div class="chapter__inner">
+          <aside class="marginalia" aria-label="Chapter 5 metadata">
+            <p class="eyebrow">Plate V</p>
+            <p class="margin-temp">40.0 &deg;C</p>
+            <div class="badge badge--expression">
+              <p class="badge__label">Expression</p>
+              <p class="badge__body">3 HSP genes &times; ~18 tissues</p>
+              <p class="badge__source">Source: Human Protein Atlas, IHC consensus</p>
+            </div>
+          </aside>
+
+          <div class="reading">
+            <h2 class="chapter__title">Where the defenders live</h2>
+            <p class="body">
+              Heat is not a regional problem for a body. When you overheat,
+              every cell that has DNA needs its own heat-shock response,
+              working from the same molecular cast: HSF1 to sense, HSP70 to
+              refold, HSP90 to chaperone the chaperones. The heatmap on the
+              right is the Human Protein Atlas&apos; IHC consensus call on
+              three of those genes across 49 normal human tissues.
+            </p>
+            <p class="body">
+              <span class="mono">HSPA1A</span> is the stress-induced HSP70
+              (the work-horse you met in Plate III); <span class="mono">HSPA8</span>
+              is its constitutive cousin Hsc70 (always on, lower baseline);
+              <span class="mono">HSP90AA1</span> is the inducible
+              HSP90&alpha;.
+            </p>
+            <p class="body">
+              Three patterns come through. HSPA1A is broadly present, with
+              most tissues at <em>medium</em> protein levels and several
+              tissues &mdash; breast, bronchus, ovary, thyroid &mdash; at
+              <em>high</em>. HSPA8 is present nearly everywhere but mostly
+              at <em>low</em> IHC signal, consistent with a constitutive
+              baseline. <span class="mono">HSP90AA1</span> is the surprise:
+              its inducible nature shows up as a much sparser profile,
+              detectable in a subset of tissues rather than all. The
+              <em>capacity</em> for heat shock is everywhere; the highly
+              inducible alpha isoform is staged, not omnipresent.
+            </p>
+            <p class="body">
+              This layering is also the molecular explanation for heat
+              acclimatization. Train in the heat for two weeks and the cast
+              gets dialed up across tissues. The capacity was already in
+              place; the response is the dial.
+            </p>
+          </div>
+
+          <div class="figure figure--heatmap">
+            <figure class="heatmap-card">
+              <div class="heatmap" id="hsp-heatmap" role="table" aria-label="HSP gene tissue expression heatmap across human tissues">
+                <p class="heatmap__loading">Loading from Human Protein Atlas&hellip;</p>
+              </div>
+              <figcaption class="heatmap-caption">
+                IHC consensus across normal human tissues. Source:
+                <a href="https://www.proteinatlas.org/" target="_blank" rel="noopener">Human Protein Atlas</a>
+                &middot; retrieved 2026-05-25.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
       <section class="chapter chapter--stub" data-chapter="6" data-temp="40.5" data-accent="heat-41">
