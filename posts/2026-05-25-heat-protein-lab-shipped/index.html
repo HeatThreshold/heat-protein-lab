@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Heat Protein Lab is now public. Eight chapters of scrollytelling about what heat does to human proteins, every chapter anchored on a real protein with a real structure file fetched from RCSB or AlphaFold, every citation back-linked to PubMed, every tissue claim sourced from th..." />
+    <meta name="color-scheme" content="light" />
+    <title>Heat Protein Lab is live — what eight Antigravity sessions taught me about scientific UI — Heat Protein Lab</title>
+    <link rel="canonical" href="https://craigmerry.com/blog/2026-05-25-heat-protein-lab-shipped/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Heat Protein Lab" />
+    <meta property="og:title" content="Heat Protein Lab is live — what eight Antigravity sessions taught me about scientific UI" />
+    <meta property="og:description" content="Heat Protein Lab is now public. Eight chapters of scrollytelling about what heat does to human proteins, every chapter anchored on a real protein with a real structure file fetched from RCSB or AlphaFold, every citation back-linked to PubMed, every tissue claim sourced from th..." />
+    <meta property="og:url" content="https://heat-protein-lab.pages.dev/posts/2026-05-25-heat-protein-lab-shipped/" />
+    <meta property="og:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+    <meta property="article:published_time" content="2026-05-25" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Heat Protein Lab is live — what eight Antigravity sessions taught me about scientific UI" />
+    <meta name="twitter:description" content="Heat Protein Lab is now public. Eight chapters of scrollytelling about what heat does to human proteins, every chapter anchored on a real protein with a real structure file fetched from RCSB or AlphaFold, every citation back-linked to PubMed, every tissue claim sourced from th..." />
+    <meta name="twitter:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/post.css" />
+  </head>
+  <body class="post">
+    <a class="skip-link" href="#post-body">Skip to post</a>
+    <header class="post-header">
+      <div class="post-header__row">
+        <span class="post-header__plate">Plate 04</span>
+        <a class="post-header__home" href="/">Heat Protein Lab</a>
+        <a class="post-header__index" href="/posts/">All posts</a>
+      </div>
+      <h1 class="post-title">Heat Protein Lab is live — what eight Antigravity sessions taught me about scientific UI</h1>
+      <p class="post-meta">
+        <time datetime="2026-05-25">May 25, 2026</time>
+        · Beat 4 of 5
+        · <a href="https://craigmerry.com/blog/2026-05-25-heat-protein-lab-shipped/">canonical on craigmerry.com</a>
+      </p>
+    </header>
+
+    <article id="post-body" class="post-body">
+      <h1>Heat Protein Lab is live — what eight Antigravity sessions taught me about scientific UI</h1>
+<p><a href="https://heat-protein-lab.pages.dev/">Heat Protein Lab</a> is now public. Eight chapters of
+scrollytelling about what heat does to human proteins, every chapter
+anchored on a real protein with a real structure file fetched from
+RCSB or AlphaFold, every citation back-linked to PubMed, every
+tissue claim sourced from the Human Protein Atlas. The page has no
+analytics, no accounts, no medical claims, and no molecular-dynamics
+simulations dressed up to look like measurements. It is at
+<strong><a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a></strong>, and the repo is at
+<a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>.</p>
+<p>This post is the retrospective on the full ship. It is the longest
+in the <a href="https://github.com/HeatThreshold/heat-protein-lab/blob/main/DEVREL.md">five-beat</a> series because there is a lot to say. The
+short version is that <strong>the page rendered fast, the data fell out
+of the <a href="https://github.com/google-deepmind/science-skills">Science Skills</a> CLIs with very little resistance,
+the visual centerpiece (Chapter 4) was the hardest 200 lines of CSS
+I have written this year, and the IDE made the whole thing roughly
+three times faster to build than it should have been.</strong></p>
+<p>The longer version is below.</p>
+<p><img alt="The Heat Protein Lab hero, full-bleed." src="/screenshots/heat-protein-lab/01-hero.jpg">
+<em>Plate 0 / 37.0 °C. The hero. The reader meets the project as a
+surveyor&rsquo;s-notebook artifact — cream paper, Spectral serif title,
+IBM Plex Mono labels, a temperature strip pinned at the top of the
+viewport that updates as the reader scrolls.</em></p>
+<h2>The eight chapters, briefly</h2>
+<table>
+<thead>
+<tr>
+<th>Plate</th>
+<th>Chapter</th>
+<th>Anchor</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>The premise</td>
+<td>Hero + disclaimer</td>
+<td>—</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Meet your cellular thermometer</td>
+<td>HSF1</td>
+<td>PDB 5D5U</td>
+</tr>
+<tr>
+<td>II</td>
+<td>When heat arrives</td>
+<td>HSF1 activation, HSP90 abandonment</td>
+<td>PDB 7L7J</td>
+</tr>
+<tr>
+<td>III</td>
+<td>The first line of defense</td>
+<td>HSP70 (HSPA1A)</td>
+<td>PDB 4PO2</td>
+</tr>
+<tr>
+<td>IV</td>
+<td>When proteins melt</td>
+<td>Aldolase A — denaturation visualization</td>
+<td>PDB 6XMH</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Heat shock proteins across the body</td>
+<td>Tissue expression heatmap</td>
+<td>Human Protein Atlas</td>
+</tr>
+<tr>
+<td>VI</td>
+<td>When the genome strains</td>
+<td>ClinVar variants in HSPA1A / HSF1</td>
+<td>NCBI ClinVar</td>
+</tr>
+<tr>
+<td>VII</td>
+<td>The full pathway</td>
+<td>Reactome diagram</td>
+<td>R-HSA-3371556</td>
+</tr>
+<tr>
+<td>VIII</td>
+<td>Bridge to HeatThreshold</td>
+<td>WBGT → core-temperature toy model</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Every chapter is one <code>&lt;section&gt;</code> element with the same three-column
+shell on desktop — marginalia (20%), reading body (50%, capped at
+64 characters), figure column (30%). The shell collapses to a
+single column under 1024 px, with marginalia floated above the body
+and the figure below. The temperature strip and Plate corner badge
+are persistent and update as the reader scrolls between chapters,
+using an <code>IntersectionObserver</code> pinned at the page chrome level.</p>
+<h2>The build was eight Antigravity sessions, plus today</h2>
+<p>The plan was nine phases. The actual ship was eight sessions over
+the weekend and one long polish day today. Phase boundaries did not
+map cleanly to session boundaries — some sessions covered two
+chapters, some covered one chapter and a refactor — so what is
+worth recording is the <em>kind</em> of work each session did, not a
+session-by-session play-by-play.</p>
+<p><strong>Phase 0 — workspace bootstrap.</strong> Wiring 17 Science Skills into a
+fresh Antigravity workspace, verifying every database query, writing
+<code>data/candidates.json</code>. About 90 minutes. The <a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">first post</a>
+covers this in detail.</p>
+<p><strong>Phase 1 — HSF1 (Chapter 1).</strong> First chapter shipped end to end,
+sticky-figure trick figured out, 3Dmol mounted on the gzipped mmCIF
+with the in-page <code>DecompressionStream</code> decode path. <a href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/">Second
+post</a> covers this.</p>
+<p><strong>Phase 2 — HSF1 activation (Chapter 2).</strong> HSP90 dimer + p23 (PDB
+7L7J at 3.1 Å) rendered as the chaperone the heat-shock response
+abandons. Inline schematic of HSF1 monomer → trimer transition
+drawn as SVG, not a 3D animation — the chapter is about the
+<em>conceptual</em> state change, not the molecular detail.</p>
+<p><strong>Phase 3 — HSP70 (Chapter 3).</strong> HSPA1A substrate-binding domain
+(PDB 4PO2) bound to a peptide substrate. The schematic above the
+viewer places HSPA1A between HSF1 (transcription) and a misfolded
+client (refolding target) — the chapter&rsquo;s job is to show HSP70 as
+<em>the actually-working chaperone</em> that the response is making more
+of.</p>
+<p><strong>Phase 4 — Denaturation (Chapter 4).</strong> The visual centerpiece. The
+3D scroll-driven style transition across aldolase A. The most
+delicate chapter in the page; covered in detail in <a href="https://craigmerry.com/blog/2026-05-25-visualizing-denaturation/">Beat 3</a>.</p>
+<p><strong>Phase 5 — Tissue expression (Chapter 5).</strong> A heatmap rendered
+from Human Protein Atlas data for four HSP genes (HSPA1A, HSPA8,
+HSP90AA1, HSPA1B) across 49 tissues. Pure CSS grid, no JS chart
+library. The pattern the heatmap surfaces — HSPA1A inducible-and-
+spotty, HSPA8 constitutive-and-everywhere — <em>is</em> the molecular
+explanation for heat acclimatization. Two weeks of training in the
+heat dial up the inducible cast across tissues.</p>
+<p><strong>Phase 6 — Variant cards (Chapter 6).</strong> ClinVar variants in
+HSPA1A and HSF1, presented as discrete cards rather than a list,
+deliberately filtered to small point variants rather than the
+megabase chromosomal CNVs that turned up in the first cut. (That
+filtering bug — picking the first six &ldquo;Pathogenic&rdquo; ClinVar hits
+and discovering they were all multi-megabase regions across
+thousands of genes — was Phase 6&rsquo;s lesson.)</p>
+<p><strong>Phase 7 — Pathway (Chapter 7).</strong> Reactome&rsquo;s curated heat-shock-
+response pathway (R-HSA-3371556) inlined as SVG with three jump-to-
+chapter chips beneath: HSF1 → Plate I, HSP90AA1 → Plate II, HSPA1A
+→ Plate III. The Reactome SVG is Batik-flattened paths (no
+semantic IDs), so literal protein-pinpointing on hover isn&rsquo;t
+reliable — the chips are the bridge. Hovering a chip rings the
+pathway card so the visual link is obvious.</p>
+<p><strong>Phase 8 — WBGT bridge (Chapter 8).</strong> A toy model that takes
+WBGT (a heat-stress index), exposure duration, and acclimatization
+level, and projects an illustrative core-temperature curve over
+time, with horizontal threshold lines at the temperatures
+introduced earlier in the page. Three sliders, one SVG chart, one
+&ldquo;this is not a clinical prediction&rdquo; callout immediately above the
+controls.</p>
+<p><strong>Phase 9 — Polish.</strong> The two posts above (Beats 1 + 2), Open
+Graph card + favicon + 1200×630 social SVG, post-mirror at
+<code>/posts/</code>, Chapter 7 inline-SVG + chips, mobile + a11y polish (dvh
+chapter height, aria-live for state messages, 44 px touch targets),
+a Celsius ↔ Fahrenheit toggle that landed mid-session as an
+operator request and unit-converts the entire page chrome +
+Ch 4 + Ch 8 readouts via a tiny <code>heatLab</code> namespace.</p>
+<p>The cadence above understates how much <em>talking with the IDE</em> there
+was inside each phase. Antigravity is a chat-oriented IDE; most
+sessions involved sketching the chapter intent, getting back a
+draft of the section markup, iterating on the figure caption, and
+then dropping into manual edits for the per-chapter details. The
+data layer was almost entirely deterministic — <code>uv run</code> invocations
+against the Science Skills CLIs, output committed to <code>data/</code>.</p>
+<h2>Page weight, structure, behavior</h2>
+<p>The page is plain HTML, plain CSS, one ES module of JavaScript, and
+no bundler. No React. No Tailwind. No Vite. No Astro. The full
+file count:</p>
+<ul>
+<li><code>index.html</code> — one document, ~900 lines, including the eight
+  chapter sections + the hero + the colophon.</li>
+<li><code>src/styles.css</code> — one stylesheet, ~1300 lines, with design tokens
+  at the top (cream paper, ink, paper-edge, the seven heat-ramp
+  colors 37–44 °C) and per-chapter overrides below.</li>
+<li><code>src/main.js</code> — one ES module, ~1000 lines, holding the four
+  3Dmol viewer mounts, the chapter-aware temperature-strip
+  observer, the Chapter 4 scroll driver, the Chapter 8 toy-model
+  renderer, the Chapter 7 inline-SVG injector, and the C↔F toggle
+  with its auto-walker that wraps every static temperature on the
+  page in <code>&lt;span class="temp-num"&gt;</code> for unit conversion.</li>
+<li><code>data/</code> — 11 MB total, mostly mmCIF structure files (gzipped),
+  Reactome SVG (655 KB), JSON metadata.</li>
+</ul>
+<p>Network behavior on first paint:</p>
+<ul>
+<li>1 HTML doc.</li>
+<li>1 stylesheet.</li>
+<li>1 ES module.</li>
+<li>1 CDN script: 3Dmol.js 2.5.1, SRI-locked, <code>defer</code>.</li>
+<li>4 mmCIF files (one per 3Dmol viewer). Fetched in parallel from
+  same-origin <code>/data/structures/...</code>. Decoded in-browser via
+  <code>DecompressionStream</code>.</li>
+<li>1 Reactome SVG, lazily injected when the reader scrolls to
+  Chapter 7.</li>
+<li>6 JSON files for citations + tissue expression + variants.</li>
+</ul>
+<p>Total transfer for first scroll-to-end traversal is under 4 MB —
+the bulk of which is the four mmCIF files (gzipped, decoded
+in-page). The page renders the hero and Chapter 1 text content
+<strong>before</strong> the 3Dmol script arrives, because the script is
+<code>defer</code>-loaded; the viewer mount runs against an already-laid-out
+DOM. That choice was the single biggest perceived-speed win I made
+in the project.</p>
+<p>The Lighthouse numbers I ran locally before the final push are
+unceremonious: Performance and Accessibility both in the high 90s,
+Best Practices 100, SEO 100. The 90s on Performance come from the
+mmCIF decompression doing real work on first paint. I am willing to
+spend those points to keep the repo bundler-free.</p>
+<h2>What shipped vs. what was cut</h2>
+<p>The original plan was nine phases; the ship is nine phases. The
+deeper cuts were within phases.</p>
+<p><strong>Cut:</strong> an &ldquo;AlphaFold per chapter&rdquo; panel that would have shown the
+AlphaFold-predicted structure alongside the experimental structure
+for each protein, with a pLDDT bar. The data is in <code>data/structures/alphafold/</code>
+already; the UI for it was too much per-chapter real estate. Kept
+the global pLDDT as a one-line note in the marginalia.</p>
+<p><strong>Cut:</strong> an animated trimerization transition in Chapter 2. The
+chapter currently shows the inline schematic of HSF1 monomer → trimer
+as a static SVG. The animated version would have been seven seconds
+of CSS transform interpolation; visually it would have been
+gorgeous and conceptually it would have been misleading (HSF1
+trimerization is not a smooth conformational rotation; it is an
+assembly event with several steps that don&rsquo;t lend themselves to a
+simple animation). Sat with that for an hour, cut it.</p>
+<p><strong>Cut:</strong> a &ldquo;your day-on-the-trail&rdquo; comparison panel in Chapter 8
+that would have placed a few specific environmental scenarios on
+the toy model. The toy model is too crude to support specific
+scenarios responsibly, and adding scenarios would have implied a
+prediction the model can&rsquo;t make. Cut, with the three sliders left
+in.</p>
+<p><strong>Cut:</strong> a Bathroom Sentry-style &ldquo;what should I do at this
+temperature&rdquo; callout. This was a HeatThreshold idea bleeding into
+this project. Removed entirely — <code>heat-protein-lab</code> is explainer,
+not prescriber.</p>
+<p><strong>Kept under protest:</strong> the Chapter 7 SVG fallback. The Reactome
+diagram is heavy (655 KB unminified) and the inline injection adds
+a small flash before the chips arrive. I tried three different
+ways to make the load feel lighter (skeleton placeholder,
+intersection-observer-deferred inject, fade-in on inject) and
+none of them felt better than just letting the SVG land. The
+static <code>&lt;img&gt;</code> fallback handles no-JS gracefully.</p>
+<h2>The Celsius ↔ Fahrenheit toggle, which landed two hours ago</h2>
+<p>About two hours before this post went up, the operator asked for a
+C ↔ F toggle. The implementation pattern is worth flagging because
+it was so cheap: a single document text-node walker on boot wraps
+every static <code>NN.N °C</code> it finds in <code>&lt;span class="temp-num" data-temp-c="N"&gt;N&lt;/span&gt;</code>
++ a sibling <code>.temp-unit-label</code> for the unit symbol. The toggle
+flips <code>&lt;html data-unit&gt;</code> between <code>C</code> and <code>F</code>, walks those spans,
+and rewrites them. The dynamic readouts (temp strip readout, Chapter
+4 stage value, Chapter 8 sliders + chart + threshold labels + peak)
+flow through a <code>heatLab.formatTemp(c)</code> helper that respects the
+current unit. Choice persists in <code>localStorage</code>.</p>
+<p>The whole feature took 25 minutes including the headless-smoke
+test that flips the toggle, walks <code>.temp-num</code>, and verifies
+<code>37.0 °C → 98.6 °F</code> end to end. The unit-agnostic page chrome
+pattern is something I&rsquo;ll keep for HeatThreshold and HeatCompass —
+unit toggle should be table stakes for anything with a
+temperature readout.</p>
+<p>The toggle is in the top right next to the temperature strip
+readout. The toggle is also the most-tested piece of the page —
+21 wrapped numbers, every Chapter 4 + Chapter 8 dynamic readout,
+every plate eyebrow, every chart axis label, every threshold
+label.</p>
+<p><img alt="The lab homepage with Fahrenheit selected. The °F pill is highlighted in the top right; the temperature strip readout reads 108.5 °F; Plate VIII eyebrow reads 105.8 → 109.4 °F; the WBGT label reads (°F) at 89.6 °F; the bridge chart Y-axis reads 109°, 108°, 106°." src="/screenshots/heat-protein-lab/13-toggle-fahrenheit.jpg"></p>
+<h2>What the page is for</h2>
+<p>The page is for someone who has heard &ldquo;heat illness can be fatal&rdquo;
+and wants to understand <em>why, at the molecular level, this is true</em>.
+It is for the kind of person who reads the <a href="https://craigmerry.com/blog/2026-05-24-heat-threshold-google-io-hackathon/">Heat Threshold
+hackathon retro</a> and wonders what the cellular
+side of the story looks like. It is for the kind of person who has
+read one or two HSF1 / HSP70 review papers and wants the version of
+the story that respects their time. It is for the kind of person who
+clicks &ldquo;show citations&rdquo; and reads them.</p>
+<p>It is not for someone who needs clinical guidance. It is not for
+someone making medical decisions. It is not for someone running an
+emergency department. The disclaimer in the hero and Chapter 0
+state this in three different ways. The chapter on the toy WBGT
+bridge restates it. Chapter 4 restates it for its specific
+content. The honesty load on the page is heavy by design.</p>
+<h2>What I&rsquo;d do differently if I started over</h2>
+<p>Three things, in order of regret.</p>
+<p><strong>One.</strong> I would write the project&rsquo;s <code>CLAUDE.md</code> / <code>AGENTS.md</code>
+before Phase 0. I wrote it in Phase 1, by which time some of the
+conventions were already locked in suboptimally (chapter <code>data-*</code>
+attributes were a little inconsistent across the first three
+chapters; Chapter 4&rsquo;s <code>.ch4-temp-readout</code> markup deviated from the
+pattern of the earlier marginalia readouts). Writing the project
+agent file up front would have made the IDE&rsquo;s drafts more
+self-consistent across phases.</p>
+<p><strong>Two.</strong> I would set up the Cloudflare Pages project on day one.
+The deploy workflow was wired up in Phase 9 polish; the first deploy
+failed predictably (no token, no Pages project), and the
+manual <code>npx wrangler pages project create</code> step landed two hours
+before this post. Doing that on day one would have given me a
+public URL to iterate against from Chapter 1, which would have
+caught the &ldquo;phantom 100vh space on mobile Safari&rdquo; bug five days
+earlier than I caught it.</p>
+<p><strong>Three.</strong> I would have written the per-session DevRel logs as I
+went, not at the end. There is a <code>notes/devrel/SESSION-TEMPLATE.md</code>
+in the repo for exactly this purpose and I filled out exactly two
+of them. The Beat 1 + Beat 2 posts are richer than the Beat 3 + 4
++ 5 posts because the first two were written closer to the
+sessions they describe.</p>
+<h2>What lands after this</h2>
+<p>The <a href="https://craigmerry.com/blog/2026-05-25-three-google-products-retro/">next post</a> is the cross-product retro on Antigravity
+2.0 + Science Skills + Stitch. That post is shorter and more
+opinionated than this one. It is the post a developer-relations
+team at Google might find most useful.</p>
+<p>After that the lab itself sits, possibly forever. The plan does
+not include chapters 9 through 16. The page is meant to be a
+finished artifact, not the v1 of a thing that grows. If a real
+biologist files a Scientific Correction issue, I will fix the
+issue and re-publish; otherwise the page stays as it is.</p>
+<p>The repo is at <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>. MIT.
+Issues welcome via the three issue templates (follow-along,
+scientific correction, DevRel feedback). PRs welcome at the same
+slow cadence the project itself was built at.</p>
+    </article>
+
+    <footer class="post-footer">
+      <p>
+        The live page this post writes about is at <a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a>.
+        Repo: <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>.
+      </p>
+      <p class="post-footer__nav">
+        <a href="/posts/">← All posts</a>
+        ·
+        <a href="/">Home</a>
+      </p>
+    </footer>
+  </body>
+</html>

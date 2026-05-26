@@ -274,7 +274,7 @@ def render_post(post: Post) -> str:
 
 def render_index(posts: list[Post]) -> str:
     entries: list[str] = []
-    posts_sorted = sorted(posts, key=lambda p: p.date_publish_earliest)
+    posts_sorted = sorted(posts, key=lambda p: (p.date_publish_earliest, p.beat))
     for p in posts_sorted:
         desc = derive_description(p.body_md, fallback="")
         entries.append(

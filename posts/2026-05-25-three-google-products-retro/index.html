@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Heat Protein Lab was, among other things, a deliberate composability test: build a citation-grounded scientific explainer using three new Google products in concert, by an indie developer working alone, in a small number of sessions. The three products were Antigravity 2.0 (th..." />
+    <meta name="color-scheme" content="light" />
+    <title>Three Google products, one project — what worked, what didn&#x27;t, what I&#x27;d change — Heat Protein Lab</title>
+    <link rel="canonical" href="https://craigmerry.com/blog/2026-05-25-three-google-products-retro/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Heat Protein Lab" />
+    <meta property="og:title" content="Three Google products, one project — what worked, what didn&#x27;t, what I&#x27;d change" />
+    <meta property="og:description" content="Heat Protein Lab was, among other things, a deliberate composability test: build a citation-grounded scientific explainer using three new Google products in concert, by an indie developer working alone, in a small number of sessions. The three products were Antigravity 2.0 (th..." />
+    <meta property="og:url" content="https://heat-protein-lab.pages.dev/posts/2026-05-25-three-google-products-retro/" />
+    <meta property="og:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+    <meta property="article:published_time" content="2026-05-25" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Three Google products, one project — what worked, what didn&#x27;t, what I&#x27;d change" />
+    <meta name="twitter:description" content="Heat Protein Lab was, among other things, a deliberate composability test: build a citation-grounded scientific explainer using three new Google products in concert, by an indie developer working alone, in a small number of sessions. The three products were Antigravity 2.0 (th..." />
+    <meta name="twitter:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/post.css" />
+  </head>
+  <body class="post">
+    <a class="skip-link" href="#post-body">Skip to post</a>
+    <header class="post-header">
+      <div class="post-header__row">
+        <span class="post-header__plate">Plate 05</span>
+        <a class="post-header__home" href="/">Heat Protein Lab</a>
+        <a class="post-header__index" href="/posts/">All posts</a>
+      </div>
+      <h1 class="post-title">Three Google products, one project — what worked, what didn&#x27;t, what I&#x27;d change</h1>
+      <p class="post-meta">
+        <time datetime="2026-05-25">May 25, 2026</time>
+        · Beat 5 of 5
+        · <a href="https://craigmerry.com/blog/2026-05-25-three-google-products-retro/">canonical on craigmerry.com</a>
+      </p>
+    </header>
+
+    <article id="post-body" class="post-body">
+      <h1>Three Google products, one project — what worked, what didn&rsquo;t, what I&rsquo;d change</h1>
+<p><a href="https://heat-protein-lab.pages.dev/">Heat Protein Lab</a> was, among other things, a deliberate
+composability test: build a citation-grounded scientific explainer
+using three new Google products in concert, by an indie developer
+working alone, in a small number of sessions. The three products
+were <a href="https://antigravity.google">Antigravity 2.0</a> (the agentic IDE that&rsquo;s replacing the
+Gemini CLI on 2026-06-18), the <a href="https://github.com/google-deepmind/science-skills">Science Skills</a> bundle
+that Google DeepMind dropped a few weeks ago, and <a href="https://stitch.withgoogle.com">Stitch</a>,
+the AI design tool that ships as an MCP inside Antigravity.</p>
+<p>The four posts before this one (Beats 1 through 4) describe what
+got built and how. This post is the post-mortem on the <em>tools</em>. It
+is the post a developer-relations team might find more useful than
+the chapter-by-chapter writeups, because it is the post about
+whether the three products actually compose.</p>
+<p>The short version: <strong>yes, with one large caveat.</strong> The caveat is
+the Antigravity CLI&rsquo;s <code>--print</code> mode, which I will get into below.</p>
+<p>The longer version is below.</p>
+<h2>Antigravity 2.0</h2>
+<p>The agentic IDE replaces the Gemini CLI on 2026-06-18. I used the
+desktop IDE for most of the chapter authoring and the <code>agy</code> CLI on
+my Raspberry Pi for data-fetcher work. Two surfaces, similar core
+agent, very different ergonomics.</p>
+<h3>What worked</h3>
+<ul>
+<li>
+<p><strong>The chat-shaped flow is the right shape for scientific UI work.</strong>
+  Most chapters needed about four exchanges with the IDE before the
+  section markup was close enough to drop into manual edits: &ldquo;I want
+  a three-column shell on desktop that collapses to a single column
+  under 1024 px&rdquo;; &ldquo;the figure should be sticky at top + 32 px on
+  desktop&rdquo;; &ldquo;this chapter&rsquo;s accent is heat-40 — terra cotta&rdquo;; &ldquo;the
+  body copy should sit on a 64-character measure.&rdquo; Each instruction
+  produced a draft that was small enough to read in one screen and
+  edit in three minutes. That cadence is the right cadence for a
+  single-page-app-but-not-really build like this one.</p>
+</li>
+<li>
+<p><strong>The Modern Web Guidance plugin pays for itself.</strong> The plugin
+  intercepts &ldquo;how do I X in CSS / HTML / a11y&rdquo; questions and
+  returns answers grounded in caniuse + W3C specs rather than
+  blogosphere folklore. I caught two browser-compatibility issues
+  during the build — <code>100dvh</code> falls back to <code>100vh</code> on Safari &lt; 15.4
+  (acceptable; covered both); <code>DecompressionStream("gzip")</code> is
+  universally available in 2026 (used freely) — and both came from
+  the plugin volunteering version-shipped data rather than me
+  cross-referencing manually.</p>
+</li>
+<li>
+<p><strong>Inline checkpoints + tool transparency in the desktop IDE.</strong>
+  Antigravity Desktop shows every tool call as it happens — file
+  reads, file writes, shell commands, MCP invocations — and lets
+  the operator pause and edit between. That visibility was the
+  single biggest difference between a frustrating session and a
+  productive one. Knowing what the agent is about to do is more
+  valuable than knowing what it did.</p>
+</li>
+<li>
+<p><strong>MCPs as a first-class slot.</strong> Stitch, the Modern Web Guidance
+  plugin, the Science Skills CLIs, the local filesystem — all of
+  these compose into the same agent as plug-ins. The Stitch
+  workflow especially felt natural: type the design intent, get a
+  mockup, iterate, drop the result in <code>notes/design/</code>.</p>
+</li>
+</ul>
+<h3>What didn&rsquo;t</h3>
+<ul>
+<li><strong>The <code>agy --print</code> CLI mode stalls on planning.</strong> This is the
+  big caveat. Both <a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">Beat 1</a> and <a href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/">Beat 2</a> cover the
+  specific failure mode in detail; the short version is that giving
+  <code>agy --print</code> an orchestration prompt (&ldquo;do all six smoke tests,
+  then write <code>data/candidates.json</code>&rdquo;) produces a stall where the
+  process is alive, one socket is open, no tool calls are
+  happening, and nothing is written to disk for fourteen-plus
+  minutes. The same agent, asked to <em>execute</em> a specific shell
+  command, returns in under a minute. The behavior differs from
+  the desktop IDE, which planned a nine-screen Stitch mockup
+  generation in parallel via Python threading from a single prompt
+  in under two minutes. So the failure mode is print-mode-specific,
+  not agent-wide. But it is the kind of failure mode that will
+  burn anyone trying to use the CLI for batch work without
+  knowing the rule.</li>
+</ul>
+<p><em>The rule I would distill out of this for anyone using <code>agy --print</code>:
+  one concrete shell command per prompt, capped at five lines of
+  output. Treat the IDE as a small-step executor, not a planner.</em></p>
+<ul>
+<li>
+<p><strong>API keys get baked into auto-generated scratch.</strong> When
+  Antigravity calls an MCP that needs a Google API key (Stitch in
+  my case), the IDE generates a Python subprocess client and
+  writes the key as a literal string in the <code>X-Goog-Api-Key</code>
+  header. This happened twice in the same session, on two
+  differently-named auto-generated files (<code>scripts/mcp_client.py</code>
+  and <code>scripts/generate_ui.py</code>). The first one I caught before
+  <code>git add</code>; the second made it into a local commit that I had to
+  soft-reset. The defensive playbook is in <a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">Beat 1</a> and
+  it&rsquo;s a memory rule for any future Antigravity workspace I touch.
+  Real ergonomic gap; worth surfacing.</p>
+</li>
+<li>
+<p><strong>The state directory naming is undocumented.</strong> The Antigravity
+  CLI state lives at <code>~/.gemini/antigravity-cli/</code> (not the
+  intuitive-sounding <code>~/.gemini/antigravity/</code>); transcripts at
+  <code>brain/&lt;uuid&gt;/.system_generated/logs/transcript.jsonl</code>. I worked
+  this out by walking the filesystem after a session; there was
+  no documentation pointing at it. (Operator filed an upstream
+  issue about state-directory naming a week before this project.)</p>
+</li>
+</ul>
+<h2>Google DeepMind Science Skills</h2>
+<p>The Science Skills bundle is seventeen Python CLIs covering RCSB
+PDB, AlphaFold, PubMed, Human Protein Atlas, ClinVar, dbSNP,
+Reactome, NCBI sequence retrieval, and a handful of utility
+skills. The bundle is a fresh public drop and there is very little
+prior art for non-toy use. This project used six of the seventeen
+skills heavily.</p>
+<h3>What worked</h3>
+<ul>
+<li>
+<p><strong>The CLIs are deterministic, scriptable, and <code>uv</code>-runnable.</strong>
+  Every skill is <code>uv run scripts/&lt;skill&gt;_cli.py &lt;args&gt;</code>. The output
+  is JSON to stdout, deterministic for the same inputs, no
+  per-call rate-limiting surprises on the rate limits I hit. The
+  project&rsquo;s data-fetcher pattern (<code>scripts/01_hsf1.py</code> through
+  <code>scripts/06_variants.py</code>) all shell out to those CLIs via
+  <code>subprocess.run</code>. Reliable; cacheable; reproducible.</p>
+</li>
+<li>
+<p><strong>The metadata returns are rich enough to catch errors.</strong> The
+  <code>pdb_database</code> skill caught two wrong PDB candidates in my own
+  design document (5D5W is fungal, 5D5U is human; 2CG9 is yeast,
+  7L7J is human) in seconds, before any rendering code was
+  written. That kind of metadata-first verification step is now a
+  rule in the project&rsquo;s <a href="https://github.com/HeatThreshold/heat-protein-lab/blob/main/PROJECT.md">PROJECT.md</a> and a <a href="https://github.com/HeatThreshold/heat-protein-lab/blob/main/PROJECT.md#per-skill-verification">feedback
+  memory</a> for any future Science-Skills work.</p>
+</li>
+<li>
+<p><strong>The coverage is broad enough for a real explainer.</strong> Six of
+  seventeen skills covered everything the page needed:
+  <code>pdb_database</code>, <code>alphafold_database_fetch_and_analyze</code>,
+  <code>human_protein_atlas_database</code>, <code>pubmed_database</code>,
+  <code>clinvar_database</code>, <code>reactome_database</code>. The remaining eleven
+  skills (dbSNP, NCBI sequence, ChEMBL, UniProt, Pfam, KEGG, and
+  utilities) are still in the bundle, and any future chapter
+  extension could reach for them.</p>
+</li>
+</ul>
+<h3>What didn&rsquo;t</h3>
+<p>Three upstream bugs surfaced during Phase 0 and Phase 1. All three
+are now filed at <a href="https://github.com/google-deepmind/science-skills"><code>google-deepmind/science-skills</code></a>
+as issues #2, #3, and #4 with draft text in
+<a href="https://github.com/HeatThreshold/heat-protein-lab/tree/main/notes/devrel/upstream-issues"><code>notes/devrel/upstream-issues/</code></a>:</p>
+<ul>
+<li>
+<p><strong>AlphaFold 403 without <code>SCIENCE_SKILLS_USER_AGENT</code>.</strong> The
+  AlphaFold fetcher returns HTTP 403 from the EBI servers if the
+  default user-agent is not overridden. Not documented; the fix is
+  a one-line env-var set, but you find that out by reading the
+  source.</p>
+</li>
+<li>
+<p><strong>HPA <code>hpa_cli.py get-tissue-expression</code> raises <code>ValueError</code>.</strong>
+  The Human Protein Atlas CLI uses one HTTP client for all
+  endpoints. The XML tissue-expression endpoint needs a separate
+  client; the JSON one chokes. <code>agy</code> patched this in place at the
+  plugin directory during my Phase 0; the fix should land
+  upstream.</p>
+</li>
+<li>
+<p><strong>Reactome SVG <code>Accept</code> header is too strict.</strong> The Reactome
+  diagram-fetch skill sets an <code>Accept</code> header that the
+  ContentService doesn&rsquo;t match against. A one-character relax fixes
+  it; the workaround is to add the SVG mimetype to the accept
+  list.</p>
+</li>
+</ul>
+<p>None of the three is project-blocking — there are workarounds — but
+each is the kind of small friction that adds up across a real build.</p>
+<p>The third pattern worth mentioning isn&rsquo;t a bug: the bundle
+auto-vendors copies of its own scripts into a project&rsquo;s
+<code>scripts/</code> directory when an agent invokes them indirectly. Those
+copies end up gitignored by the operator-supplied patterns for
+agy scratch (e.g. <code>scripts/reactome_analysis.py</code>,
+<code>scripts/pubmed_api.py</code>) but are easy to miss if you don&rsquo;t grep
+before <code>git add -A</code>. Pre-populated <code>.gitignore</code> patterns matter.</p>
+<h2>Stitch</h2>
+<p>Stitch is Google&rsquo;s AI design tool. In Antigravity 2.0 it ships as
+an MCP. I used it to mock chapter 4 (the denaturation centerpiece)
+and the WBGT bridge in Chapter 8 before writing the actual CSS, and
+it shaped the look of the temperature strip + plate-corner badge
+early.</p>
+<h3>What worked</h3>
+<ul>
+<li>
+<p><strong>The single-prompt-to-all-chapters parallel run.</strong> A single
+  Antigravity Desktop session generated nine chapter mockups from
+  one prompt, via Python <code>threading</code>, in under two minutes. The
+  result was a reference set I could iterate against without
+  re-prompting per chapter.</p>
+</li>
+<li>
+<p><strong>The design-system inheritance.</strong> Once I had locked the
+  paper / ink / heat-ramp tokens in <code>DESIGN.md</code>, Stitch carried
+  them across mockups consistently. The Spectral serif title +
+  IBM Plex Mono labels look I wanted survived the round-trip
+  without me having to re-state it.</p>
+</li>
+<li>
+<p><strong>Mockup-to-implementation distance was small.</strong> I expected the
+  hand-off from a Stitch mockup to actual CSS to involve more
+  re-work than it did. Two of the chapters (3 and 5) shipped with
+  layouts very close to the Stitch original; the others diverged
+  in detail but kept the visual vocabulary.</p>
+</li>
+</ul>
+<h3>What didn&rsquo;t</h3>
+<ul>
+<li>
+<p><strong>The API key embedded in scratch is the same hazard I keep
+  flagging.</strong> Stitch&rsquo;s MCP needs a Google API key; Antigravity
+  generates the client script with the key inline. This is the
+  same hazard described above under Antigravity; Stitch is the
+  reason it surfaces.</p>
+</li>
+<li>
+<p><strong>State directory naming is the same problem.</strong> The Stitch-
+  related scratch goes into Antigravity&rsquo;s state tree, which is
+  badly-documented.</p>
+</li>
+<li>
+<p><strong>No &ldquo;Stitch as artifact&rdquo; export today.</strong> The mockups generated
+  through the MCP are markdown/text outputs and screenshots; there
+  is not (yet) a clean export-to-Figma or export-to-HTML path. For
+  this project that was fine — the mockups served their job as a
+  reference set and the implementation was hand-written CSS — but
+  for teams that want to hand off Stitch output to a designer or
+  developer not at the IDE, that gap matters.</p>
+</li>
+</ul>
+<h2>Composing the three against one brief</h2>
+<p>The composition test was: can these three products produce a real,
+citation-grounded scientific explainer when used together by one
+person at a kitchen table?</p>
+<p>Yes. The page is at <a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a>. It is
+real. It is grounded. It uses live structures from RCSB and
+AlphaFold, citations from PubMed, tissue expression from the Human
+Protein Atlas, variants from NCBI ClinVar, and a curated pathway
+from Reactome — all wired through the Science Skills CLIs, all
+fetched in <code>scripts/</code> at build time and committed to <code>data/</code>. The
+visual system was drafted in Stitch, refined in CSS, and shipped
+with no bundler. The IDE was Antigravity 2.0 desktop for most of
+the chapter work and <code>agy --print</code> (carefully scoped to single
+shell commands per call) for the data-fetch and verification work.</p>
+<p>The &ldquo;with one large caveat&rdquo; is the <code>agy --print</code> failure mode. It
+is the failure mode most likely to bite someone trying to use the
+CLI for batch work without knowing the rule, and the rule —
+<strong>single concrete shell command per prompt, no orchestration</strong> —
+is not currently in the CLI&rsquo;s documentation. Worth surfacing as a
+docs PR upstream.</p>
+<h2>What this would look like for a teaching team</h2>
+<p>If a developer-relations team at Google wanted to demonstrate the
+composition of these three products against a small but real
+brief, this project — or something very like it — is a strong
+shape:</p>
+<ul>
+<li>One landing artifact (the page).</li>
+<li>One open repo with clear phase plan + DevRel cadence (<code>PROJECT.md</code>,
+  <code>DEVREL.md</code>, <code>AGENTS.md</code>).</li>
+<li>Five posts written across the build, not after, with screenshots.</li>
+<li>Three upstream bug reports filed (proof the team is actually
+  using the products, not just admiring them).</li>
+<li>A small but meaningful set of memory rules + reference docs that
+  make the workflow reusable: gitignore patterns for the API-key
+  hazard, the state-directory cheat sheet, the &ldquo;concrete shell
+  command per prompt&rdquo; rule.</li>
+</ul>
+<p>What it would <em>not</em> require is a demo dataset, a slide deck, or
+much polish beyond the artifact&rsquo;s own polish. The artifact is the
+demo.</p>
+<h2>Two upstream PRs I&rsquo;d open if I had the time</h2>
+<p>I won&rsquo;t this week. If a future me has the time, the two highest-
+leverage PRs to open against the science-skills repo are:</p>
+<ol>
+<li>
+<p><strong>A <code>Quickstart.md</code> that includes the API-key + state-directory
+   cheat sheet.</strong> Two hours of writing; saves every Antigravity
+   workspace from the API-key-in-scratch hazard.</p>
+</li>
+<li>
+<p><strong>A <code>docs/agy-cli.md</code> that documents the single-shell-command
+   rule for <code>--print</code> mode</strong>, with a worked example. Two hours of
+   writing; saves the next person two days.</p>
+</li>
+</ol>
+<p>Both are within scope of the bundle&rsquo;s stated intent. Both are
+small. Either one would be a high-value first contribution.</p>
+<h2>Closing</h2>
+<p>I built this page because I wanted to know what heat does to the
+molecules inside a body. I wrote five posts about it because the
+tooling story is a real story and there is very little prior art
+for using these three products together. The page itself is the
+artifact; the posts are the path that gets you to the artifact.</p>
+<p>If you read this far: the lab is at
+<a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a>. The repo is at
+<a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>. The previous four posts
+walk back to the wiring details (<a href="https://craigmerry.com/blog/2026-05-25-wiring-17-scientific-skills/">Beat 1</a>), the first
+chapter (<a href="https://craigmerry.com/blog/2026-05-26-meeting-hsf1/">Beat 2</a>), the denaturation centerpiece (<a href="https://craigmerry.com/blog/2026-05-25-visualizing-denaturation/">Beat
+3</a>), and the full ship retrospective (<a href="https://craigmerry.com/blog/2026-05-25-heat-protein-lab-shipped/">Beat 4</a>).
+Beat 5 is what you just read.</p>
+<p>Thanks for reading. PRs welcome at a slow cadence.</p>
+    </article>
+
+    <footer class="post-footer">
+      <p>
+        The live page this post writes about is at <a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a>.
+        Repo: <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>.
+      </p>
+      <p class="post-footer__nav">
+        <a href="/posts/">← All posts</a>
+        ·
+        <a href="/">Home</a>
+      </p>
+    </footer>
+  </body>
+</html>

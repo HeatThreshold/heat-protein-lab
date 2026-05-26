@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The hardest chapter in heat-protein-lab is Chapter 4. It is the chapter where a real human enzyme falls apart on the page as the reader scrolls. It is also the chapter most likely to mislead — the one most adjacent to the line where &quot;educational visualization&quot; becomes &quot;fake sc..." />
+    <meta name="color-scheme" content="light" />
+    <title>Visualizing what heat does to a protein, without running molecular dynamics — Heat Protein Lab</title>
+    <link rel="canonical" href="https://craigmerry.com/blog/2026-05-25-visualizing-denaturation/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Heat Protein Lab" />
+    <meta property="og:title" content="Visualizing what heat does to a protein, without running molecular dynamics" />
+    <meta property="og:description" content="The hardest chapter in heat-protein-lab is Chapter 4. It is the chapter where a real human enzyme falls apart on the page as the reader scrolls. It is also the chapter most likely to mislead — the one most adjacent to the line where &quot;educational visualization&quot; becomes &quot;fake sc..." />
+    <meta property="og:url" content="https://heat-protein-lab.pages.dev/posts/2026-05-25-visualizing-denaturation/" />
+    <meta property="og:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+    <meta property="article:published_time" content="2026-05-25" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Visualizing what heat does to a protein, without running molecular dynamics" />
+    <meta name="twitter:description" content="The hardest chapter in heat-protein-lab is Chapter 4. It is the chapter where a real human enzyme falls apart on the page as the reader scrolls. It is also the chapter most likely to mislead — the one most adjacent to the line where &quot;educational visualization&quot; becomes &quot;fake sc..." />
+    <meta name="twitter:image" content="https://heat-protein-lab.pages.dev/og.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/post.css" />
+  </head>
+  <body class="post">
+    <a class="skip-link" href="#post-body">Skip to post</a>
+    <header class="post-header">
+      <div class="post-header__row">
+        <span class="post-header__plate">Plate 03</span>
+        <a class="post-header__home" href="/">Heat Protein Lab</a>
+        <a class="post-header__index" href="/posts/">All posts</a>
+      </div>
+      <h1 class="post-title">Visualizing what heat does to a protein, without running molecular dynamics</h1>
+      <p class="post-meta">
+        <time datetime="2026-05-25">May 25, 2026</time>
+        · Beat 3 of 5
+        · <a href="https://craigmerry.com/blog/2026-05-25-visualizing-denaturation/">canonical on craigmerry.com</a>
+      </p>
+    </header>
+
+    <article id="post-body" class="post-body">
+      <h1>Visualizing what heat does to a protein, without running molecular dynamics</h1>
+<p>The hardest chapter in <a href="https://github.com/HeatThreshold/heat-protein-lab">heat-protein-lab</a> is Chapter 4. It is the
+chapter where a real human enzyme falls apart on the page as the
+reader scrolls. It is also the chapter most likely to mislead — the
+one most adjacent to the line where &ldquo;educational visualization&rdquo;
+becomes &ldquo;fake science.&rdquo; This post is about how I drew that line in
+the code, where the line shows up in the UI, and why I think the
+chapter is more honest than a fully animated molecular-dynamics
+simulation would have been.</p>
+<p>The chapter is live at
+<a href="https://heat-protein-lab.pages.dev/#chapter-4">heat-protein-lab.pages.dev/#chapter-4</a>. It opens with a red
+badge above the heading that reads <strong>VISUALIZATION, NOT MOLECULAR
+DYNAMICS.</strong> The badge sits inside the chapter shell, not the page
+chrome, so it cannot scroll out of view while the chapter is in the
+viewport. That placement is the load-bearing UX decision in the
+chapter.</p>
+<p><img alt="Chapter 4 on heat-protein-lab.pages.dev. A 3D wireframe rendering of human aldolase A (PDB 6XMH) at peak denaturation on the left, a panel reading &quot;50.0 °C / T_M ≈ 48 °C / RMSD ≈12 Å / Secondary structure retained 30%&quot; on the right, and a red disclaimer badge at the top." src="/screenshots/heat-protein-lab/04-ch4-denaturation.jpg">
+<em>Chapter 4 at the end of the scroll. The disclaimer above the heading reads &ldquo;VISUALIZATION, NOT MOLECULAR DYNAMICS.&rdquo; The readout panel on the right shows quantities that are deliberately fuzzy — &ldquo;≈12 Å&rdquo;, &ldquo;30%&rdquo; — to make it visually obvious these are illustrative ranges, not measurements from a simulation.</em></p>
+<h2>The protein, and why this protein</h2>
+<p>The enzyme is <strong>aldolase A</strong> (gene <code>ALDOA</code>), the human muscle isoform of
+fructose-1,6-bisphosphate aldolase. It is a workhorse of glycolysis,
+splitting fructose-1,6-bisphosphate into two three-carbon
+intermediates. Every cell that runs glycolysis runs aldolase. The
+biological assembly is a homotetramer; the chapter renders one
+subunit at 1.95 Å resolution from PDB <strong>6XMH</strong>.</p>
+<p>The reason aldolase A landed in this chapter and not, say, HSP70 or
+HSF1, is purely about thermal range. The melting temperature of
+fructose-bisphosphate aldolases sits in the <strong>45–55 °C</strong> range across
+species in the literature, and the human enzyme in particular has
+been characterized around 48 °C. That window is exactly the window
+the page wants to walk the reader through — from 40 °C
+(hyperthermia), past 41–42 °C (medical emergency in vivo), and into
+the temperature range where a real human enzyme starts to fail. If
+I had picked a hyperstable protein like a thermostable archaeal
+homolog, the visualization would have shown the protein looking
+fine at 50 °C, which would have been technically true and
+narratively useless. Aldolase A sits at the edge where the body&rsquo;s
+own enzymes go.</p>
+<p>The chapter copy also notes the relationship between cellular
+temperature and core body temperature. Aldolase A&rsquo;s T_m is well
+above human core temperature even in extreme hyperthermia (42 °C is
+&ldquo;medical emergency in vivo&rdquo; but is still six Celsius degrees below
+the literature T_m). The chapter is therefore explicit that what is
+being visualized is the <strong>chemistry</strong> of the molecule under heat,
+not a state your cells will reach. That distinction matters for not
+making medical claims.</p>
+<h2>What the visualization actually does</h2>
+<p>The 3Dmol viewer holds one mmCIF file: <code>data/structures/pdb/aldolase/pdb_00006xmh.cif.gz</code>,
+about 200 KB gzipped. The viewer is mounted once on chapter entry
+and is never re-mounted. The atoms in the structure file never
+move. <strong>Nothing about the rendered geometry changes during the
+scroll.</strong> What changes is the 3Dmol <em>style</em> applied to those atoms.</p>
+<p>There are three discrete stages:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Scroll fraction</th>
+<th>Style</th>
+<th>Color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Native</td>
+<td>0.00 – 0.34</td>
+<td>cartoon (alpha-helix and beta-sheet ribbons)</td>
+<td>slate <code>#4f6b7a</code></td>
+</tr>
+<tr>
+<td>Stressed</td>
+<td>0.34 – 0.67</td>
+<td>thin ribbon (a single tube through the backbone)</td>
+<td>warm yellow <code>#b8a04f</code></td>
+</tr>
+<tr>
+<td>Denatured</td>
+<td>0.67 – 1.00</td>
+<td>line / wireframe (every bond drawn explicitly)</td>
+<td>terra-cotta <code>#b23a1f</code></td>
+</tr>
+</tbody>
+</table>
+<p>The three stages are picked to read at a glance: the eye
+distinguishes &ldquo;ordered cartoon,&rdquo; &ldquo;fraying ribbon,&rdquo; and &ldquo;scattered
+wireframe&rdquo; without needing to interpret atomic positions. The
+denatured stage isn&rsquo;t claiming the protein has unfolded into a
+specific conformation; it is claiming the protein no longer has
+<em>structure</em>, full stop, by removing every drawing convention that
+implies structure.</p>
+<p>Color does narrative work too. Slate at 40 °C reads as cool /
+healthy / ordered. Yellow at 45 °C is the transition warning. Terra
+cotta at 50 °C is the alarm. These three colors map onto the page&rsquo;s
+heat ramp: <code>--heat-40</code> → <code>--heat-44</code>. A reader who has scrolled
+through Plates I through III has already trained on this palette.</p>
+<p>The scroll math is intentionally boring:</p>
+<pre><code class="language-js">const rect = els.ch4Section.getBoundingClientRect();
+const viewportH = window.innerHeight;
+const total = rect.height - viewportH;
+let frac = (0 - rect.top) / total;
+frac = Math.max(0, Math.min(1, frac));
+</code></pre>
+<p><code>frac</code> is clamped to <code>[0, 1]</code> as the chapter section moves through
+the viewport. The section is <code>min-height: 250vh</code> so the reader has
+real estate to scroll through. The driver is <code>requestAnimationFrame</code>
+-throttled and short-circuits if the fraction has not changed by
+more than 0.005 since the last frame — that keeps the scroll thread
+cheap on lower-end devices.</p>
+<p>The readout panel on the right of the viewer is a separate set of
+numbers driven by the same fraction:</p>
+<ul>
+<li><strong>Temperature</strong>: a linear interpolation between 40.0 °C (frac=0)
+  and 50.0 °C (frac=1).</li>
+<li><strong>RMSD from native</strong>: scales from 0 Å to ≈12 Å. The bar color
+  shifts from slate to terra-cotta. The &ldquo;≈12 Å&rdquo; upper bound is a
+  literature-plausible value for partly-unfolded globular enzymes,
+  but the <em>number is illustrative</em> — the page says so in italics in
+  the figure caption.</li>
+<li><strong>Secondary structure retained</strong>: drops from 100 % to 30 %. Same
+  framing.</li>
+</ul>
+<p>Every quantity that updates is wrapped in <code>aria-live="polite"</code> so a
+screen reader announces the changes as the chapter is scrolled.</p>
+<h2>What the visualization deliberately does not do</h2>
+<p>There is no molecular-dynamics simulation behind the chapter. I do
+not have a GROMACS run, I do not have NAMD, I do not have AMBER.
+The 3D model is <em>one frozen crystallographic snapshot</em> with its
+drawing style swapped out at three scroll positions. If I had run a
+short MD trajectory and rendered the actual atomic motions across
+temperature, that would have been a different kind of project — and
+a much riskier one, because every visible motion would imply a
+specific claim about the protein&rsquo;s behavior under heat, and any of
+those claims could be wrong.</p>
+<p>The atoms not moving is the chapter&rsquo;s most important honesty signal.
+Once you notice the same protein stays in the same orientation
+across all three stages, the chapter stops feeling like a
+miniature simulation and starts feeling like what it is — a
+<em>reading aid</em> for the concept of denaturation. The wireframe at
+50 °C is not where this protein actually ends up at 50 °C in any
+real solvent system. It is the visual answer to the question &ldquo;what
+does it look like when we stop letting ourselves draw the structure
+as if it has structure.&rdquo;</p>
+<p>The reduced-motion fallback is also worth flagging. Readers who
+declare <code>prefers-reduced-motion: reduce</code> skip the scroll driver
+entirely; the chapter snaps to the denatured end state on first
+paint and the readout fills in 50.0 °C, ≈12 Å, 30 %. They see what
+the chapter is <em>about</em> without the animated transition, which is
+the right behavior for anyone whose body or browser has told them
+the page should be quiet.</p>
+<h2>The chapter&rsquo;s third visual: the styled cartoon → ribbon → wireframe sequence</h2>
+<p>The thing I am most proud of in the chapter is how cheaply the
+three stages compose visually. 3Dmol&rsquo;s style API takes a single
+object per style call:</p>
+<pre><code class="language-js">viewer.setStyle({ cartoon: { color: &quot;#4f6b7a&quot; } });
+// then
+viewer.setStyle({ cartoon: { color: &quot;#b8a04f&quot;, thickness: 0.3 } });
+// then
+viewer.setStyle({ line: { color: &quot;#b23a1f&quot; } });
+</code></pre>
+<p>That last call is the one that does the most work narratively. By
+the time the reader has scrolled to it, every 3Dmol style cue they
+have learned in the previous three chapters has just been
+<em>removed</em>. There is no cartoon. There is no surface. There is no
+implied secondary structure. There is just a thicket of lines that
+happens to outline the shape of a molecule. The visualization is
+<em>not telling you what the protein looks like</em> — it is showing you
+the absence of the conventions that tell you what a protein looks
+like.</p>
+<p>It is the same compositional move as a black-and-white photograph
+of an exploded mechanical watch laid out on a table. The watch is
+all there. None of it is doing anything. You read the implication.</p>
+<h2>Why the chapter is the centerpiece</h2>
+<p>Chapters 1, 2, and 3 introduce three proteins as protagonists.
+Chapter 4 is the one where the reader is asked to <em>feel</em> the cost
+of failure for those protagonists. The chaperones (HSP70, HSP90)
+exist to prevent this picture. HSF1&rsquo;s job is to make sure the
+cellular machinery is ready when this picture starts to compose
+itself. Chapter 4 is what they are working against. The page is
+unread without it.</p>
+<p>It is also the chapter that most clearly stress-tests the project&rsquo;s
+guardrails:</p>
+<ul>
+<li><strong>No clinical claims.</strong> The readout numbers are framed as
+  illustrative ranges with explicit fuzziness markers (≈, %).</li>
+<li><strong>No physical simulation.</strong> Stated outright above the heading.
+  Reinforced in the figure caption. Reinforced again in the body
+  copy at the close of the chapter.</li>
+<li><strong>No MD output checked into the repo.</strong> No simulated trajectories.
+  Just one mmCIF crystallographic snapshot.</li>
+</ul>
+<p>Every other chapter inherits these guardrails. Chapter 4 is where
+they are loudest — and that loudness is the point. A reader
+encountering this chapter without the disclaimer would, reasonably,
+read it as &ldquo;this is what your aldolase looks like at 42 °C.&rdquo; The
+disclaimer + the readout fuzziness + the no-MD framing add up to
+&ldquo;this is the <strong>idea</strong> of what a protein looks like as it falls
+apart, dramatized at a temperature range above what your cells
+actually experience.&rdquo;</p>
+<h2>What I&rsquo;d do differently if I had a real MD setup</h2>
+<p>If I had a working MD pipeline, the next iteration of this chapter
+would still not animate atom positions. It would do something
+narrower and more useful: replace the &ldquo;RMSD bar&rdquo; placeholder
+quantity with an <em>actual</em> RMSD trajectory from a short equilibration
+run at three temperatures, pinned to specific time points, with the
+trajectory file deposited next to the structure in <code>data/</code>.</p>
+<p>The visualization itself — the cartoon → ribbon → wireframe arc —
+is what the chapter is about and what works. The numbers in the
+readout would just stop being illustrative ranges and start being
+measurements. The disclaimer at the top would stay exactly where it
+is, because the visualization is still a stylistic abstraction. The
+RMSD bar would have a citation. That would be the version of the
+chapter that an MD person could actually use to teach from.</p>
+<p>For the v1 of the page, with no MD pipeline and a hackathon-shy
+operator, the illustrative-with-disclaimer version is the right
+version.</p>
+<h2>The chapter, two screens deep</h2>
+<p>Below the figure and its readout, the chapter has two more body
+paragraphs. The first introduces aldolase as a glycolytic enzyme
+and explains why a glycolytic enzyme is the right protagonist for
+the melting chapter. The second sketches what &ldquo;denaturation&rdquo; means
+chemically — loss of tertiary, then secondary, then primary
+structure, in that order, irreversibly past a temperature-dependent
+point — without claiming to simulate it.</p>
+<p>The body copy is in plain English. It does not use the phrase &ldquo;free
+energy.&rdquo; It does not use the phrase &ldquo;Gibbs.&rdquo; It does not draw the
+melting curve as a sigmoid because every reader who has not seen a
+sigmoid in their life would read the sigmoid as a separate
+authoritative claim. The chapter is for a non-biologist, the same
+way the project is.</p>
+<p>A reader who wants the chemistry can read the linked papers in the
+citation accordion under the figure. That accordion lists the
+papers cited in the body, the PDB metadata, the AlphaFold metadata
+(global pLDDT 92.50 — aldolase is structurally rigid, exactly the
+kind of protein that resists denaturation until a clear melting
+point), and the literature T_m source. None of those numbers move
+through the scroll. They are anchors.</p>
+<h2>What lands next</h2>
+<p>The next post (<a href="https://craigmerry.com/blog/2026-05-25-heat-protein-lab-shipped/">Beat 4</a>) is the retrospective on the full
+ship: all eight chapters shipped today, what the page weight came
+out to, the page&rsquo;s Lighthouse numbers, what got cut between the
+plan and the result.</p>
+<p>The post after that (<a href="https://craigmerry.com/blog/2026-05-25-three-google-products-retro/">Beat 5</a>) is the cross-product retro on
+the three Google products that made this page possible —
+Antigravity 2.0 as the agentic IDE, the DeepMind Science Skills
+bundle as the data layer, and Stitch as the design tool that made
+the visual system fast to iterate on.</p>
+<p>The lab is at <a href="https://heat-protein-lab.pages.dev/">https://heat-protein-lab.pages.dev/</a>. The repo is at
+<a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>. Scroll into Chapter 4 with
+the temperature strip pinned at the top of the viewport; it is the
+chapter most worth experiencing on the live page rather than reading
+about.</p>
+    </article>
+
+    <footer class="post-footer">
+      <p>
+        The live page this post writes about is at <a href="https://heat-protein-lab.pages.dev/#chapter-4">https://heat-protein-lab.pages.dev/#chapter-4</a>.
+        Repo: <a href="https://github.com/HeatThreshold/heat-protein-lab">HeatThreshold/heat-protein-lab</a>.
+      </p>
+      <p class="post-footer__nav">
+        <a href="/posts/">← All posts</a>
+        ·
+        <a href="/">Home</a>
+      </p>
+    </footer>
+  </body>
+</html>
