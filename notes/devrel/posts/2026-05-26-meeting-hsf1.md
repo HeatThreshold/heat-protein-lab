@@ -2,8 +2,8 @@
 title: Meeting HSF1 in Antigravity 2.0 — the first chapter shipped
 slug: 2026-05-26-meeting-hsf1
 date_drafted: 2026-05-26
-date_publish_earliest: 2026-05-28
-status: draft (sits 48h per DEVREL.md cadence)
+date_publish_earliest: 2026-05-25
+status: published 2026-05-25
 beat: 2
 project: heat-protein-lab
 target_words: 1500-2000

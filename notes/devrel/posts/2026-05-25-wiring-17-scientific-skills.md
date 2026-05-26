@@ -2,8 +2,8 @@
 title: Wiring 17 scientific skills into a fresh Antigravity workspace
 slug: 2026-05-25-wiring-17-scientific-skills
 date_drafted: 2026-05-25
-date_publish_earliest: 2026-05-27
-status: draft (sitting 48h before publish per DEVREL.md cadence)
+date_publish_earliest: 2026-05-25
+status: published 2026-05-25
 beat: 1
 project: heat-protein-lab
 target_words: 1200-1500
