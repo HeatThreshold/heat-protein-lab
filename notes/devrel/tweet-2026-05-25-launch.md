@@ -41,12 +41,25 @@ limit with room for ASCII counters / URL trimming.
 
 ### 3 — the stack
 
-> Built in @AntigravityCLI 2.0 against Google DeepMind's Science
-> Skills bundle (17 Python CLIs for the public bio/chem databases),
-> with @StitchByGoogle for the design pass.
+> Built against Google DeepMind's Science Skills bundle (17 Python
+> CLIs for the public bio/chem databases), with Antigravity 2.0 and
+> Stitch for the early scaffolds.
 >
-> Plain HTML / CSS / one ES module. No bundler. The repo is at
+> Plain HTML / CSS / one ES module. No bundler. Repo at
 > github.com/HeatThreshold/heat-protein-lab.
+
+---
+
+### 3.5 — the actual workflow (the DevRel observation)
+
+> 8 AM → 5 PM today with lots of breaks, so ~4 hours of real focus.
+>
+> Roughly 80% of that was Claude Code on a Pi, driven from an iPhone
+> over Remote Desktop. The other 20% was Antigravity desktop on a
+> laptop.
+>
+> Once AI Studio gets a mobile app that can drive Antigravity
+> remotely, I can do this next time fully from a phone.
 
 ---
 

@@ -77,6 +77,45 @@ chapters, some covered one chapter and a refactor — so what is
 worth recording is the *kind* of work each session did, not a
 session-by-session play-by-play.
 
+### Where the work actually happened
+
+The whole project started at 8 AM and finished at 5 PM today —
+nine clock hours with frequent breaks for other commitments, so
+real focus time was maybe four. **Roughly 80% of that focus time
+was Claude Code on a Raspberry Pi 5, driven from an iPhone over
+Remote Desktop**, with VNC stepping in for the few moments that
+needed direct terminal access (Antigravity CLI auth setup,
+Tailscale wiring, one Cloudflare Pages project pre-create). The
+remaining 20% was the Antigravity 2.0 desktop IDE on a Windows
+laptop, used in concentrated bursts for the Stitch mockup
+generation and the early chapter scaffolds.
+
+This is not the workflow Google's developer-relations team
+imagines when they pitch Antigravity. The IDE is a desktop-first
+product; it doesn't have a mobile app today and the obvious
+candidate to grow into that slot — AI Studio — doesn't yet
+support remote-controlling an Antigravity session from a phone.
+That single missing mobile surface is the gap between "I built
+this remote, in pieces, around the rest of my day" and "I built
+this fully from my phone." Once AI Studio gets a mobile app that
+can drive Antigravity remotely, I can do the next project of
+this shape with no laptop at all. That is a real product wish.
+
+The Claude Code half of the workflow filled the gap. The remote
+shape was: SSH into the Pi from the phone, run Claude Code, drive
+it through the chapter-by-chapter build, push to GitHub, watch
+Cloudflare Pages re-deploy in another tab. Most of the chapter
+markup, the entire `src/main.js`, the Celsius-Fahrenheit toggle,
+the screenshot capture pipeline, the cross-post-to-personalsite
+script, and these five DevRel posts were all written with one
+agentic IDE that *does* run cleanly under SSH on a remote-desktop
+session from a phone.
+
+The aspirational version is one IDE — Antigravity — doing both
+halves. The pragmatic version, today, is two IDEs working
+together with one mobile surface between them. Both are clearly
+in scope for what the agentic-IDE category will become.
+
 **Phase 0 — workspace bootstrap.** Wiring 17 Science Skills into a
 fresh Antigravity workspace, verifying every database query, writing
 `data/candidates.json`. About 90 minutes. The [first post][beat-1]
